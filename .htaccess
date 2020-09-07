@@ -1,0 +1,11 @@
+RewriteEngine On
+
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteRule ^home/ pages/home.php
+RewriteRule ^template/ pages/template.php
+
+Options +FollowSymlinks
+Options +Indexes
+IndexOptions +FancyIndexing
+DirectoryIndex .index.php .index.html index.php index.html .redirect.html redirect.html landing.html landing.php .landing.html .landing.php .redirect.php redirect.php
