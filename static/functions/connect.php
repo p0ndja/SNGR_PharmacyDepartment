@@ -4,7 +4,7 @@
     $dbhost = "p0nd.ga";
     $dbuser = "pondjaco";
     $dbpass = "11032545";
-    $dbdatabase = "pondjaco_smdkku";
+    $dbdatabase = "pondjaco_srinagarindhospital";
     $conn = mysqli_connect($dbhost,$dbuser,$dbpass,$dbdatabase); 
     mysqli_set_charset($conn, 'utf8');
 

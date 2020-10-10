@@ -8,11 +8,49 @@
         <li class="nav-item">
             <a class="nav-link" href="../home/">หน้าหลัก</a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="../event/">กิจกรรม</a>
+        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> เกี่ยวกับ </a>
+            <div class="dropdown-menu dropdown-pharm" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#post">โครงสร้างหน่วยงาน</a>
+                <a class="dropdown-item" href="#post">ผู้บริหาร</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#post">คณะกรรมการเภสัชกรรม</a>
+                <a class="dropdown-item" href="#post">คณะอนุกรรมการพิจารณายา</a>
+                <a class="dropdown-item" href="#post">คณะอนุกรรมการพัฒนาระบบยา</a>
+            </div>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">ตรวจสอบการลงทะเบียน</a>
+        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> หน่วยงาน </a>
+            <div class="dropdown-menu dropdown-pharm" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">งานผลิตยา</a>
+                <a class="dropdown-item" href="#">งานบริการจ่ายยา</a>
+                <a class="dropdown-item" href="#">งานบริหารสารสนเทศทางยา</a>
+                <a class="dropdown-item" href="#">งานบริหารคลังยาและเวชภัณฑ์</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> ข่าวสาร </a>
+            <div class="dropdown-menu dropdown-pharm" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">ข่าวประชาสัมพันธ์</a>
+                <a class="dropdown-item" href="#">คำสั่ง</a>
+                <a class="dropdown-item" href="#">ประกาศ</a>
+                <a class="dropdown-item" href="#">ระเบียบ - แนวทางปฏิบัติ</a>
+                <a class="dropdown-item" href="#">คู่มือการใช้ยา</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">ผลงานวิจัยและ R2R</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#category">ชุมชนนักปฏิบัติ ADR</a>
+                <a class="dropdown-item" href="#category">ชุมชนนักปฏิบัติ HAD</a>
+                <a class="dropdown-item" href="#category">ชุมชนนักปฏิบัติ ME</a>
+                <a class="dropdown-item" href="#category">ชุมชนนักปฏิบัติ RDU</a>
+            </div>
+        </li>
+        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> อื่น ๆ </a>
+            <div class="dropdown-menu dropdown-pharm" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">ดาวน์โหลดแบบฟอร์ม</a>
+                <a class="dropdown-item" href="#">กระดานถาม - ตอบ</a>
+            </div>
         </li>
     </ul>
 
@@ -22,6 +60,7 @@
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
+                <img src="<?php echo getProfilePicture($_SESSION['id'], $conn); ?>" class="rounded-circle" width="20" alt="Profile">
                 <?php echo $_SESSION['name']; ?></a>
             <div class="dropdown-menu dropdown-menu-right dropdown-mvsk" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#../profile/"> แก้ไขข้อมูลส่วนตัว <i class="fas fa-user-tie"></i></a>

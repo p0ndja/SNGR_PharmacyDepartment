@@ -1,54 +1,49 @@
-<footer class="footer d-none" id="footer">
+<footer class="footer" id="footer">
     <div class="container">
         <br>
         <div class="row">
             <div class="col-12">
-                <h4 style="color: white"><img src="../static/elements/logo/mvsklogo.png" height="32">
-                    โรงเรียนสาธิตมหาวิทยาลัยขอนแก่น ฝ่ายมัธยมศึกษา (มอดินแดง)</h4>
+                <h4 style="color: white"><img src="../static/elements/logo/favicon-32x32.png" height="32">
+                    ฝ่ายเภสัชกรรม โรงพยาบาลศรีนครินทร์</h4>
                 <hr>
             </div>
             <div class="col-md-3">
                 <h5 style="color: white">เกี่ยวกับ</h5>
                 <ul>
-                    <li style="color: #ff6c00"><a href="../post/20" style="color: white">ประวัติโรงเรียน</a></li>
-                    <li style="color: #ff6c00"><a href="../post/22" style="color: white">เกี่ยวกับโรงเรียน</a></li>
-                    <li style="color: #ff6c00"><a href="../post/25" style="color: white">คณะกรรมการประจำโรงเรียน</a></li>
-                    <li style="color: #ff6c00"><a href="../post/26" style="color: white">โครงสร้างการบริหาร</a></li>
-                    <li style="color: #ff6c00"><a href="../post/29" style="color: white">ทำเนียบผู้บริหาร</a></li>
-                    <li style="color: #ff6c00"><a href="../post/32" style="color: white">คณะผู้บริหาร</a></li>
-                    <li style="color: #ff6c00"><a href="../post/37" style="color: white">บุคลากร</a></li>
+                    <li style="color: lime"><a href="#" style="color: white">โครงสร้างการบริหาร</a></li>
+                    <li style="color: lime"><a href="#" style="color: white">ผู้บริหาร</a></li>
+                    <li style="color: lime"><a href="#" style="color: white">คณะกรรมการเภสัชกรรม</a></li>
+                    <li style="color: lime"><a href="#" style="color: white">คณะอนุกรรมการพิจารณายา</a></li>
+                    <li style="color: lime"><a href="#" style="color: white">คณะอนุกรรมการพัฒนาระบบยา</a></li>
                 </ul>
             </div>
             <div class="col-md-3">
                 <h5 style="color: white">หน่วยงาน</h5>
                 <ul>
-                    <li style="color: #ff6c00"><a style="color: white" href="../category/qa-1">งานแผนและประกันคุณภาพ</a></li>
-                    <li style="color: #ff6c00"><a style="color: white" href="../category/advice-1">งานแนะแนว</a></li>
-                    <li style="color: #ff6c00"><a style="color: white" href="../category/reg-1">งานทะเบียน</a></li>
-                    <li style="color: #ff6c00"><a style="color: white" href="../category/person-1">งานพัฒนาบุคลิกภาพ</a></li>
-                    <li style="color: #ff6c00"><a style="color: white" href="../category/lib-1">งานห้องสมุด</a></li>
-                    <li style="color: #ff6c00"><a style="color: white" href="../category/pta-1">ชมรมผู้ปกครองและครู</a></li>
+                    <li style="color: lime"><a style="color: white" href="../category/production-1">งานผลิตยา</a></li>
+                    <li style="color: lime"><a style="color: white" href="../category/service-1">งานบริการจ่ายยา</a></li>
+                    <li style="color: lime"><a style="color: white" href="../category/information-1">งานบริหารสารสนเทศทางยา</a></li>
+                    <li style="color: lime"><a style="color: white" href="../category/storage-1">งานบริหารคลังยาและเวชภัณฑ์</a></li>
                 </ul>
-                <a style="color: white" href="../category/subject-1"> เอกสารประกอบการสอน </a></li>
             </div>
             <div class="col-md-3">
-                <h5 style="color: white">ปฏิทิน</h5>
+                <h5 style="color: white">ข่าวสาร</h5>
                 <ul>
-                    <li style="color: #ff6c00"><a style="color: white" href="#" class="disabled"> ปฏิทินโรงเรียน </a>
-                    </li>
-                    <li style="color: #ff6c00"><a style="color: white" href="../timetable/">
-                            ตารางเรียน</a></li>
-                    <li style="color: #ff6c00"><a style="color: white"
-                            href="https://www.facebook.com/SMD.KKU/posts/2526062130856857"> ตารางสอบ </a></li>
-                </ul>
-                <a style="color: white" href="../category/news-1"> ข่าวสาร </a>
-                <br><a style="color: white" href="../forum"> SMD Forum </a>
-                <br><a style="color: white" href="#" class="disabled"> SMD Shop </a>
+                    <li style="color: lime"><a style="color: white" href="../category/news-1">ข่าวประชาสัมพันธ์</a></li>
+                    <li style="color: lime"><a style="color: white" href="../category/order-1">คำสั่ง</a></li>
+                    <li style="color: lime"><a style="color: white" href="../category/announce-1">ประกาศ</a></li>
+                    <li style="color: lime"><a style="color: white" href="../category/guideline-1">ระเบียบ - แนวทางปฏิบัติ</a></li>
+                    <li style="color: lime"><a style="color: white" href="../category/manual-1">คู่มือการใช้ยา</a></li>
+                    <li style="color: lime"><a style="color: white" href="../category/research-1">ผลงานวิจัยและ R2R</a></li>
+                </ul>                
             </div>
             <div class="col-md-3">
-                <a class="btn-floating btn-sm btn-info" href="https://www.facebook.com/SMD.KKU" target="_blank"><i class="fab fa-facebook"></i></a><a href="https://www.facebook.com/SMD.KKU" target="_blank" style="color: white">SMD.KKU</a><br>
+            <p style="color: white" href="../category/news-1"> ชุมชนนักปฏิบัติ <a style="color: white" href="../category/CoP-ADR-1/">ADR</a> | <a style="color: white" href="../category/CoP-HAD-1/">HAD</a> | <a style="color: white" href="../category/CoP-ME-1/">ME</a> | <a style="color: white" href="../category/CoP-RDU-1/">RDU</a>
+                <br><a style="color: white" href="../download/"> ดาวน์โหลดแบบฟอร์ม </a>
+                <br><a style="color: white" href="../forum/"> กระดานถาม - ตอบ </a>    
+                <br><a class="btn-floating btn-sm btn-info" href="https://www.facebook.com/SMD.KKU" target="_blank"><i class="fab fa-facebook"></i></a><a href="https://www.facebook.com/SMD.KKU" target="_blank" style="color: white">SMD.KKU</a><br>
                 <a class="btn-floating btn-sm blue" href="https://www.facebook.com/wearesmd" target="_blank"><i class="fab fa-facebook"></i></a><a href="https://www.facebook.com/wearesmd" target="_blank" style="color: white">WE ARE SMD</a><br>
-                <a class="btn-floating btn-sm pink" href="https://www.instagram.com/wearesmd" target="_blank"><i class="fab fa-instagram"></i></a><a href="https://www.instagram.com/wearesmd" target="_blank" style="color: white">WE ARE SMD</a>
+            </p>
             </div>
         </div>
         <hr>
@@ -57,8 +52,8 @@
                 <a href="https://www.web-stat.com">
                     <img alt="Web-Stat web statistics" src="https://wts.one/6s/3/1941813.gif" class="mb-1">
                 </a>
-                <h6 style="color: white;">Copyright 2019 - 2020 &copy; The demonstration school of Khon Kaen University (Mo Din Daeng). All Right Reserved.</h6>
-                <h6 style="color: white;">Made with ❤ by <a href="../pages/about.php">PondJaᵀᴴ & ˢᵖᵉᶜᵗᵉʳRisaka</a></h6>
+                <h6 style="color: white;">Copyright 2020 &copy; Pharmaceutical Department - Srinagarind Hospital. All Right Reserved.</h6>
+                <h6 style="color: white;">Made with ❤ by <a href="../pages/about.php">PondJaᵀᴴ</a></h6>
             </div>
         </div>
     </div>

@@ -15,7 +15,7 @@
                     class="img-fluid w-100 d-flex justify-content-center mb-3 z-depth-2">
                 <div class="modal-text">
                     <p class="text-center">ทางผู้พัฒนาขอความร่วมมือจากผู้เข้าชมเว็บไซต์ทุก ๆ ท่าน ร่วมตอบแบบสอบถามความพึงพอใจในการใช้งานเว็บไซต์ <a href="https://smd.pondja.com">smd.pondja.com</a> / <a href="https://smd.p0nd.ga">smd.p0nd.ga</a></p>
-                    <a href="https://forms.gle/HfxaWmjVGKjARUR18" target="_blank" class="text-center text-smd"><h1 class="animated infinite pulse">ตอบแบบสอบถาม</h1></a>
+                    <a href="https://forms.gle/HfxaWmjVGKjARUR18" target="_blank" class="text-center text-pharm"><h1 class="animated infinite pulse">ตอบแบบสอบถาม</h1></a>
                 </div>
             </div>
             <div class="modal-footer">

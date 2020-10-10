@@ -3,6 +3,11 @@ RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-f
 
 RewriteRule ^home/ pages/home.php
+RewriteRule ^login/$ pages/login.php
+RewriteRule ^logout/$ static/functions/auth/logout.php
+RewriteRule ^register/$ pages/register.php
+RewriteRule ^forgetpassword/$ pages/password_forget.php [L]
+RewriteRule ^resetpassword/$ pages/password_reset.php [L]
 RewriteRule ^template/ pages/template.php
 
 Options +FollowSymlinks

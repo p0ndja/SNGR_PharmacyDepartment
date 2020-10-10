@@ -9,6 +9,17 @@
         return false;
     }
 
+    function isPermission($perm, $conn) {
+        if (!isset($_SESSION['id'])) return false;
+        if (!getUserdata($_SESSION['id'], $perm, $conn) && !getUserdata($_SESSION['id'], 'isAdmin', $conn)) return false;
+        return true;
+    }
+
+    function checkPermission($perm, $id, $conn) {
+        if (!getUserdata($id, $perm, $conn) && !getUserdata($id, 'isAdmin', $conn)) return false;
+        return true;
+    }
+
     function getAnySQL($sql, $val, $key, $key_val, $conn) {
         if ($sql == null || $val == null || $key == null || $key_val == null || $conn == null) return false;
         return mysqli_fetch_array(mysqli_query($conn, "SELECT `$val` from `$sql` WHERE $key = '$key_val'"), MYSQLI_ASSOC)[$val];
@@ -30,27 +41,22 @@
     }
     //saveUserdata('604019', 'username', 'PondJaTH', $conn);
 
-    function getEventdata($id, $data, $conn) {
-        return getAnySQL('event', $data, 'id', $id, $conn);
+    function getPostdata($id, $data, $conn) {
+        return getAnySQL('post', $data, 'id', $id, $conn);
     }
-    //getEventdata('1', 'name', $conn);
+    //getPostdata('1', 'article', $conn);
 
-    function saveEventdata($id, $data, $val, $conn) {
-        if (saveAnySQL('event', $data, $val, 'id', $id, $conn)) return true;
+    function savePostdata($id, $data, $val, $conn) {
+        if (saveAnySQL('post', $data, $val, 'id', $id, $conn)) return true;
         return false;
     }
-    //saveEventdata('1', 'name', 'PondJaTH', $conn);
+    //saveUserdata('604019', 'username', 'PondJaTH', $conn);
 
-    function getReservedata($id, $conn) {
-        return getAnySQL('reserve', 'list', 'id', $id, $conn);
+    function getProfilePicture($id, $conn) {
+        $_array = getUserdata($id,'profilePic',$conn);
+        if ($_array != null) return $_array;
+        else return '../static/elements/user.png';
     }
-    //getEventdata('1', 'name', $conn);
-
-    function saveReservedata($id, $val, $conn) {
-        if (saveAnySQL('reserve', 'list', $val, 'id', $id, $conn)) return true;
-        return false;
-    }
-    //saveEventdata('1', 'name', 'PondJaTH', $conn);
 
     function isValidUserID($id, $conn) {
         $query = "SELECT * FROM `user` WHERE id = '$id'";
@@ -59,37 +65,28 @@
         return false;
     }
 
-    function isValidEventID($id, $conn) {
-        $query = "SELECT * FROM `event` WHERE id = '$id'";
+    function isValidForumID($id, $connForum) {
+        $query = "SELECT * FROM `id_$id`";
+        $result = mysqli_query($connForum, $query);
+        if (mysqli_num_rows($result) > 0) return true;
+        return false;
+    }
+
+    function isValidPostID($id, $conn) {
+        $query = "SELECT * FROM `post` WHERE id = '$id'";
         $result = mysqli_query($conn, $query);
         if (mysqli_num_rows($result) > 0) return true;
         return false;
     }
 
-    function isReserved($uid, $eid, $conn) {
-        if (!empty(getReservedata($eid, $conn)) && strpos(getReservedata($eid, $conn), "|" . $uid) !== false) return true;
-        else return false;
-    }
-
-    function countCapacity($eid, $conn) {
-        if (!empty(getReservedata($eid, $conn))) return sizeof(explode("|", getReservedata($eid, $conn))) - 1;
-        else return 0;
-    }
-
-    function isFull($eid, $conn) {
-        if (countCapacity($eid, $conn) < getEventdata($eid, 'capacity', $conn)) return false;
-        else return true;
-    }
-
-    function isOvertime($eid, $conn) {
-        if (!(getEventdata($eid, 'start_reserve_date', $conn) <= curFullTime() && getEventdata($eid, 'end_reserve_date', $conn) >= curFullTime())) return true;
-        else return false;
+    function isVerify($id, $conn) {
+        return getUserdata($id, 'isEmailVerify', $conn);
     }
 ?>
 <?php
 
     function getDisplayName($id, $conn) {
-        return getUserdata($id, 'prefix', $conn) . getUserdata($id, 'firstname', $conn) . ' ' . getUserdata($id, 'lastname', $conn);
+        return getUserdata($id, 'displayname', $conn);
     }
 
     function getClientIP() {

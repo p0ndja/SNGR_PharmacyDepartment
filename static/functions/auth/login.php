@@ -21,8 +21,7 @@ if (isset($_POST['login_submit'])) {
         $_SESSION['id'] = mysqli_fetch_array($result, MYSQLI_ASSOC)['id'];
         $_SESSION['real_id'] = $_SESSION['id'];
         $_SESSION['username'] = getUserdata($_SESSION['id'], 'username', $conn);
-        $_SESSION['name'] = getUserdata($_SESSION['id'], 'firstname', $conn) . ' ' . getUserdata($_SESSION['id'], 'lastname', $conn);
-        $_SESSION['shortname'] = getUserdata($_SESSION['id'], 'firstname', $conn);
+        $_SESSION['name'] = getUserdata($_SESSION['id'], 'displayname', $conn);
 
         $_SESSION['swal_success'] = "เข้าสู่ระบบสำเร็จ";
         $_SESSION['swal_success_msg'] = "ยินดีต้อนรับ! " . $_SESSION['name'];
@@ -41,19 +40,15 @@ if (isset($_POST['login_submit'])) {
 if (isset($_POST['register_submit'])) {
     $user = $_POST['register_username'];
     $pass = md5($_POST['register_password']);
-    $id = $_POST['register_id'];
-    $firstname = $_POST['register_firstname'];
-    $lastname = $_POST['register_lastname'];
+    //$id = $_POST['register_id'];
+    $name = $_POST['register_displayname'];
     $email = $_POST['register_email'];
-    $prefix = $_POST['register_prefix'];
-    $grade = $_POST['register_grade'];
-    $class = $_POST['register_class'];
 
     //ลองเอาค่าต่าง ๆ ไปดูว่ามีผู้ใช้นี้อยู่ในระบบแล้วรึยัง
-    $query1 = "SELECT * FROM `user` WHERE username = '$user'";
-    $query2 = "SELECT * FROM `user` WHERE id = $id";
+    $query1 = "SELECT * FROM `user` WHERE username = '$user' OR email = '$email'";
+    //$query2 = "SELECT * FROM `user` WHERE id = $id";
     $result1 = mysqli_query($conn, $query1);
-    $result2 = mysqli_query($conn, $query2);
+    //$result2 = mysqli_query($conn, $query2);
 
     if (! $result1) {
         die('Could not get data: ' . mysqli_error($conn));
@@ -61,14 +56,11 @@ if (isset($_POST['register_submit'])) {
 
     //กรณีมีข้อมูลอยู่แล้ว จะ return ค่าเป็น 1
     if (mysqli_num_rows($result1) == 1) {
-        $_SESSION['error'] = "มีชื่อผู้ใช้นี้อยู่แล้ว";
-        header("Location: ../../../register/");
-    } else if (mysqli_num_rows($result2) == 1) {
-        $_SESSION['error'] = "รหัสนักเรียนนี้เคยใช้ในการสมัครเข้าใช้งานไปแล้ว";
+        $_SESSION['error'] = "มีชื่อผู้ใช้นี้อยู่แล้ว หรือ อีเมลนี้ถูกใช้งานไปแล้ว";
         header("Location: ../../../register/");
     } else {
         
-        $query_final = "INSERT INTO `user` (id, username, password, prefix, firstname, lastname, grade, class, email) VALUES ($id, '$user', '$pass', '$prefix', '$firstname', '$lastname', $grade, $class, '$email')";
+        $query_final = "INSERT INTO `user` (username, password, displayname, email) VALUES ('$user', '$pass', '$name', '$email')";
         $result_final = mysqli_query($conn, $query_final);
 
         //แสดงค่ากลับหาผู้ใช้
@@ -82,7 +74,7 @@ if (isset($_POST['register_submit'])) {
             $_SESSION['id'] = $id;
             $_SESSION['name'] = $_POST['register_firstname'] . ' ' . $_POST['register_lastname'];
             header("Location: ../../../home/");
-            //header("Location: ../verify/mail.php?key=" . $pass . "&email=" . $email . "&name=" . $_SESSION['name'] . "&method=reg");
+            header("Location: ../verify/mail.php?key=" . $pass . "&email=" . $email . "&name=" . $_SESSION['name'] . "&method=reg");
         }
     }
 }
@@ -104,8 +96,7 @@ if (isset($_GET['user']) && isset($_GET['pass'])) {
         $_SESSION['id'] = mysqli_fetch_array($result, MYSQLI_ASSOC)['id'];
         $_SESSION['real_id'] = $_SESSION['id'];
         $_SESSION['username'] = getUserdata($_SESSION['id'], 'username', $conn);
-        $_SESSION['name'] = getUserdata($_SESSION['id'], 'firstname', $conn) . ' ' . getUserdata($_SESSION['id'], 'lastname', $conn);
-        $_SESSION['shortname'] = getUserdata($_SESSION['id'], 'firstname', $conn);
+        $_SESSION['name'] = getUserdata($_SESSION['id'], 'displayname', $conn);
         
         if (isset($_GET['method'])) {
             if ($_GET['method'] == "normal") {
