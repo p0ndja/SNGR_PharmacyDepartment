@@ -24,6 +24,22 @@
             -o-background-size: cover;
             background-size: cover;
         }
+
+        @media (min-width: 960px) {
+            .card-columns {
+                -webkit-column-count: 3;
+                -moz-column-count: 3;
+                column-count: 3;
+            }
+        }
+
+        @media (max-width: 960px) {
+            .card-columns {
+                -webkit-column-count: 2;
+                -moz-column-count: 2;
+                column-count: 2;
+            }
+        }
     </style>
 </head>
 
@@ -77,128 +93,109 @@
         <div class="container mb-3" id="container">
             <div class="row">
                 <div class="col-6 col-md-3">
-                    <div class="card hoverable">
+                    <a href="../category/manufacture-1">
+                    <div class="card hoverable mb-3">
                         <div class="card-img-top"><img class="d-block img-fluid"
-                                src="https://placehold.it/800x800?text=Unit A" alt="First slide"></div>
+                                src="../static/elements/hotlink/manu.jpg" alt="First slide"></div>
                     </div>
+                    </a>
                 </div>
                 <div class="col-6 col-md-3">
-                    <div class="card hoverable">
+                    <a href="../category/service-1">
+                    <div class="card hoverable mb-3">
                         <div class="card-img-top"><img class="d-block img-fluid"
-                                src="https://placehold.it/800x800?text=Unit B" alt="First slide"></div>
+                                src="../static/elements/hotlink/serv.jpg" alt="First slide"></div>
                     </div>
+                    </a>
                 </div>
                 <div class="col-6 col-md-3">
-                    <div class="card hoverable">
+                    <a href="../category/DIC-1">
+                    <div class="card hoverable mb-3">
                         <div class="card-img-top"><img class="d-block img-fluid"
-                                src="https://placehold.it/800x800?text=Unit C" alt="First slide"></div>
+                                src="../static/elements/hotlink/dic.jpg" alt="First slide"></div>
                     </div>
+                    </a>
                 </div>
                 <div class="col-6 col-md-3">
-                    <div class="card hoverable">
+                    <a href="../category/inventory-1">
+                    <div class="card hoverable mb-3">
                         <div class="card-img-top"><img class="d-block img-fluid"
-                                src="https://placehold.it/800x800?text=Unit D" alt="First slide"></div>
+                                src="../static/elements/hotlink/inv.jpg" alt="First slide"></div>
                     </div>
+                    </a>
                 </div>
             </div>
             <hr>
             <div class="row">
                 <div class="col-md-9 col-12">
                     <!--- First -->
-                    <h3 class="font-weight-bold">ข่าวประชาสัมพันธ์</h3>
-                    <div class="row mb-5">
-                        <div class="col-4">
-                            <div class="card mb-3">
-                                <div class="card-img-top"><img class="d-block img-fluid"
-                                        src="https://placehold.it/1600x900?text=Thumbnail" alt="First slide"></div>
-                                <div class="card-body">
-                                    <div class="card-text">Title</div>
+                    <div class="mb-5">
+                        <h3 class="font-weight-bold">ข่าวประชาสัมพันธ์</h3>
+                        <div class="card-columns">
+                            <?php
+                                $query = "SELECT * FROM `post` WHERE isHidden = 0 AND category = 'news' ORDER by isPinned DESC, time DESC limit 5";
+                                $result = mysqli_query($conn, $query);
+                                while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                            ?>
+                                <a href="../post/<?php echo $row['id']; ?>" class="text-dark">
+                                <div class="card mb-2 mt-1">
+                                    <div class="card-img-top"><img class="d-block img-fluid"
+                                            src="<?php echo $row['cover']; ?>" alt="Cover"></div>
+                                    <div class="card-body card-text"><u><?php echo $row['title']; ?></u></div>
                                 </div>
-                            </div>
+                                </a>
+                            <?php } ?>
                         </div>
-                        <div class="col-4">
-                            <div class="card mb-3">
-                                <div class="card-img-top"><img class="d-block img-fluid"
-                                        src="https://placehold.it/1600x900?text=Thumbnail" alt="First slide"></div>
-                                <div class="card-body">
-                                    <div class="card-text">Title</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="card mb-3">
-                                <div class="card-img-top"><img class="d-block img-fluid"
-                                        src="https://placehold.it/1600x900?text=Thumbnail" alt="First slide"></div>
-                                <div class="card-body">
-                                    <div class="card-text">Title</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="card mb-3">
-                                <div class="card-img-top"><img class="d-block img-fluid"
-                                        src="https://placehold.it/1600x900?text=Thumbnail" alt="First slide"></div>
-                                <div class="card-body">
-                                    <div class="card-text">Title</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="card mb-3">
-                                <div class="card-img-top"><img class="d-block img-fluid"
-                                        src="https://placehold.it/1600x900?text=Thumbnail" alt="First slide"></div>
-                                <div class="card-body">
-                                    <div class="card-text">Title</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4">
-                            <div class="card mb-3">
-                                <div class="card-img-top"><img class="d-block img-fluid"
-                                        src="https://placehold.it/1600x900?text=Thumbnail" alt="First slide"></div>
-                                <div class="card-body">
-                                    <div class="card-text">Title</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col d-flex flex-row-reverse"><a href="#" class="btn btn-info">Read More...</a></div>
+                        <a href="../category/news-1" class="btn btn-info"><i class="fas fa-arrow-circle-right"></i> อ่านเพิ่มเติม...</a>
                     </div>
                     <div class="row mb-4">
                         <div class="col-6 col-md-3">
+                            <a href="../category/CoPADR-1">
                             <div class="card mb-3">
                                 <div class="card-img-top"><img class="d-block img-fluid"
-                                        src="https://placehold.it/900x900?text=ADR" alt="First slide"></div>
+                                        src="../static/elements/hotlink/adr.jpg" alt="ADR"></div>
                             </div>
+                            </a>
                         </div>
                         <div class="col-6 col-md-3">
+                            <a href="../category/CoPHAD-1">
                             <div class="card mb-3">
                                 <div class="card-img-top"><img class="d-block img-fluid"
-                                        src="https://placehold.it/900x900?text=HAD" alt="First slide"></div>
+                                        src="../static/elements/hotlink/had.jpg" alt="HAD"></div>
                             </div>
+                            </a>
                         </div>
                         <div class="col-6 col-md-3">
+                            <a href="../category/CoPME-1">
                             <div class="card mb-3">
                                 <div class="card-img-top"><img class="d-block img-fluid"
-                                        src="https://placehold.it/900x900?text=ME" alt="First slide"></div>
+                                        src="../static/elements/hotlink/me.jpg" alt="ME"></div>
                             </div>
+                            </a>
                         </div>
                         <div class="col-6 col-md-3">
+                            <a href="../category/CoPRDU-1">
                             <div class="card mb-3">
                                 <div class="card-img-top"><img class="d-block img-fluid"
-                                        src="https://placehold.it/900x900?text=RDU" alt="First slide"></div>
+                                        src="../static/elements/hotlink/rdu.jpg" alt="RDU"></div>
                             </div>
+                            </a>
                         </div>
                         <div class="col-6 col-md-6">
+                            <a href="../category/research-1">
                             <div class="card mb-3">
                                 <div class="card-img-top"><img class="d-block img-fluid"
-                                        src="https://placehold.it/900x200?text=Reserch and R2R" alt="First slide"></div>
+                                        src="../static/elements/hotlink/researchr2r.jpg" alt="First slide"></div>
                             </div>
+                            </a>
                         </div>
                         <div class="col-6 col-md-6">
+                            <a href="../download/">
                             <div class="card mb-3">
                                 <div class="card-img-top"><img class="d-block img-fluid"
-                                        src="https://placehold.it/900x200?text=Download Form" alt="First slide"></div>
+                                        src="../static/elements/hotlink/dlform.jpg" alt="First slide"></div>
                             </div>
+                            </a>
                         </div>
                     </div>
                     <div class="row mb-4">

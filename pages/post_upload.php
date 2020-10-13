@@ -1,6 +1,6 @@
 <?php
 
-    function generateRandom($length = 16) {
+    function generateRandom($length = 5) {
         $characters = md5(time());
         $randomString = '';
         for ($i = 0; $i < $length; $i++) {
@@ -11,9 +11,9 @@
 
     if ($_FILES['file']['name']) {
         if (!$_FILES['file']['error']) {
-            $name = generateRandom(32);
+            $name = generateRandom(5);
             $ext = explode('.', $_FILES['file']['name']);
-            $filename = $name . '.' . $ext[1];
+            $filename = $ext[0] . '_' . $name . '.' . $ext[1];
 
             if (!file_exists('../file/post/editor/')) {
                 mkdir('../file/post/editor/');

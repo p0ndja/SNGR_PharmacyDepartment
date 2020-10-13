@@ -54,7 +54,7 @@
                 <div class="card-footer">
                     <div class="d-flex justify-content-between">
                         <div class="align-self-center">
-                            เคยสมัครสมาชิกไปแล้วหรอ? <a href="../login/" class="text-smd">ล็อกอินที่นี่!</a>
+                            เคยสมัครสมาชิกไปแล้วหรอ? <a href="../login/" class="text-pharm">ล็อกอินที่นี่!</a>
                         </div>
                         <div>
                             <input class="btn btn-success" type="submit" name="register_submit" value="สมัคร !"></input>

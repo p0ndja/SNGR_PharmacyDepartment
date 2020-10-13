@@ -2,13 +2,23 @@ RewriteEngine On
 
 RewriteCond %{REQUEST_FILENAME} !-f
 
-RewriteRule ^home/ pages/home.php
+RewriteRule ^home/$ pages/home.php
 RewriteRule ^login/$ pages/login.php
 RewriteRule ^logout/$ static/functions/auth/logout.php
 RewriteRule ^register/$ pages/register.php
 RewriteRule ^forgetpassword/$ pages/password_forget.php [L]
 RewriteRule ^resetpassword/$ pages/password_reset.php [L]
-RewriteRule ^template/ pages/template.php
+RewriteRule ^template/$ pages/template.php
+RewriteRule ^download/$ pages/download.php
+RewriteRule ^download/(.*)$ pages/download.php?path=$1 [L]
+
+RewriteRule ^post/$ pages/post.php
+RewriteRule ^post/([0-9]+)$ pages/post.php?id=$1
+RewriteRule ^post/create$ pages/post_edit.php
+RewriteRule ^post/edit-([0-9]+)$ pages/post_edit.php?id=$1
+
+RewriteRule ^category/(.*)-([0-9]+)-(.*)$ pages/post.php?category=$1&page=$2&tags=$3 [L]
+RewriteRule ^category/(.*)-([0-9]+)$ pages/post.php?category=$1&page=$2
 
 Options +FollowSymlinks
 Options +Indexes

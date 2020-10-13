@@ -3,9 +3,9 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
 
-require '../../static/PHPMailer/PHPMailer.php'; // Only file you REALLY need
-require '../../static/PHPMailer/Exception.php'; // If you want to debug
-require '../../static/PHPMailer/SMTP.php';
+require '../../../static/interface/js/PHPMailer/PHPMailer.php'; // Only file you REALLY need
+require '../../../static/interface/js/PHPMailer/Exception.php'; // If you want to debug
+require '../../../static/interface/js/PHPMailer/SMTP.php';
 
 // Form details
 $email_to = $_GET['email'];
@@ -52,7 +52,7 @@ try {
     $mail->send();
     if (isset($_GET['method'])) {
         if ($_GET['method'] == "reg") {
-            header("Location: ../../home");    
+            header("Location: ../../../home");    
         } else if ($_GET['method'] == "changeEmail") {
             //Something could be happen here next day...
             $_SESSION['swal_warning'] = "คุณได้ทำการเปลี่ยนแปลงอีเมล";

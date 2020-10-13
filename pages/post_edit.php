@@ -8,7 +8,8 @@
 <head>
     <?php require '../static/functions/head.php'; ?>
     <?php
-        $title = ""; $tags = ""; $cover = ""; $article = ""; $attached = null; $hotlink = null; $hide = false; $type = "news"; $pinned = false;
+        $title = ""; $tags = ""; $cover = ""; $article = ""; $attached = null; $hotlink = null; $hide = false; $type = "news"; $isPinned = false;
+        $role = getRole($conn);
         if (isset($_GET['id']) && isValidPostID($_GET['id'], $conn)) {
             $postID = $_GET['id'];
                 $article = getPostdata($postID, 'article', $conn);
@@ -17,9 +18,9 @@
                 $tags = getPostdata($postID, 'tags', $conn);
                 $attached = getPostdata($postID, 'attachment', $conn);
                 $hotlink = getPostdata($postID, 'hotlink', $conn);
-                $hide = getPostdata($postID, 'hide', $conn);
-                $pinned = getPostdata($postID, 'pin', $conn);
-                $type = getPostdata($postID, 'type', $conn);
+                $hide = getPostdata($postID, 'isHidden', $conn);
+                $isPinned = getPostdata($postID, 'isPinned', $conn);
+                $type = getPostdata($postID, 'category', $conn);
                 $_SESSION['temp_cover'] = $cover;
                 $_POST['attached_before'] = $attached; 
         } else {
@@ -46,7 +47,7 @@
                         sendPicFile(files[0], this);
                     },
                     onFileUpload: function(file) {
-                        sendRawFile(file[0]);
+                        sendRawFile(file[0], this);
                     }
                 },
                 toolbar: [
@@ -86,7 +87,7 @@
                 $.ajax({
                     data: data,
                     type: "POST",
-                    url: "post_upload.php", //Your own back-end uploader
+                    url: "../pages/post_upload.php", //Your own back-end uploader
                     cache: false,
                     contentType: false,
                     processData: false,
@@ -101,33 +102,13 @@
                             let listMimeVideo = ['video/mpeg', 'video/mp4', 'video/webm'];
                             let elem;
 
-                            if (listMimeImg.indexOf(file.type) > -1) {
-                                //Picture
-                                $('.summernote').summernote('editor.insertImage', reponse.filename);
-                            } else if (listMimeAudio.indexOf(file.type) > -1) {
-                                //Audio
-                                elem = document.createElement("audio");
-                                elem.setAttribute("src", reponse.filename);
-                                elem.setAttribute("controls", "controls");
-                                elem.setAttribute("preload", "metadata");
-                                $('.summernote').summernote('editor.insertNode', elem);
-                            } else if (listMimeVideo.indexOf(file.type) > -1) {
-                                //Video
-                                elem = document.createElement("video");
-                                elem.setAttribute("src", reponse.filename);
-                                elem.setAttribute("controls", "controls");
-                                elem.setAttribute("preload", "metadata");
-                                $('.summernote').summernote('editor.insertNode', elem);
-                            } else {
-                                //Other file type
-                                elem = document.createElement("a");
-                                let linkText = document.createTextNode(file.name);
-                                elem.appendChild(linkText);
-                                elem.title = file.name;
-                                elem.href = reponse.filename;
-                                $('.summernote').summernote('editor.insertNode', elem);
-                            }
-                        
+                            //Other file type
+                            elem = document.createElement("a");
+                            let linkText = document.createTextNode(file.name);
+                            elem.appendChild(linkText);
+                            elem.title = file.name;
+                            elem.href = reponse;
+                            $('.summernote').summernote('editor.insertNode', elem);
                     }
                 });
             }
@@ -150,7 +131,7 @@
                 $.ajax({
                     data: data,
                     type: "POST",
-                    url: "post_upload.php",
+                    url: "../pages/post_upload.php",
                     cache: false,
                     contentType: false,
                     processData: false,
@@ -172,7 +153,7 @@
     <?php needLogin(); //Permission might be here; ?>
     <div class="container" style="padding-top: 88px;">
         <div class="container mb-3" id="container">
-        <form method="POST" action="../post/save.php<?php if (isset($_GET['id'])) echo '?news=' . $_GET['id']; ?>"
+        <form method="POST" action="../pages/post_save.php<?php if (isset($_GET['id'])) echo '?news=' . $_GET['id']; ?>"
             enctype="multipart/form-data">
             <div class="card mb-3">
                 <div class="card-header bg-dark text-white">
@@ -225,7 +206,7 @@
                     </div>
                     <div class="switch switch-warning">
                         <label>
-                            <input type="checkbox" name="pinned" <?php if ($pinned) echo "checked"; ?>>
+                            <input type="checkbox" name="isPinned" <?php if ($isPinned) echo "checked"; ?>>
                             <span class="lever"></span>
                             <a class="material-tooltip-main" data-toggle="tooltip"
                                 title="การเปิดค่านี้จะเป็นการปักหมุดโพสต์นี้ไว้บนสุด (เรียงตามลำดับการอัพเดทของโพสต์ปักหมุดด้วย)">ปักหมุดโพสต์</a>
@@ -247,41 +228,57 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                            <div class="col-12 col-md-4">
-                                <div class="select-outline">
-                                    <select class="mdb-select md-form type" id="type" name="type" required>
-                                        <optgroup label="- ทั่วไป -">
-                                            <option value="news">ข่าวสาร</option>
-                                            <option value="order">คำสั่ง</option>
-                                            <option value="announce">ประกาศ</option>
-                                            <option value="guideline">ระเบียบ - แนวทางปฏิบัติ</option>
-                                            <option value="manual">คู่มือการใช้ยา</option>
-                                            <option value="research">ผลงานวิจัยและ R2R</option>
-                                        </optgroup>
-                                        <optgroup label="- ชุมชนนักปฏิบัติ -">
-                                            <option value="CoPADR">Adverse Drug Reaction (ADR)</option>
-                                            <option value="CoPHAD">High Alert Drug (HAD)</option>
-                                            <option value="CoPME">Medication Error (ME)</option>
-                                            <option value="CoPRDU">Rational Drug Use (RDU)</option>
-                                        </optgroup>
-                                    </select>
-                                    <label class="mdb-main-label">หมวดหมู่</label>
-                                </div>
+                    <div class="form-row justify-content-start col-md-auto d-flex">
+                        <label for="type">หมวดหมู่ </label>
+                        <select class="form-control" id="type" name="type" required>
+                            <optgroup label="- หน่วยงาน -" id="agency">
+                            <?php
+                            $category = ["manufacture","service","DIC","inventory"];
+                            $categoryMsg = ["งานผลิต","งานบริการจ่ายยา","งานเภสัชสนเทศทางยา","งานบริหารคลังยาและเวชภัณฑ์"];
+                            for ($c = 0; $c < sizeof($category); $c++) {
+                                if (canUseThisCategory($role, $category[$c], $conn)) { ?>
+                                    <script>$("<option>").val("<?php echo $category[$c]; ?>").text("<?php echo $categoryMsg[$c]; ?>").appendTo("#agency");</script>
+                                <?php }
+                            }
+                            ?>
+                            </optgroup>
+                            <optgroup label="- ทั่วไป -" id="general">
+                            <?php
+                            $category = ["about","news","order","announce","guideline","manual","research"];
+                            $categoryMsg = ["เกี่ยวกับ","ข่าวประชาสัมพันธ์","คำสั่ง","ประกาศ","ระเบียบ - แนวทางปฏิบัติ","คู่มือการใช้ยา","ผลงานวิจัยและ R2R"];
+                            for ($c = 0; $c < sizeof($category); $c++) {
+                                if (canUseThisCategory($role, $category[$c], $conn)) { ?>
+                                    <script>$("<option>").val("<?php echo $category[$c]; ?>").text("<?php echo $categoryMsg[$c]; ?>").appendTo("#general");</script>
+                                <?php }
+                            }
+                            ?>
+                            </optgroup>
+                            <optgroup label="- ชุมชนนักปฏิบัติ -" id="cop">
+                            <?php
+                            $category = ["CoPADR","CoPHAD","CoPME","CoPRDU"];
+                            $categoryMsg = ["Adverse Drug Reaction (ADR)", "High Alert Drug (HAD)","Medication Error (ME)","Rational Drug Use (RDU)"];
+                            for ($c = 0; $c < sizeof($category); $c++) {
+                                if (canUseThisCategory($role, $category[$c], $conn)) { ?>
+                                    <script>$("<option>").val("<?php echo $category[$c]; ?>").text("<?php echo $categoryMsg[$c]; ?>").appendTo("#cop");</script>
+                                <?php }
+                            }
+                            ?>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <script>
+                            $('#type option[value=<?php echo $type; ?>]').attr('selected', 'selected');
+                    </script>
+                    <div class="input-group flex-nowrap mb-1">
+                        <div class="md-form input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text md-addon" id="addon-tags">แท็ก / Tags</span>
                             </div>
-                            <div class="col-12 col-md-8">
-                                <div class="input-group flex-nowrap mb-1">
-                                    <div class="md-form input-group">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text md-addon" id="addon-tags">แท็ก / Tags</span>
-                                        </div>
-                                        <input type="text" class="form-control" id="tags" name="tags"
-                                            placeholder="ใช้เครื่องหมาย Comma คั่น" aria-label="Tags"
-                                            aria-describedby="addon-tags" value="<?php echo $tags; ?>">
-                                    </div>
-                                </div>
-                            </div>
+                            <input type="text" class="form-control" id="tags" name="tags"
+                                placeholder="ใช้เครื่องหมาย Comma คั่น" aria-label="Tags"
+                                aria-describedby="addon-tags" value="<?php echo $tags; ?>">
                         </div>
+                    </div>
                     <div class="row justify-content-end">
                         <h6><a onclick="back();" class="btn btn-danger">ยกเลิก</a><input type="submit"
                                 class="btn btn-success" value="บันทึก"
@@ -301,10 +298,7 @@
                 document.getElementById("coverThumb").src = e.target.result;
             };
             reader.readAsDataURL(this.files[0]);
-        };
-
-        $('.type option[value=<?php echo $type; ?>]').attr('selected', 'selected');
-
+        };        
         document.getElementById("makeHotlink").onchange = function (e) {
             var x = document.getElementById("hotlinkHiddenZone");
             var y = document.getElementById("hotlinkField");

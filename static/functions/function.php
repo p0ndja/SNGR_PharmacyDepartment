@@ -11,8 +11,13 @@
 
     function isPermission($perm, $conn) {
         if (!isset($_SESSION['id'])) return false;
-        if (!getUserdata($_SESSION['id'], $perm, $conn) && !getUserdata($_SESSION['id'], 'isAdmin', $conn)) return false;
-        return true;
+        $role = getUserdata($_SESSION['id'], 'role', $conn);
+        if (canThisRoleDoThisPerm($role, $perm, $conn) || $role == 'admin') return true;
+        return false;
+    }
+
+    function getRole($conn) {
+        return getUserdata($_SESSION['id'], 'role', $conn);
     }
 
     function checkPermission($perm, $id, $conn) {
@@ -51,6 +56,11 @@
         return false;
     }
     //saveUserdata('604019', 'username', 'PondJaTH', $conn);
+
+    function canThisRoleDoThisPerm($role, $perm, $conn) {
+        return getAnySQL('permission', $perm, 'role', $role, $conn);
+    }
+    //canThisRoleDoThisPerm('admin', 'editAbout', $conn);
 
     function getProfilePicture($id, $conn) {
         $_array = getUserdata($id,'profilePic',$conn);
@@ -142,16 +152,86 @@
         return $msg;
     }
 
+    function isValidCategory($category) {
+        $categoryList = ["about","manufacture","inventory","service","DIC","news","order","announce","guideline","manual","research","CoPADR","CoPHAD","CoPME","CoPRDU"];
+        if ($category == "~") return true;
+        foreach ($categoryList as $listCategory) {
+            if ($listCategory == $category) return true;
+        }
+        return false;
+    }
+
+    function canThisRolePostAnything($role, $conn) {
+        if ($role == "admin") return true;
+
+        $categoryQuery = getAnySQL('permission', 'category', 'role', $role, $conn);
+        if ($categoryQuery == null) return false;
+        else return true;
+    }
+
+    function canUseThisCategory($role, $category, $conn) {
+        if ($role == "admin") return true;
+
+        $categoryQuery = getAnySQL('permission', 'category', 'role', $role, $conn);
+        if ($categoryQuery == null) return false;
+
+        if (strpos($categoryQuery, $category)) return true;
+        else return false;
+    }
+
+    function generateCategoryTitle($category) {
+        $path = "../static/elements/header/$category.png";
+        if (file_exists($path)) {
+            return "<div><img src='$path'/>";
+        } else {
+            if ($category == "~")
+                return "<div class='display-4'>โพสต์ทั้งหมด</div>";
+            else if ($category == "about")
+                return "<div class='display-4'>เกี่ยวกับ</div>";
+            else if ($category == "manufacture")
+                return "<div class='display-4'>งานผลิต</div>";
+            else if ($category == "inventory")
+                return "<div class='display-4'>งานคลังยาและเวชภัณฑ์</div>";
+            else if ($category == "service")
+                return "<div class='display-4'>งานบริการจ่ายยา</div>";
+            else if ($category == "DIC")
+                return "<div class='display-4'>งานเภสัชสนเทศทางยา</div>";
+            else if ($category == "news")
+                return "<div class='display-4'>ข่าวประชาสัมพันธ์</div>";
+            else if ($category == "order")
+                return "<div class='display-4'>คำสั่ง</div>";
+            else if ($category == "announce")
+                return "<div class='display-4'>ประกาศ</div>";
+            else if ($category == "guideline")
+                return "<div class='display-4'>ระเบียบ - แนวทางปฏิบัติ</div>";
+            else if ($category == "manual")
+                return "<div class='display-4'>คู่มือการใช้ยา</div>";
+            else if ($category == "research")
+                return "<div class='display-4'>ผลงานวิจัยและ R2R</div>";
+            else if ($category == "CoPADR")
+                return "<div class='display-4'>ชุมชนนักปฏิบัติ ADR</div>";
+            else if ($category == "CoPHAD")
+                return "<div class='display-4'>ชุมชนนักปฏิบัติ HAD</div>";
+            else if ($category == "CoPME")
+                return "<div class='display-4'>ชุมชนนักปฏิบัติ ME</div>";
+            else if ($category == "CoPRDU")
+                return "<div class='display-4'>ชุมชนนักปฏิบัติ RDU</div>";
+            
+            
+            else
+                return "<div class='display-4'>" . strtoupper($category);
+        }
+    }
 
     function generateOpenGraphMeta($conn) {
         $current_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         
-        if (strpos($current_url, "/event/")) {
+        if (strpos($current_url, "/post/")) {
             //Mean you're currently browsing in post page
-            if (isset($_GET['id']) && isValidEventID($_GET['id'], $conn)) {
+            if (isset($_GET['id']) && isValidPostID($_GET['id'], $conn)) {
                 $postID = $_GET['id'];
-                $topic = getEventdata($postID, 'name', $conn);
-                $img = getEventdata($postID, 'thumbnail', $conn);
+                $topic = getPostdata($postID, 'title', $conn);
+                $img = getPostdata($postID, 'cover', $conn);
                 
                 if ($img == null) {
                     list($ogwidth, $ogheight, $ogtype, $ogattr) = getimagesize("../static/elements/logo/logo.png");
@@ -212,7 +292,7 @@
 <?php
     function needPermission($perm, $conn) {
     if (!isset($_SESSION['id']) || !isLogin()) { needLogin(); die(); return false; }
-    if (!getUserdata($_SESSION['id'], $perm, $conn) && !getUserdata($_SESSION['id'], 'isAdmin', $conn)) { ?>
+    if (!isPermission($perm, $conn)) { ?>
 <script>
     swal({
         title: "ACCESS DENIED",

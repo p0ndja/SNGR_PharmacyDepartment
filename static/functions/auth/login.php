@@ -103,11 +103,11 @@ if (isset($_GET['user']) && isset($_GET['pass'])) {
                 $_SESSION['swal_success'] = "เข้าสู่ระบบสำเร็จ";
                 if (isVerify($_SESSION['id'], $conn)) $_SESSION['swal_success_msg'] = "ยินดีต้อนรับ! " . $_SESSION['name'];
                 else $_SESSION['swal_success_msg'] = "อย่าลืมเข้าไปยืนยันตัวตนทางอีเมลนะครับ";
-                header("Location: ../../home");
+                header("Location: ../../../home/");
             } else if ($_GET['method'] == "email") {
                 $_SESSION['swal_success'] = "ยืนยันอีเมลสำเร็จ";
                 $_SESSION['swal_success_msg'] = "ยินดีต้อนรับ! " . $_SESSION['name'];
-                header("Location: ../../home");
+                header("Location: ../../../home/");
             }
         } else {
             echo "ACCEPT";
