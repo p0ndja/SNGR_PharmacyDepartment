@@ -1,0 +1,9 @@
+<?php
+    mkdir('./file/');
+    mkdir('./file/form/');
+    mkdir('./file/forum/');
+    mkdir('./file/post/');
+    mkdir('./file/post/editor');
+    mkdir('./file/profile/');
+    unlink('mkdir.php');
+?>
