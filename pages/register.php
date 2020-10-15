@@ -31,23 +31,54 @@
                         <i class="fas fa-id-badge prefix"></i>
                         <input type="text" name="register_username" id="register_username"
                             class="form-control form-control-sm validate" required>
-                        <label for="register_username">ชื่อผู้ใช้งาน*</label>
+                        <label for="register_username">ชื่อผู้ใช้งาน / Username*</label>
                     </div>
                     <div class="md-form form-sm mb-1">
                         <i class="fas fa-key prefix"></i>
                         <input type="password" name="register_password" id="register_password"
                             class="form-control form-control-sm validate" required>
-                        <label for="register_password">รหัสผ่าน*</label>
+                        <label for="register_password">รหัสผ่าน / Password*</label>
                     </div>
                     <div class="md-form form-sm mb-1">
                         <i class="fas fa-envelope prefix"></i>
                         <input type="email" name="register_email" id="register_email"
                             class="form-control form-control-sm validate" required>
-                        <label for="register_email">อีเมล*</label>
+                        <label for="register_email">อีเมล / Email*</label>
                     </div>
                     <div class="md-form form-sm mb-1">
-                        <i class="fas fa-user prefix"></i><input type="text" name="register_displayname" id="register_displayname" class="form-control form-control-sm validate">
-                        <label for="register_displayname">ชื่อที่ใช้แสดง</label>
+                        <div class="form-row">
+                            <div class="col">
+                                <input type="text" id="register_firstname" name="register_firstname"
+                                    class="form-control form-control-sm validate" required>
+                                <label for="register_firstname">ชื่อจริง / Firstname*</label>
+                            </div>
+                            <div class="col">
+                                <input type="text" id="register_lastname" name="register_lastname"
+                                    class="form-control form-control-sm validate" required>
+                                <label for="register_lastname">นามสกุล / Lastname*</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-inline">
+                        <div class="form-row">
+                            <label for="register_role" class="col-form-label col-md-auto">ตำแหน่ง* </label>
+                            <div class="align-items-center col-md-auto d-flex">
+                                <select class="form-control" id="register_role" name="register_role" required>
+                                <optgroup label="- สำหรับบุคคลทั่วไป -" id="general">
+                                    <option value="contractor">รับจ้างทั่วไป/ลูกจ้าง</option>
+                                    <option value="civilservant">รับราชการ/พนักงานรัฐ</option>
+                                    <option value="business">ธุรกิจส่วนตัว</option>
+                                    <option value="business">ธุรกิจส่วนตัว</option>
+                                </optgroup>
+                                <optgroup label="- สำหรับบุคลากรภายใน -" id="staff">
+                                    <option value="doctor">แพทย์</option>
+                                    <option value="nurse">พยาบาล</option>
+                                    <option value="pharmacist">เภสัชกร</option>
+                                    <option value="staff">บุคลากรภายใน (อื่น ๆ)</option>
+                                </optgroup>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!--Footer-->

@@ -44,52 +44,79 @@
 </head>
 
 <body>
-    <header>
-        <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
+    <?php 
+        $path = "../static/elements/carousel/";
+        if (!file_exists($path))
+            mkdir($path);
+        
+        $count = 0;
+        $files = glob($path . "*.{jpg,png,gif}", GLOB_BRACE);
+        if ($files)
+            $count = count($files);
+    ?>
+    <?php if ($count > 0) { ?>
+        <header>
+        <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel">
             <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                <?php 
+                for ($i = 0; $i < $count; $i++) {
+                    echo "<li data-target='#carousel' data-slide-to='$i'";
+                    if ($i == 0) echo " class='active'></li>";
+                    else echo "></li>";
+                }
+                ?>
             </ol>
-            <div class="carousel-inner" role="listbox">
-                <!-- Slide One - Set the background image for this slide in the line below -->
-                <div class="carousel-item active"
-                    style="background-image: url('https://eskipaper.com/images/landscape-wallpaper-hd-28.jpg')">
-                    <div class="carousel-caption">
-                        <h2 class="display-5">First Slide</h2>
-                        <p class="lead">This is a description for the first slide.</p>
-                    </div>
+            <div class="carousel-inner">
+                    <?php for ($i = 0; $i < $count; $i++) { 
+                        $picPath = $files[$i];
+                        $picName = explode(".", str_replace("../static/images/carousel/", "", $picPath));
+
+                        $line = array();
+                        $txtFile = "../static/images/carousel/$picName[0].txt";
+                        
+                        if (file_exists($txtFile)) {
+                            $file = fopen("../static/images/carousel/$picName[0].txt", "r");
+                            while(!feof($file)) {
+                                array_push($line, fgets($file));
+                                # do same stuff with the $line
+                            }
+                            fclose($file);
+                        }
+                    ?>
+                        <div class="carousel-item <?php if ($i == 0) echo 'active'; ?>" style="background-image: url('<?php echo $picPath; ?>')" <?php if ($line != null) { echo "alt='$line[0]'"; }?>>
+                            <!-- style="-webkit-mask-image: -webkit-gradient(linear, left 50%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)))" -->
+                            <?php if ($line != null) { ?>
+                            <div class="carousel-caption d-none d-md-block animated fadeInDown">
+                                <div class="carousel-caption-text">
+                                    <h5><?php echo $line[0]; ?></h5>
+                                    <p>
+                                    <?php for($o = 1; $o < count($line); $o++) {
+                                        echo $line[$o] . "<br>";
+                                    } ?>
+                                    </p>
+                                </div>
+                            </div>
+                        <?php } ?>
+                        </div>
+                    <?php } ?>
+                    
                 </div>
-                <!-- Slide Two - Set the background image for this slide in the line below -->
-                <div class="carousel-item"
-                    style="background-image: url('https://wallpaperset.com/w/full/b/7/0/349421.jpg')">
-                    <div class="carousel-caption">
-                        <h2 class="display-5">Second Slide</h2>
-                        <p class="lead">This is a description for the second slide.</p>
-                    </div>
-                </div>
-                <!-- Slide Three - Set the background image for this slide in the line below -->
-                <div class="carousel-item" style="background-image: url('https://wallpaperaccess.com/full/112714.jpg')">
-                    <div class="carousel-caption">
-                        <h2 class="display-5">Third Slide</h2>
-                        <p class="lead">This is a description for the third slide.</p>
-                    </div>
-                </div>
+                <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
         </div>
     </header>
-    <nav class="navbar navbar-expand-lg navbar-dark navbar-normal" id="nav" role="navigation">
+    <?php } ?>
+    <nav class="navbar navbar-expand-lg navbar-dark navbar-normal <?php if ($count == 0) echo 'fixed-top scrolling-navbar'; ?>" id="nav" role="navigation">
         <?php require '../static/functions/navbar.php'; ?>
     </nav>
-    <div class="container-fluid">
+    <div class="container-fluid" <?php if ($count == 0) echo 'style="padding-top: 88px"'; ?>>
         <div class="container mb-3" id="container">
             <div class="row">
                 <div class="col-6 col-md-3">
@@ -308,6 +335,7 @@
 
     <?php require '../static/functions/popup.php'; ?>
     <?php require '../static/functions/footer.php'; ?>
+    <?php if ($count > 0) { ?>
     <script>
         $(window).bind('scroll', function () {
             var stick = false;
@@ -329,6 +357,7 @@
             }
         });
     </script>
+    <?php } ?>
 </body>
 
 </html>
