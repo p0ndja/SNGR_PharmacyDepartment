@@ -35,9 +35,9 @@
 
         @media (max-width: 960px) {
             .card-columns {
-                -webkit-column-count: 2;
-                -moz-column-count: 2;
-                column-count: 2;
+                -webkit-column-count: 1;
+                -moz-column-count: 1;
+                column-count: 1;
             }
         }
     </style>
@@ -69,13 +69,13 @@
             <div class="carousel-inner">
                     <?php for ($i = 0; $i < $count; $i++) { 
                         $picPath = $files[$i];
-                        $picName = explode(".", str_replace("../static/images/carousel/", "", $picPath));
+                        $picName = explode(".", str_replace("../static/elements/carousel/", "", $picPath));
 
                         $line = array();
-                        $txtFile = "../static/images/carousel/$picName[0].txt";
+                        $txtFile = "../static/elements/carousel/$picName[0].txt";
                         
                         if (file_exists($txtFile)) {
-                            $file = fopen("../static/images/carousel/$picName[0].txt", "r");
+                            $file = fopen("../static/elements/carousel/$picName[0].txt", "r");
                             while(!feof($file)) {
                                 array_push($line, fgets($file));
                                 # do same stuff with the $line
@@ -121,7 +121,7 @@
             <div class="row">
                 <div class="col-6 col-md-3">
                     <a href="../category/manufacture-1">
-                    <div class="card hoverable mb-3">
+                    <div class="card hoverable">
                         <div class="card-img-top"><img class="d-block img-fluid"
                                 src="../static/elements/hotlink/manu.jpg" alt="First slide"></div>
                     </div>
@@ -129,7 +129,7 @@
                 </div>
                 <div class="col-6 col-md-3">
                     <a href="../category/service-1">
-                    <div class="card hoverable mb-3">
+                    <div class="card hoverable">
                         <div class="card-img-top"><img class="d-block img-fluid"
                                 src="../static/elements/hotlink/serv.jpg" alt="First slide"></div>
                     </div>
@@ -137,7 +137,7 @@
                 </div>
                 <div class="col-6 col-md-3">
                     <a href="../category/DIC-1">
-                    <div class="card hoverable mb-3">
+                    <div class="card hoverable">
                         <div class="card-img-top"><img class="d-block img-fluid"
                                 src="../static/elements/hotlink/dic.jpg" alt="First slide"></div>
                     </div>
@@ -145,7 +145,7 @@
                 </div>
                 <div class="col-6 col-md-3">
                     <a href="../category/inventory-1">
-                    <div class="card hoverable mb-3">
+                    <div class="card hoverable">
                         <div class="card-img-top"><img class="d-block img-fluid"
                                 src="../static/elements/hotlink/inv.jpg" alt="First slide"></div>
                     </div>
@@ -156,8 +156,8 @@
             <div class="row">
                 <div class="col-md-9 col-12">
                     <!--- First -->
-                    <div class="mb-5">
-                        <h3 class="font-weight-bold">ข่าวประชาสัมพันธ์</h3>
+                    <div class="mb-3">
+                        <h3 class="font-weight-bold">ข่าวประชาสัมพันธ์ - News</h3>
                         <div class="card-columns">
                             <?php
                                 $query = "SELECT * FROM `post` WHERE isHidden = 0 AND category = 'news' ORDER by isPinned DESC, time DESC limit 5";
@@ -175,10 +175,12 @@
                         </div>
                         <a href="../category/news-1" class="btn btn-info"><i class="fas fa-arrow-circle-right"></i> อ่านเพิ่มเติม...</a>
                     </div>
-                    <div class="row mb-4">
+                    <hr>
+                    <h4 class="font-weight-bold">ชุมชนนักปฏิบัติ - Community of Practice</h4>
+                    <div class="row">
                         <div class="col-6 col-md-3">
                             <a href="../category/CoPADR-1">
-                            <div class="card mb-3">
+                            <div class="card">
                                 <div class="card-img-top"><img class="d-block img-fluid"
                                         src="../static/elements/hotlink/adr.jpg" alt="ADR"></div>
                             </div>
@@ -186,7 +188,7 @@
                         </div>
                         <div class="col-6 col-md-3">
                             <a href="../category/CoPHAD-1">
-                            <div class="card mb-3">
+                            <div class="card">
                                 <div class="card-img-top"><img class="d-block img-fluid"
                                         src="../static/elements/hotlink/had.jpg" alt="HAD"></div>
                             </div>
@@ -194,7 +196,7 @@
                         </div>
                         <div class="col-6 col-md-3">
                             <a href="../category/CoPME-1">
-                            <div class="card mb-3">
+                            <div class="card">
                                 <div class="card-img-top"><img class="d-block img-fluid"
                                         src="../static/elements/hotlink/me.jpg" alt="ME"></div>
                             </div>
@@ -202,12 +204,15 @@
                         </div>
                         <div class="col-6 col-md-3">
                             <a href="../category/CoPRDU-1">
-                            <div class="card mb-3">
+                            <div class="card">
                                 <div class="card-img-top"><img class="d-block img-fluid"
                                         src="../static/elements/hotlink/rdu.jpg" alt="RDU"></div>
                             </div>
                             </a>
                         </div>
+                    </div>
+                    <hr>
+                    <div class="row mb-4">
                         <div class="col-6 col-md-6">
                             <a href="../category/research-1">
                             <div class="card mb-3">
