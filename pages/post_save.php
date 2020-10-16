@@ -1,6 +1,6 @@
 <?php
 require '../static/functions/connect.php';
-
+$category = "~";
 if (isset($_POST['post_submit']) || isset($_POST['post_update'])) {
     $id = $_SESSION['id'];
     $title = $_POST['title'];
@@ -8,6 +8,13 @@ if (isset($_POST['post_submit']) || isset($_POST['post_update'])) {
     $writer = $id;
     $time = curFullTime();
     $tags = $_POST['tags'];
+    
+
+    $finalG = "";
+    $newGroup = $_POST['visible'];
+    foreach ($newGroup as $g) {
+        $finalG .= "|$g";
+    }
 
     $hide = 0;
     if (isset($_POST['isHidden'])) {
@@ -23,7 +30,7 @@ if (isset($_POST['post_submit']) || isset($_POST['post_update'])) {
         else $pinned = 0;
     }
 
-    $type = $_POST['type'];
+    $category = $_POST['group'];
 
     if (isset($_POST['makeHotlink']) && $_POST['makeHotlink'] == true)
         $hotlink = $_POST['hotlinkField'];
@@ -31,13 +38,13 @@ if (isset($_POST['post_submit']) || isset($_POST['post_update'])) {
         $hotlink = null;
 
     if (isset($_POST['post_submit'])) {
-        $query_final = "INSERT INTO `post` (title, writer, time, article, tags, hotlink, category, isHidden, isPinned) VALUES ('$title', '$writer', '$time', '$article', '$tags', '$hotlink', '$type', '$hide', $pinned)";
+        $query_final = "INSERT INTO `post` (title, writer, time, article, tags, hotlink, category, isHidden, isPinned, visible, category) VALUES ('$title', '$writer', '$time', '$article', '$tags', '$hotlink', '$type', '$hide', $pinned, '$finalG', '$category')";
         $result_final = mysqli_query($conn, $query_final);
         if (!$result_final) die('Could not post '.mysqli_error($conn));
         $news = mysqli_insert_id($conn);
     } else {
         $news = $_GET['news'];
-        $query_final = "UPDATE `post` SET title = '$title', writer = '$writer', time = '$time', article = '$article', tags = '$tags', hotlink = '$hotlink', isHidden = '$hide', category = '$type', isPinned = $pinned WHERE id = '$news'";
+        $query_final = "UPDATE `post` SET title = '$title', writer = '$writer', time = '$time', article = '$article', tags = '$tags', hotlink = '$hotlink', isHidden = '$hide', isPinned = $pinned, visible = '$finalG', category = '$category' WHERE id = '$news'";
         $result_final = mysqli_query($conn, $query_final);
         if (!$result_final) die('Could not post '.mysqli_error($conn));
     }
@@ -86,48 +93,5 @@ if (isset($_POST['post_submit']) || isset($_POST['post_update'])) {
         savePostdata($news, 'attachment', $finalFilePath, $conn); 
     }
 }
-header("Location: ../category/$type-1");
-?>
-
-
-<?php
-    if (isset($_GET['post_submit'])) {
-        $title = $_GET['title'];
-        $cover = $_GET['cover']; //FILE
-        
-        $makeHotlink = $_GET['makeHotlink'];
-        $hotlink = $_GET['hotlinkField'];
-        $isHidden = $_GET['isHidden'];
-        $isPinned = $_GET['pinned'];
-        
-    } else if (isset($_GET['post_update'])) {
-        $id = -1;
-        if (isset($_GET['id']))
-            $id = $_GET['id'];
-        else back();
-
-    }
-
-
-    $fileTotal = count($_FILES['attachment']['name']);
-    $finalFilePath = null;
-    if (is_uploaded_file($_FILES['attachment']['tmp_name'][0])) {
-        if (!file_exists("../file/post/" . $news . "/". "attachment/")) {
-            mkdir("../file/post/" . $news . "/". "attachment/");
-        }
-        for ($i = 0; $i < $fileTotal; $i++) {
-            if($_FILES['attachment']['tmp_name'][$i] != ""){
-                $name_file = $_FILES['attachment']['name'][$i];
-                $tmp_name = $_FILES['attachment']['tmp_name'][$i];
-                $locate_img ="../file/post/".$news.'/'.'attachment/';
-                move_uploaded_file($tmp_name,$locate_img.$name_file);
-                rename($locate_img.$name_file, $locate_img.$name_file);
-                $finalFiledir = $locate_img.$name_file;
-                if ($i == 0) $finalFilePath = "'". $finalFiledir;
-                else $finalFilePath .= ',' . $finalFiledir;
-            }
-        }
-        $finalFilePath .= "'";
-        savePostdata($news, 'attachment', $finalFilePath, $conn); 
-    }
+header("Location: ../category/$category-1");
 ?>

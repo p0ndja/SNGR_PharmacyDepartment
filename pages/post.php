@@ -37,16 +37,18 @@
             header("Location: " . getPostdata($_GET['id'], 'hotlink', $conn));
 
         if (!isset($_GET['id'])) {
-            if (isset($_GET['category'])) $category = $_GET['category'];
+            if (isset($_GET['category']) && isValidCategory($_GET['category'], $conn)) $category = $_GET['category'];
+            else if (isset($_GET['viewas'])) $viewas = $_GET['viewas'];
             else header("Location: ../category/~-1");
-            if ($category && !isValidCategory($category, $conn)) back();
         }
+
+        $title = isset($category) ? $category : "viewas_$viewas";
     ?>
 
     <div class="container" id="container" style="padding-top: 88px">
 
         <?php if(!isset($_GET['id'])) {
-            echo generateCategoryTitle($category); ?>
+            echo generateCategoryTitle($title); ?>
         <?php if (isLogin() && canThisRolePostAnything(getUserdata($_SESSION['id'], 'role', $conn), $conn)) { ?><a href="../post/create"
             class="btn btn-sm btn-info"><i class="fas fa-plus"></i> เขียนข่าวใหม่</a><?php } ?>
     <hr>
@@ -65,17 +67,18 @@
                 $query_count = "SELECT `id` FROM `post` WHERE id = $news_ID";
             } else if (isset($_GET['tags'])) { //Tags case
                 $t = $_GET['tags'];
-                $c = $_GET['category'];
-                if ($c == "~") {
+                if ($category == "~") {
                     $query = "SELECT * FROM `post` WHERE tags LIKE '%$t%' AND isHidden = 0 ORDER by isPinned DESC, time DESC limit {$start_id}, {$news_per_page}";
                     $query_count = "SELECT `id` FROM `post` WHERE tags LIKE '%$t%' AND isHidden = 0";
                 } else {
                     $query = "SELECT * FROM `post` WHERE tags LIKE '%$t%' AND category = '$category' ORDER by isPinned DESC, time DESC limit {$start_id}, {$news_per_page}";
                     $query_count = "SELECT `id` FROM `post` WHERE tags LIKE '%$t%' AND category = '$category'";
                 }
+            } else if (isset($_GET['viewas'])) {
+                $query = "SELECT * FROM `post` WHERE isHidden = 0 AND visible LIKE '%$viewas%' ORDER by isPinned DESC, time DESC limit {$start_id}, {$news_per_page}";
+                $query_count = "SELECT `id` FROM `post` WHERE isHidden = 0 AND visible LIKE '%$viewas%'";
             } else { //Normal Case
-                $c = $_GET['category'];
-                if ($c == "~") {
+                if ($category == "~") {
                     $query = "SELECT * FROM `post` WHERE isHidden = 0 ORDER by isPinned DESC, time DESC limit {$start_id}, {$news_per_page}";
                     $query_count = "SELECT `id` FROM `post` WHERE isHidden = 0";
                 } else {
@@ -85,7 +88,6 @@
             }
 
             $c = 0;
-
             $result = mysqli_query($conn, $query); ?>
     <?php if (!isset($_GET['id'])) { ?><div class="card-columns"><?php } ?>
         <?php while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) { $c++; ?>
@@ -107,7 +109,7 @@
                             href="../post/edit-<?php echo $row['id']; ?>"><i class="fas fa-edit text-success"></i></a>
                         <a
                             onclick='
-                                    swal({title: "ลบข่าวหรือไม่ ?",text: "หลังจากที่ลบแล้ว ข่าวนี้จะไม่สามารถกู้คืนได้!",icon: "warning",buttons: true,dangerMode: true}).then((willDelete) => { if (willDelete) { window.location = "../pages/post_delete.php?id=<?php echo $row["id"]; ?>";}});'>
+                                    swal({title: "ลบข่าวหรือไม่ ?",text: "หลังจากที่ลบแล้ว ข่าวนี้จะไม่สามารถกู้คืนได้!",icon: "warning",buttons: true,dangerMode: true}).then((willDelete) => { if (willDelete) { window.location = "../pages/post_delete.php?id=<?php echo $row["id"]; ?>&category=<?php echo $row["category"]; ?>";}});'>
                             <i class="fas fa-trash-alt text-danger"></i></a><?php } ?>
                     </h5>
                     <h6><?php foreach (explode(",", $row['tags']) as $s) { ?>
@@ -149,7 +151,7 @@
                         href="<?php echo $row['hotlink']; ?>" target="_blank"><?php echo $row['title']; ?></a>
                     <a href="../post/edit-<?php echo $row['id']; ?>"><i class="fas fa-edit text-success"></i></a> <a
                         onclick='
-                                    swal({title: "ลบข่าวหรือไม่ ?",text: "หลังจากที่ลบแล้ว ข่าวนี้จะไม่สามารถกู้คืนได้!",icon: "warning",buttons: true,dangerMode: true}).then((willDelete) => { if (willDelete) { window.location = "../pages/post_delete.php?id=<?php echo $row["id"]; ?>";}});'>
+                                    swal({title: "ลบข่าวหรือไม่ ?",text: "หลังจากที่ลบแล้ว ข่าวนี้จะไม่สามารถกู้คืนได้!",icon: "warning",buttons: true,dangerMode: true}).then((willDelete) => { if (willDelete) { window.location = "../pages/post_delete.php?id=<?php echo $row["id"]; ?>&category=<?php echo $row["category"]; ?>";}});'>
                         <i class="fas fa-trash-alt text-danger"></i></a></div><?php } ?>
             </div>
         </a>

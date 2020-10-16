@@ -8,7 +8,7 @@
 <head>
     <?php require '../static/functions/head.php'; ?>
     <?php
-        $title = ""; $tags = ""; $cover = ""; $article = ""; $attached = null; $hotlink = null; $hide = false; $type = "news"; $isPinned = false;
+        $title = ""; $tags = ""; $cover = ""; $article = ""; $attached = null; $hotlink = null; $hide = false; $type = ""; $isPinned = false; $visible = "";
         $role = getRole($conn);
         if (isset($_GET['id']) && isValidPostID($_GET['id'], $conn)) {
             $postID = $_GET['id'];
@@ -20,7 +20,8 @@
                 $hotlink = getPostdata($postID, 'hotlink', $conn);
                 $hide = getPostdata($postID, 'isHidden', $conn);
                 $isPinned = getPostdata($postID, 'isPinned', $conn);
-                $type = getPostdata($postID, 'category', $conn);
+                $group = getPostdata($postID, 'category', $conn);
+                $visible = getPostdata($postID, 'visible', $conn);
                 $_SESSION['temp_cover'] = $cover;
                 $_POST['attached_before'] = $attached; 
         } else {
@@ -145,6 +146,12 @@
         });
     </script>
     </head>
+    <style>
+    .md-outline.select-wrapper+label {
+        top: .5em !important;
+        z-index: 2 !important;
+    }
+    </style>
 <nav class="navbar navbar-expand-lg navbar-dark navbar-normal fixed-top scrolling-navbar" id="nav" role="navigation">
     <?php require '../static/functions/navbar.php'; ?>
 </nav>
@@ -228,47 +235,61 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-row justify-content-start col-md-auto d-flex">
-                        <label for="type">หมวดหมู่ </label>
-                        <select class="form-control" id="type" name="type" required>
-                            <optgroup label="- หน่วยงาน -" id="agency">
-                            <?php
-                            $category = ["manufacture","service","DIC","inventory"];
-                            $categoryMsg = ["งานผลิต","งานบริการจ่ายยา","งานเภสัชสนเทศทางยา","งานบริหารคลังยาและเวชภัณฑ์"];
-                            for ($c = 0; $c < sizeof($category); $c++) {
-                                if (canUseThisCategory($role, $category[$c], $conn)) { ?>
-                                    <script>$("<option>").val("<?php echo $category[$c]; ?>").text("<?php echo $categoryMsg[$c]; ?>").appendTo("#agency");</script>
-                                <?php }
-                            }
-                            ?>
-                            </optgroup>
-                            <optgroup label="- ทั่วไป -" id="general">
-                            <?php
-                            $category = ["about","news","order","announce","guideline","manual","research"];
-                            $categoryMsg = ["เกี่ยวกับ","ข่าวประชาสัมพันธ์","คำสั่ง","ประกาศ","ระเบียบ - แนวทางปฏิบัติ","คู่มือการใช้ยา","ผลงานวิจัยและ R2R"];
-                            for ($c = 0; $c < sizeof($category); $c++) {
-                                if (canUseThisCategory($role, $category[$c], $conn)) { ?>
-                                    <script>$("<option>").val("<?php echo $category[$c]; ?>").text("<?php echo $categoryMsg[$c]; ?>").appendTo("#general");</script>
-                                <?php }
-                            }
-                            ?>
-                            </optgroup>
-                            <optgroup label="- ชุมชนนักปฏิบัติ -" id="cop">
-                            <?php
-                            $category = ["CoPADR","CoPHAD","CoPME","CoPRDU"];
-                            $categoryMsg = ["Adverse Drug Reaction (ADR)", "High Alert Drug (HAD)","Medication Error (ME)","Rational Drug Use (RDU)"];
-                            for ($c = 0; $c < sizeof($category); $c++) {
-                                if (canUseThisCategory($role, $category[$c], $conn)) { ?>
-                                    <script>$("<option>").val("<?php echo $category[$c]; ?>").text("<?php echo $categoryMsg[$c]; ?>").appendTo("#cop");</script>
-                                <?php }
-                            }
-                            ?>
-                            </optgroup>
-                        </select>
+                    <div class="">
+                        <div class="row">
+                            <div class="col">
+                            <label for="group">หมวดหมู่ / Category</label>
+                            <select class="mdb-select md-form colorful-select dropdown-primary" id="group" name="group" required>
+                                    <optgroup label="- หมวดหน่วยงาน -" id="agency">
+                                    <?php
+                                    $groupL = ["manufacture","service","DIC","inventory"];
+                                    $groupLMsg = ["งานผลิต","งานบริการจ่ายยา","งานเภสัชสนเทศทางยา","งานบริหารคลังยาและเวชภัณฑ์"];
+                                    for ($c = 0; $c < sizeof($groupL); $c++) {
+                                        if (canUseThisCategory($role, $groupL[$c], $conn)) { ?>
+                                            <script>$("<option>").val("<?php echo $groupL[$c]; ?>").text("<?php echo $groupLMsg[$c]; ?>").appendTo("#agency");</script>
+                                        <?php }
+                                    }
+                                    ?>
+                                    </optgroup>
+                                    <optgroup label="- หมวดชุมชนนักปฏิบัติ -" id="cop">
+                                    <?php
+                                    $groupL = ["CoPADR","CoPHAD","CoPME","CoPRDU"];
+                                    $groupLMsg = ["Adverse Drug Reaction (ADR)", "High Alert Drug (HAD)","Medication Error (ME)","Rational Drug Use (RDU)"];
+                                    for ($c = 0; $c < sizeof($groupL); $c++) {
+                                        if (canUseThisCategory($role, $groupL[$c], $conn)) { ?>
+                                            <script>$("<option>").val("<?php echo $groupL[$c]; ?>").text("<?php echo $groupLMsg[$c]; ?>").appendTo("#cop");</script>
+                                        <?php }
+                                    }
+                                    ?>
+                                    </optgroup>
+                                    <optgroup label="- หมวดทั่วไป -" id="general">
+                                    <?php
+                                    $category = ["about","general","news","order","announce","guideline","manual","research"];
+                                    $categoryMsg = ["เกี่ยวกับหน่วยงาน","เรื่องทั่วไป","ข่าวประชาสัมพันธ์","คำสั่ง","ประกาศ","ระเบียบ - แนวทางปฏิบัติ","คู่มือการใช้ยา","ผลงานวิจัยและ R2R"];
+                                    for ($c = 0; $c < sizeof($category); $c++) {
+                                        if (canUseThisCategory($role, $category[$c], $conn)) { ?>
+                                            <script>$("<option>").val("<?php echo $category[$c]; ?>").text("<?php echo $categoryMsg[$c]; ?>").appendTo("#general");</script>
+                                        <?php }
+                                    }
+                                    ?>
+                                    </optgroup>
+                                </select>
+                            </div>
+                        </div>
                     </div>
-                    <script>
-                            $('#type option[value=<?php echo $type; ?>]').attr('selected', 'selected');
-                    </script>
+                    <h6 class="font-weight-bold">การมองเห็นโพสต์ / Visibility</h6>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="visible_guest" name="visible[]" value="guest" <?php if(hasVisible($visible, 'general')) echo "checked "; ?>>
+                            <label class="form-check-label" for="visible_guest">สำหรับบุคคลทั่วไป</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="visible_staff" name="visible[]" value="staff" <?php if(hasVisible($visible, 'staff')) echo "checked "; ?>>
+                            <label class="form-check-label" for="visible_staff">สำหรับบุคลากรภายใน</label>
+                        </div>
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="visible_dealer" name="visible[]" value="dealer" <?php if(hasVisible($visible, 'dealer')) echo "checked "; ?>>
+                            <label class="form-check-label" for="visible_dealer">สำหรับบริษัทยา</label>
+                        </div>
                     <div class="input-group flex-nowrap mb-1">
                         <div class="md-form input-group">
                             <div class="input-group-prepend">
@@ -280,7 +301,7 @@
                         </div>
                     </div>
                     <div class="row justify-content-end">
-                        <h6><a onclick="back();" class="btn btn-danger">ยกเลิก</a><input type="submit"
+                        <h6><a href='<?php if(isset($_SERVER["HTTP_REFERER"])) echo $_SERVER["HTTP_REFERER"]; else echo "../home/"; ?>' class="btn btn-danger">ยกเลิก</a><input type="submit"
                                 class="btn btn-success" value="บันทึก"
                                 name="<?php if (isset($_GET['id'])) echo 'post_update'; else echo 'post_submit'; ?>"></input>
                         </h6>
@@ -290,8 +311,17 @@
         </form>
         </div>
     </div>
-    
     <script>
+        $('#group option[value=<?php echo $group; ?>]').attr('selected', 'selected');
+    </script>
+    <script>
+        // Material Select Initialization
+        $(document).ready(function() {
+            $('.select-wrapper.md-form.md-outline input.select-dropdown').bind('focus blur', function () {
+                $(this).closest('.select-outline').find('label').toggleClass('active');
+                $(this).closest('.select-outline').find('.caret').toggleClass('active');
+            });
+        });
         document.getElementById("cover").onchange = function () {
             var reader = new FileReader();
             reader.onload = function (e) {
