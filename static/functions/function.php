@@ -152,8 +152,14 @@
         return $msg;
     }
 
+    function hasVisible($groupList, $group) {
+        if (empty($groupList)) return false;
+        return strpos($groupList, $group) !== false;
+    }
+
     function isValidCategory($category) {
-        $categoryList = ["about","manufacture","inventory","service","DIC","news","order","announce","guideline","manual","research","CoPADR","CoPHAD","CoPME","CoPRDU"];
+        $categoryList = ["about","manufacture","inventory","service","DIC","news","order","announce","guideline"
+                        ,"manual","research","CoPADR","CoPHAD","CoPME","CoPRDU","general","news","order","announce","guideline","manual"];
         if ($category == "~") return true;
         foreach ($categoryList as $listCategory) {
             if ($listCategory == $category) return true;
@@ -196,6 +202,8 @@
                 return "<div class='display-4'>งานบริการจ่ายยา</div>";
             else if ($category == "DIC")
                 return "<div class='display-4'>งานเภสัชสนเทศทางยา</div>";
+            else if ($category == "general")
+                return "<div class='display-4'>โพสต์ทั่วไป</div>";
             else if ($category == "news")
                 return "<div class='display-4'>ข่าวประชาสัมพันธ์</div>";
             else if ($category == "order")
@@ -216,6 +224,12 @@
                 return "<div class='display-4'>ชุมชนนักปฏิบัติ ME</div>";
             else if ($category == "CoPRDU")
                 return "<div class='display-4'>ชุมชนนักปฏิบัติ RDU</div>";
+            else if ($category == "viewas_guest")
+                return "<div class='display-4'>โพสต์สำหรับประชาชนทั่วไป</div>";
+            else if ($category == "viewas_staff")
+                return "<div class='display-4'>โพสต์สำหรับบุคลากรภายใน</div>";
+            else if ($category == "viewas_dealer")
+                return "<div class='display-4'>โพสต์สำหรับบริษัทยา</div>";
             
             
             else
