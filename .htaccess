@@ -20,6 +20,10 @@ RewriteRule ^post/edit-([0-9]+)$ pages/post_edit.php?id=$1
 RewriteRule ^category/(.*)-([0-9]+)-(.*)$ pages/post.php?category=$1&page=$2&tags=$3 [L]
 RewriteRule ^category/(.*)-([0-9]+)$ pages/post.php?category=$1&page=$2
 
+RewriteRule ^guest/$ pages/post.php?viewas=guest [L]
+RewriteRule ^staff/$ pages/post.php?viewas=staff [L]
+RewriteRule ^dealer/$ pages/post.php?viewas=dealer [L]
+
 Options +FollowSymlinks
 Options +Indexes
 IndexOptions +FancyIndexing
