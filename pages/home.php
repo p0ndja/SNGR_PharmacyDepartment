@@ -338,6 +338,7 @@
                         $page = str_replace("{wstoday}", $_SESSION['wstoday'], $page);
                         $page = str_replace("{wsmonth}", $_SESSION['wsmonth'], $page);
                         $page = str_replace("{wsyear}", $_SESSION['wsyear'], $page);
+                        $page = str_replace("{wsip}", getClientIP(), $page);
                         echo $page; 
                     ?>
                 </div>
