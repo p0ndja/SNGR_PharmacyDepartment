@@ -1,8 +1,18 @@
 <?php
-  
-    $db_table = "table-name";
-    $counter_page = "access_page";
-    $counter_field = "access_counter";
+    $wshost = "p0nd.ga";
+    $wsuser = "pondjaco_webstatsPharmacy";
+    $wspass = "E1FUeBj0";
+    $wsdatabase = "pondjaco_webstatsPharmacy";
+    $wsconn = mysqli_connect($wshost,$wsuser,$wspass,$wsdatabase); 
+    mysqli_set_charset($conn, 'utf8');
+
+    if(!$wsconn)  die('Could not connect: ' . mysqli_error($wsconn));
+    
+    date_default_timezone_set('Asia/Bangkok');
+    $wsdate = date("Y-m-d",time());
+    $wscurMonth = date("m",time());
+    $wscurYear = date("Y",time());
+    $db_table = $wsdate;
 
     function getIP() {
         if(!empty($_SERVER['HTTP_CLIENT_IP'])) return $_SERVER['HTTP_CLIENT_IP'];
@@ -10,6 +20,7 @@
         return $_SERVER['REMOTE_ADDR'];
     }
 
+    $current_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     $referent = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : "none";
     $user_agent = $_SERVER['HTTP_USER_AGENT'];
     function getOS() { 
@@ -89,7 +100,34 @@
         );
         
     print_r($log);
+
+    $r = "CREATE TABLE IF NOT EXISTS `$db_table`(
+            id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+            IP text NOT NULL,
+            Target text,
+            Refer text,
+            OS text,
+            Browser text,
+            RawData text
+        )";
+    $q = mysqli_query($wsconn, $r);
+    if (!$q) echo "There's an error on Webstats Database. [Can't Create Table]";
+
+    $wsip = getIP(); $wstarget = $current_url; $wsrefer = $referent; $wsos = getOS(); $wsbrowser = getBrowser(); $wsraw = $user_agent;
+    $r = "INSERT INTO `$db_table` (IP, Target, Refer, OS, Browser, RawData) VALUES ('$wsip', '$wstarget', '$wsrefer', '$wsos', '$wsbrowser', '$wsraw')";
+    $q = mysqli_query($wsconn, $r);
+    if (!$q) echo "There's an error on Webstats Database. [Can't Insert Stats]";
+
     
-    $sql_call = "INSERT INTO `$db_table` ($counter_page, $counter_field) VALUES ('$record', 1) ON DUPLICATE KEY UPDATE ".$counter_field." = ".$counter_field." + 1"; 
-    //mysqli_query($conn, $sql_call) or die("Error while entering");
+
+    $wstoday = mysqli_num_rows(mysqli_query($wsconn, "SELECT DISTINCT `ip` FROM `$wsdate`")); $_SESSION['wstoday'] = $wstoday;
+    
+    $r = "INSERT INTO `summary` (Date, Count) VALUES ('$db_table', '$wstoday') ON DUPLICATE KEY UPDATE Date=Date, Count=Count";
+    $q = mysqli_query($wsconn, $r);
+    if (!$q) echo "There's an error on Webstats Database. [Can't Update Summary]";
+
+    $wsmonth = mysqli_num_rows(mysqli_query($wsconn, "SELECT * FROM `summary` WHERE date LIKE '%-$wscurMonth-%'")); $_SESSION['wsmonth'] = $wsmonth;
+    $wsyear = mysqli_num_rows(mysqli_query($wsconn, "SELECT * FROM `summary` WHERE date LIKE '%$wscurYear%'")); $_SESSION['wsyear'] = $wsyear;
+    $wstotal = mysqli_fetch_array(mysqli_query($wsconn, "SELECT SUM(Count) total FROM `summary`"), MYSQLI_ASSOC)['total']; $_SESSION['wstotal'] = $wstotal;
+    
 ?>

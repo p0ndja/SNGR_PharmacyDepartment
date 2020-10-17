@@ -332,6 +332,14 @@
                                     src="../static/elements/hotlink/fda.png" alt="FDA"></div>
                         </div>
                     </a>
+                    <?php 
+                        $page = file_get_contents('../static/functions/statscounter.html');
+                        $page = str_replace("{wstotal}", $_SESSION['wstotal'], $page);
+                        $page = str_replace("{wstoday}", $_SESSION['wstoday'], $page);
+                        $page = str_replace("{wsmonth}", $_SESSION['wsmonth'], $page);
+                        $page = str_replace("{wsyear}", $_SESSION['wsyear'], $page);
+                        echo $page; 
+                    ?>
                 </div>
             </div>
         </div>

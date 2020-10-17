@@ -11,6 +11,7 @@
     if(!$conn)  die('Could not connect: ' . mysqli_error($conn));
     
     require 'function.php';
+    require 'webstats.php';
 
     @ini_set('upload_max_size','64M');
     @ini_set('post_max_size','64M');
