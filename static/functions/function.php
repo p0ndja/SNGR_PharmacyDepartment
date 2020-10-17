@@ -185,6 +185,35 @@
         else return false;
     }
 
+    function generateCategoryBadge($category) {
+        $style = "default"; $title = "undefined";
+        if ($category == "news") {
+            $style = "pharm"; $title = "ข่าว";
+        } else if ($category == "order") {
+            $style = "info"; $title = "คำสั่ง";
+        } else if ($category == "announce") {
+            $style = "danger"; $title = "ประกาศ";
+        } else if ($category == "guideline") {
+            $style = "primary"; $title = "ระเบียบ";
+        } else if ($category == "manual") {
+            $style = "dark"; $title = "คู่มือ";
+        } else if ($category == "about") {
+            $style = "light"; $title = "เกี่ยวกับ";
+        } else if (strpos($category, "CoP") !== false) {
+            $style = "info"; $title = "ชุมชนนักปฏิบัติ";
+        } else if ($category == "manufacture") {
+            $style = "success"; $title = "งานผลิตฯ";
+        } else if ($category == "inventory") {
+            $style = "secondary"; $title = "งานคลังฯ";
+        } else if ($category == "service") {
+            $style = "warning text-dark"; $title = "งานบริการฯ";
+        } else if ($category == "DIC") {
+            $style = "default"; $title = "DIC";
+        }
+        
+        return "<span class='badge badge-$style'>$title</span>";
+    }
+
     function generateCategoryTitle($category) {
         $path = "../static/elements/header/$category.png";
         if (file_exists($path)) {

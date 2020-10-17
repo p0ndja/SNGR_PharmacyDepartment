@@ -95,15 +95,8 @@
         <div class="card hoverable mb-3 mt-1">
             <?php if ($row['cover'] != null) { ?><img class="card-img-top" src="<?php echo $row['cover']; ?>"><?php } ?>
             <div class="card-body">
-                <p class="card-text"><i class="far fa-clock"></i>
-                    <?php
-                            $writer_id = $row['writer'];
-                            $writer_name = getUserdata($writer_id, 'firstname', $conn) . ' ' . getUserdata($writer_id, 'lastname', $conn) . ' (' . getUserdata($writer_id, 'username', $conn) . ')';
-                            echo $row['time'] . ' โดย ' . '<a href="../profile/' . $writer_id . '">' . $writer_name . '</a>'; 
-                        ?>
-                </p>
-                <div class="card-title">
-                    <h5 class="font-weight-bold"><a
+                <div class="card-text">
+                    <h5 class="font-weight-bold"><?php echo generateCategoryBadge($row['category']); ?> <a
                             href="../post/<?php echo $row['id']; ?>"><?php echo $row['title']; ?></a>
                         <?php if (isLogin() && canUseThisCategory(getUserdata($_SESSION['id'], 'role', $conn), $row['category'], $conn)) { ?><a
                             href="../post/edit-<?php echo $row['id']; ?>"><i class="fas fa-edit text-success"></i></a>
@@ -112,11 +105,11 @@
                                     swal({title: "ลบข่าวหรือไม่ ?",text: "หลังจากที่ลบแล้ว ข่าวนี้จะไม่สามารถกู้คืนได้!",icon: "warning",buttons: true,dangerMode: true}).then((willDelete) => { if (willDelete) { window.location = "../pages/post_delete.php?id=<?php echo $row["id"]; ?>&category=<?php echo $row["category"]; ?>";}});'>
                             <i class="fas fa-trash-alt text-danger"></i></a><?php } ?>
                     </h5>
-                    <h6><?php foreach (explode(",", $row['tags']) as $s) { ?>
-                        <a href="../category/<?php echo $row['category'] . "-1-" . $s; ?>"><span
-                                class="badge badge-pharm z-depth-0"><?php echo $s; ?></span></a>
+                    <?php if (!empty($row['tags'])) { ?><p class="card-text"><i class="fas fa-tag"></i> Tag: 
+                    <?php foreach (explode(",", $row['tags']) as $s) { ?>
+                        <u><a href="../category/<?php echo $row['category'] . "-1-" . $s; ?>"><?php echo $s; ?></a></u>
                         <?php } ?>
-                    </h6>
+                    </p><?php }?>
                 </div>
 
                 <!-- Case post reader -->
@@ -140,6 +133,14 @@
                 <?php } ?>
                 <?php } ?>
                 <?php } ?>
+            </div>
+            <div class="card-footer">
+                <i class="far fa-clock"></i>
+                <?php
+                    $writer_id = $row['writer'];
+                    $writer_name = getUserdata($writer_id, 'firstname', $conn) . ' ' . getUserdata($writer_id, 'lastname', $conn) . ' (' . getUserdata($writer_id, 'username', $conn) . ')';
+                    echo $row['time'] . ' โดย ' . '<a href="../profile/' . $writer_id . '">' . $writer_name . '</a>'; 
+                ?>
             </div>
         </div>
         <?php } else { // Case post is a hotlink ?>
