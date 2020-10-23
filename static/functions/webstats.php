@@ -99,8 +99,6 @@
         'time' => date("Y-m-d h:i:s",time())
         );
         
-    print_r($log);
-
     $r = "CREATE TABLE IF NOT EXISTS `$db_table`(
             id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
             IP text NOT NULL,
