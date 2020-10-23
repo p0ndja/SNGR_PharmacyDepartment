@@ -21,7 +21,7 @@ if (isset($_POST['login_submit'])) {
         $_SESSION['id'] = mysqli_fetch_array($result, MYSQLI_ASSOC)['id'];
         $_SESSION['real_id'] = $_SESSION['id'];
         $_SESSION['username'] = getUserdata($_SESSION['id'], 'username', $conn);
-        $_SESSION['name'] = getUserdata($_SESSION['id'], 'displayname', $conn);
+        $_SESSION['name'] = getDisplayname($_SESSION['id'], $conn);
 
         $_SESSION['swal_success'] = "เข้าสู่ระบบสำเร็จ";
         $_SESSION['swal_success_msg'] = "ยินดีต้อนรับ! " . $_SESSION['name'];
