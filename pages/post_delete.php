@@ -1,5 +1,5 @@
 <?php require '../static/functions/connect.php';
-if (isset($_GET['id']) && isLogin() && canUseThisCategory(getRole($conn),$_GET['category'],$conn)) {
+if (isset($_GET['id']) && isLogin() && canUseThisCategory(getRole($_SESSION['id'], $conn),$_GET['category'],$conn)) {
     needLogin();
     $id = $_GET['id'];
     $q = "DELETE FROM `post` WHERE id = $id";

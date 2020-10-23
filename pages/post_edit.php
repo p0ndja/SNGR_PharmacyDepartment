@@ -9,7 +9,7 @@
     <?php require '../static/functions/head.php'; ?>
     <?php
         $title = ""; $tags = ""; $cover = ""; $article = ""; $attached = null; $hotlink = null; $hide = false; $type = ""; $isPinned = false; $visible = "";
-        $role = getRole($conn);
+        $role = getRole($_SESSION['id'], $conn);
         if (isset($_GET['id']) && isValidPostID($_GET['id'], $conn)) {
             $postID = $_GET['id'];
                 $article = getPostdata($postID, 'article', $conn);

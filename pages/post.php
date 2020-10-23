@@ -31,6 +31,8 @@
 
 <body>
     <?php
+
+        $viewas = "guest";
         if (isset($_GET['id']) && !isValidPostID($_GET['id'], $conn)) back();
 
         if (isset($_GET['id']) && isValidPostID($_GET['id'], $conn) && getPostdata($_GET['id'], 'hotlink', $conn) != null)
@@ -46,7 +48,6 @@
     ?>
 
     <div class="container" id="container" style="padding-top: 88px">
-
         <?php if(!isset($_GET['id'])) {
             echo generateCategoryTitle($title); ?>
         <?php if (isLogin() && canThisRolePostAnything(getUserdata($_SESSION['id'], 'role', $conn), $conn)) { ?><a href="../post/create"
@@ -89,7 +90,7 @@
 
             $c = 0;
             $result = mysqli_query($conn, $query); ?>
-    <?php if (!isset($_GET['id'])) { ?><div class="card-columns"><?php } ?>
+    <?php if (!isset($_GET['id'])) { ?><div class="card-columns"><?php } else { ?><a onclick="window.history.back();" class="float-left"><i class="fas fa-arrow-left"></i> ย้อนกลับ</a><br><?php } ?>
         <?php while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) { $c++; ?>
         <?php if (getPostdata($row['id'], 'hotlink', $conn) == null) { ?>
         <div class="card hoverable mb-3 mt-1">
