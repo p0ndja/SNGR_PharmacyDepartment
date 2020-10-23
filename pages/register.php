@@ -43,7 +43,7 @@
                         <i class="fas fa-envelope prefix"></i>
                         <input type="email" name="register_email" id="register_email"
                             class="form-control form-control-sm validate" required>
-                        <label for="register_email">อีเมล / Email*</label>
+                        <label for="register_email">อีเมล / Email* [แนะนำ KKUMail]</label>
                     </div>
                     <div class="md-form form-sm mb-1">
                         <div class="form-row">
@@ -68,7 +68,7 @@
                                     <option value="contractor">รับจ้างทั่วไป/ลูกจ้าง</option>
                                     <option value="civilservant">รับราชการ/พนักงานรัฐ</option>
                                     <option value="business">ธุรกิจส่วนตัว</option>
-                                    <option value="business">ธุรกิจส่วนตัว</option>
+                                    <option value="other">อื่น ๆ</option>
                                 </optgroup>
                                 <optgroup label="- สำหรับบุคลากรภายใน -" id="staff">
                                     <option value="doctor">แพทย์</option>
