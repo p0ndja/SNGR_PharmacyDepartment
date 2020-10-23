@@ -55,26 +55,38 @@
     </ul>
 
     <ul class="nav navbar-nav nav-flex-icons ml-auto">
+        <li class="nav-item">
+            <form action="../static/functions/search.php" method="POST" class="form-inline">
+                <div class="md-form my-0">
+                    <input method="GET" class="form-control" type="text" placeholder="Search ID (Ex. 604019)"
+                        aria-label="Search ID (Ex. 604019)" id="search" name="search"
+                        value="<?php if (isset($_GET['search'])) echo $_GET['search']; ?>">
+                </div>
+            </form>
+        </li>
         <?php if (isLogin()) { ?>
         <div class="d-lg-block d-none">
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <img src="<?php echo getProfilePicture($_SESSION['id'], $conn); ?>" class="rounded-circle" width="20" alt="Profile">
-                <?php echo $_SESSION['name']; ?></a>
-            <div class="dropdown-menu dropdown-menu-right dropdown-pharm" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#../profile/"> แก้ไขข้อมูลส่วนตัว <i class="fas fa-user-tie"></i></a>
-                <div class="dropdown-divider"></div>
-                <button class="dropdown-item text-danger" id="logoutBtn">ออกจากระบบ <i class="fas fa-sign-out-alt"></i></button>
-            </div>
-        </li>
-                    </div>
-                    <div class="d-block d-lg-none">
-                    <a class="btn btn-md peach-gradient btn-rounded font-weight-bold" data-toggle="modal" data-target="#futureCpanel">
-                <?php echo $_SESSION['name']; ?></a>
-                    </div>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <img src="<?php echo getProfilePicture($_SESSION['id'], $conn); ?>" class="rounded-circle" width="20" alt="Profile">
+                    <?php echo $_SESSION['name']; ?></a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-pharm" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="../profile/"> แก้ไขข้อมูลส่วนตัว <i class="fas fa-user"></i></a>
+                    <?php if (isAdmin($_SESSION['id'], $conn)) { ?>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item text-primary" href="../user/"> User Management <i class="fas fa-user-tie"></i></a>
+                    <?php } ?>
+                    <div class="dropdown-divider"></div>
+                    <button class="dropdown-item text-danger" id="logoutBtn">ออกจากระบบ <i class="fas fa-sign-out-alt"></i></button>
+                </div>
+            </li>
+        </div>
+        <div class="d-block d-lg-none">
+            <a class="btn btn-md btn-success btn-rounded font-weight-bold" data-toggle="modal" data-target="#futureCpanel"><?php echo $_SESSION['name']; ?></a>
+        </div>
         <?php } else { ?>
-            <a class="btn btn-md btn-rounded peach-gradient text-dark font-weight-bold d-block d-lg-none" href="../login/">Login</a>
+            <a class="btn btn-md btn-rounded btn-success text-dark font-weight-bold d-block d-lg-none" href="../login/">Login</a>
             <li class="nav-item dropdown position-static d-none d-lg-block">
                 <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</a>
                 <div class="dropdown-menu dropdown-menu-left dropdown-menu-md-right">

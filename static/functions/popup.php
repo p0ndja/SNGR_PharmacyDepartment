@@ -40,13 +40,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <a class="dropdown-item" href="../profile/edit"> แก้ไขข้อมูลส่วนตัว <i class="fas fa-user-tie"></i></a>
+                <a class="dropdown-item" href="../profile/"> แก้ไขข้อมูลส่วนตัว <i class="fas fa-user-tie"></i></a>
                 <?php if (isAdmin($_SESSION['id'], $conn)) { ?>
-                    <hr>
-                    <a class="dropdown-item text-secondary" href="../a/config"> Server Settings <i class="fas fa-user-tie"></i></a>
-                    <a class="dropdown-item text-secondary" href="../a/user"> User Management <i class="fas fa-user-tie"></i></a>
-                    <a class="dropdown-item text-secondary" href="../a/#" disabled> Forum Administrator <i class="fas fa-user-tie"></i></a>
-                    <a class="dropdown-item text-secondary" href="../a/#" disabled> News Editorial <i class="fas fa-user-tie"></i></a>
+                    <hr>                    
+                    <a class="dropdown-item text-secondary" href="../user/"> User Management <i class="fas fa-user-tie"></i></a>
                 <?php } ?>
                 <hr>
                 <a class="dropdown-item text-danger" href="../logout/">ออกจากระบบ <i class="fas fa-sign-out-alt"></i></a>
