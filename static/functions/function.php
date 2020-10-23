@@ -5,7 +5,7 @@
     }
 
     function isAdmin($id, $conn) {
-        if (getUserdata($id, 'isAdmin', $conn)) return true;
+        if (getRole($id, $conn) == "admin") return true;
         return false;
     }
 
@@ -16,8 +16,8 @@
         return false;
     }
 
-    function getRole($conn) {
-        return getUserdata($_SESSION['id'], 'role', $conn);
+    function getRole($id, $conn) {
+        return getUserdata($id, 'role', $conn);
     }
 
     function checkPermission($perm, $id, $conn) {
@@ -96,7 +96,7 @@
 <?php
 
     function getDisplayName($id, $conn) {
-        return getUserdata($id, 'displayname', $conn);
+        return getUserdata($id, 'firstname', $conn) . ' ' . getUserdata($id, 'lastname', $conn);
     }
 
     function getClientIP() {
@@ -212,6 +212,31 @@
         }
         
         return "<span class='badge badge-$style'>$title</span>";
+    }
+
+    function convertJobToText($job) {
+        if ($job == "contractor") return "รับจ้างทั่วไป / ลูกจ้าง";
+        else if ($job == "civilservant") return "รับราชการ / พนักงานรัฐ";
+        else if ($job == "business") return "ธุรกิจส่วนตัว";
+        else if ($job == "other") return " - ";
+        else if ($job == "doctor") return "แพทย์";
+        else if ($job == "nurse") return "พยาบาล";
+        else if ($job == "pharmacist") return "เภสัชกร";
+        else if ($job == "staff") return "บุคลากรภายใน";
+        else return "Undefined";
+    }
+
+    function convertRoleToText($role) {
+        if ($role = "admin") return "แอดมิน";
+        else if ($role = "headManu") return "งานผลิต";
+        else if ($role = "headInv") return "งานคลังยาและเวชภัณฑ์";
+        else if ($role = "headServ") return "งานบริการจ่ายยา";
+        else if ($role = "headDIC") return "งานเภสัชสนเทศทางยา";
+        else if ($role = "CoP") return "ชุมชนนักปฏิบัติ (CoP)";
+        else if ($role = "reporter") return "ผู้รายงานข่าวประชาสัมพันธ์";
+        else if ($role = "hospitalStaff") return "บุคลากรภายใน";
+        else if ($role = "secretary") return "เลขานุการ";
+        else return "ผู้เยี่ยมชม";
     }
 
     function generateCategoryTitle($category) {
