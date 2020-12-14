@@ -157,7 +157,7 @@
 </nav>
 
 <body>
-    <?php needLogin(); //Permission might be here; ?>
+    <?php needLogin(); needPermission("category", $conn); ?>
     <div class="container" style="padding-top: 88px;">
         <div class="container mb-3" id="container">
         <form method="POST" action="../pages/post_save.php<?php if (isset($_GET['id'])) echo '?news=' . $_GET['id']; ?>"

@@ -58,6 +58,8 @@
     //saveUserdata('604019', 'username', 'PondJaTH', $conn);
 
     function canThisRoleDoThisPerm($role, $perm, $conn) {
+        $r = getAnySQL('permission', $perm, 'role', $role, $conn);
+        if (empty($r)) return null;
         return getAnySQL('permission', $perm, 'role', $role, $conn);
     }
     //canThisRoleDoThisPerm('admin', 'editAbout', $conn);
@@ -366,6 +368,25 @@
         title: "ACCESS DENIED",
         text: "You don't have enough permission!",
         icon: "warning"
+    }).then(function () {
+        window.location = "../home/";
+    });
+</script>
+<?php die(); return false;}
+        return true;
+    }
+?>
+<?php
+    function needRole($role, $conn) {
+    if (!isset($_SESSION['id']) || !isLogin()) { needLogin(); die(); return false; }
+    if (getRole($_SESSION['id'], $conn) != $role && !isAdmin($_SESSION['id'], $conn)) { ?>
+<script>
+    swal({
+        title: "ACCESS DENIED",
+        text: "You don't have enough permission!",
+        icon: "warning"
+    }).then(function () {
+        window.location = "../home/";
     });
 </script>
 <?php die(); return false;}
