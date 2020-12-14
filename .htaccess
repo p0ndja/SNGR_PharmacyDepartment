@@ -35,6 +35,10 @@ RewriteRule ^guest/$ pages/post.php?viewas=guest [L]
 RewriteRule ^staff/$ pages/post.php?viewas=staff [L]
 RewriteRule ^dealer/$ pages/post.php?viewas=dealer [L]
 
+RewriteRule ^log/$ pages/log.php [L]
+
+RewriteRule ^epub/(.*)$ pages/flipbook_loader.php?file=../file/epub/$1.pdf
+
 Options +FollowSymlinks
 Options +Indexes
 IndexOptions +FancyIndexing

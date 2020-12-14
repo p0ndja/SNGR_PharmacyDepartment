@@ -64,3 +64,8 @@
     
     <!-- Fontawesome -->
     <link href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" rel="stylesheet" />
+
+    <!-- Flipbook StyleSheet -->
+    <link href="../static/interface/js/dflip/css/dflip.min.css" rel="stylesheet" type="text/css">
+    <!-- Icons Stylesheet -->
+    <link href="../static/interface/js/dflip/css/themify-icons.min.css" rel="stylesheet" type="text/css">

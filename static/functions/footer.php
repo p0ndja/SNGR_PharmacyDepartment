@@ -114,6 +114,7 @@
         }});
     $('input[type=email]').val('test').siblings('label').addClass('active');
 </script>
+<script src="../static/interface/js/dflip/js/dflip.min.js" type="text/javascript"></script>
 
 <div id="fb-root"></div><script async defer crossorigin="anonymous" src="https://connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v7.0&appId=2529205720433288&autoLogAppEvents=1" nonce="2UGIjGvo"></script>
 
