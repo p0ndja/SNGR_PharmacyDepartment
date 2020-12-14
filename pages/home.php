@@ -180,7 +180,7 @@
                     <div class="row">
                         <div class="col-6 col-md-3">
                             <a href="../category/CoPADR-1">
-                            <div class="card">
+                            <div class="card mb-3">
                                 <div class="card-img-top"><img class="d-block img-fluid"
                                         src="../static/elements/hotlink/adr.jpg" alt="ADR"></div>
                             </div>
@@ -188,7 +188,7 @@
                         </div>
                         <div class="col-6 col-md-3">
                             <a href="../category/CoPHAD-1">
-                            <div class="card">
+                            <div class="card mb-3">
                                 <div class="card-img-top"><img class="d-block img-fluid"
                                         src="../static/elements/hotlink/had.jpg" alt="HAD"></div>
                             </div>
@@ -196,7 +196,7 @@
                         </div>
                         <div class="col-6 col-md-3">
                             <a href="../category/CoPME-1">
-                            <div class="card">
+                            <div class="card mb-3">
                                 <div class="card-img-top"><img class="d-block img-fluid"
                                         src="../static/elements/hotlink/me.jpg" alt="ME"></div>
                             </div>
@@ -204,7 +204,7 @@
                         </div>
                         <div class="col-6 col-md-3">
                             <a href="../category/CoPRDU-1">
-                            <div class="card">
+                            <div class="card mb-3">
                                 <div class="card-img-top"><img class="d-block img-fluid"
                                         src="../static/elements/hotlink/rdu.jpg" alt="RDU"></div>
                             </div>
@@ -213,7 +213,7 @@
                     </div>
                     <hr>
                     <div class="row mb-4">
-                        <div class="col-6 col-md-6">
+                        <div class="col-12 col-md-6">
                             <a href="../category/research-1">
                             <div class="card mb-3">
                                 <div class="card-img-top"><img class="d-block img-fluid"
@@ -221,7 +221,7 @@
                             </div>
                             </a>
                         </div>
-                        <div class="col-6 col-md-6">
+                        <div class="col-12 col-md-6">
                             <a href="../download/">
                             <div class="card mb-3">
                                 <div class="card-img-top"><img class="d-block img-fluid"
