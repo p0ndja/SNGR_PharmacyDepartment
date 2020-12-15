@@ -15,18 +15,40 @@
 <body>
     <div class="container" style="padding-top: 88px;">
         <div class="container mb-3" id="container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Timestamp</th>
+                        <th scope="col">User</th>
+                        <th scope="col">Action</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
         <?php
             needRole("admin", $conn);
             $start_id = 0;
             $item_per_page = 10;
 
-            $q = "SELECT * FROM `log` ORDER BY `time` DESC, LIMIT {$start_id}, {$item_per_page}";
+            $q = "SELECT * FROM `log` ORDER BY `time` DESC LIMIT {$start_id}, {$item_per_page}";
             $r = mysqli_query($conn, $q);
 
-            while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-            
-            }
+            while ($row = mysqli_fetch_array($r, MYSQLI_ASSOC)) { 
+                $userID = $row['user'];
+            ?>
+                    <tr>
+                        <th scope="row"><?php echo $row['id'];?></th>
+                        <td><?php echo $row['time']; ?></td>
+                        <td><?php echo getDisplayName($userID, $conn) . " ($userID)"; ?></td>
+                        <td><?php echo $row['action']; ?></td>
+                        <td><?php echo $row['data']; ?></td>
+                    </tr>
+            <? }
         ?>
+                </tbody>
+            </table>
         </div>
     </div>
     

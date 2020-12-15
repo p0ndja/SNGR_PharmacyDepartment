@@ -97,6 +97,45 @@
 ?>
 <?php
 
+    function getActionName($action) {
+
+        switch($action) {
+            case "USER_EDIT_PROFILE":
+                return "แก้ไขข้อมูลผู้ใช้";
+
+            case "USER_FORUM_POST":
+                return "โพสต์ฟอรั่ม";
+            case "USER_FORUM_EDIT":
+                return "แก้ไขโพสต์ฟอรั่ม";
+            case "USER_FORUM_DELETE":
+                return "ลบโพสต์ฟอรั่ม";
+            case "USER_FORUM_COMMENT_POST":
+                return "โพสต์ความคิดเห็นในฟอรั่ม";
+            case "USER_FORUM_COMMENT_DELETE":
+                return "ลบโพสต์ความคิดเห็นในฟอรั่ม";
+            
+            case "USER_ARTICLE_POST":
+                return "โพสต์ข่าว";
+            case "USER_ARTICLE_EDIT":
+                return "แก้ไขโพสต์ข่าว";
+            case "USER_ARTICLE_DELETE":
+                return "ลบโพสต์ข่าว";
+
+            case "USER_FILE_FILE_CREATE":
+                return "เพิ่มไฟล์";
+            case "USER_FILE_FILE_DELETE":
+                return "ลบไฟล์";
+            case "USER_FILE_FOLDER_MKDIR":
+                return "สร้างโฟลเดอร์";
+            case "USER_FILE_FOLDER_RMDIR":
+                return "ลบโฟลเดอร์";
+            default:
+                return strtoupper($action);
+
+        }
+
+    }
+
     function getDisplayName($id, $conn) {
         return getUserdata($id, 'firstname', $conn) . ' ' . getUserdata($id, 'lastname', $conn);
     }
