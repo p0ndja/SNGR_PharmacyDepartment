@@ -45,7 +45,7 @@
                         <td><?php echo getActionName($row['action']); ?></td>
                         <td><?php echo str_replace("\n", "<br>", $row['data']); ?></td>
                     </tr>
-            <? }
+            <?php }
         ?>
                 </tbody>
             </table>
