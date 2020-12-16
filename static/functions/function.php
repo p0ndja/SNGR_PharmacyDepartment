@@ -265,6 +265,18 @@
         return "<span class='badge badge-$style'>$title</span>";
     }
 
+    function generateForumTopic($topic) {
+        $main = '<span class="badge %color% z-depth-0">%title%</span>';
+        if ($topic == "general") $main = str_replace("%title%", "พูดคุยทั่วไป", str_replace("%color%", "badge-smd", $main));
+        else if ($topic == "knowledge") $main = str_replace("%title%", "รอบรู้เรื่องเรียน", str_replace("%color%", "badge-info", $main));
+        else if ($topic == "alumni") $main = str_replace("%title%", "ศิษย์เก่า", str_replace("%color%", "red darken-4", $main));
+        else if ($topic == "marketplace") $main = str_replace("%title%", "ตลาดนัด SMD", str_replace("%color%", "badge-success", $main));
+        else if ($topic == "bugreport") $main = str_replace("%title%", "แจ้งปัญหาการใช้งาน", str_replace("%color%", "purple", $main));
+        else if ($topic == "suggestion") $main = str_replace("%title%", "เสนอแนะ", str_replace("%color%", "indigo", $main));
+        else if ($topic == "updatelog") $main = str_replace("%title%", "อัพเดทเว็บไซต์", str_replace("%color%", "pink lighten-1", $main));
+        return $main;
+    }
+
     function convertJobToText($job) {
         if ($job == "contractor") return "รับจ้างทั่วไป / ลูกจ้าง";
         else if ($job == "civilservant") return "รับราชการ / พนักงานรัฐ";

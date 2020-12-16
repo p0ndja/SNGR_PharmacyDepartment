@@ -5,8 +5,12 @@
     $dbuser = "pondjaco";
     $dbpass = "11032545";
     $dbdatabase = "pondjaco_srinagarindhospital";
+    $dbdatabaseForum = "pondjaco_srinagarindhospitalforum";
     $conn = mysqli_connect($dbhost,$dbuser,$dbpass,$dbdatabase); 
+    $connForum = mysqli_connect($dbhost,$dbuser,$dbpass,$dbdatabaseForum); 
+    
     mysqli_set_charset($conn, 'utf8');
+    mysqli_set_charset($connForum, 'utf8');
 
     if(!$conn)  die('Could not connect: ' . mysqli_error($conn));
     

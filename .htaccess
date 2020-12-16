@@ -37,6 +37,12 @@ RewriteRule ^dealer/$ pages/post.php?viewas=dealer [L]
 
 RewriteRule ^log/$ pages/log.php [L]
 
+RewriteRule ^forum/$ pages/forum_index.php
+RewriteRule ^forum/([0-9]+)$ pages/forum_index.php?id=$1
+RewriteRule ^forum/create$ pages/forum_edit.php [L]
+RewriteRule ^forum/error$ pages/forum_error.php [L]
+RewriteRule ^forum/edit-([0-9]+)$ pages/forum_edit.php?id=$1
+
 RewriteRule ^epub/(.*)$ pages/flipbook_loader.php?file=../file/epub/$1.pdf
 
 Options +FollowSymlinks
