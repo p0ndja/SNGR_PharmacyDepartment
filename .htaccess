@@ -45,6 +45,8 @@ RewriteRule ^forum/edit-([0-9]+)$ pages/forum_edit.php?id=$1
 
 RewriteRule ^epub/(.*)$ pages/flipbook_loader.php?file=../file/epub/$1.pdf
 
+RewriteRule ^admin/(.*)$ pages/admin_$1.php
+
 Options +FollowSymlinks
 Options +Indexes
 IndexOptions +FancyIndexing
