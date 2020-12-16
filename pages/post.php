@@ -50,7 +50,7 @@
     <div class="container" id="container" style="padding-top: 88px">
         <?php if(!isset($_GET['id'])) {
             echo generateCategoryTitle($title); ?>
-        <?php if (isLogin() && canThisRolePostAnything(getUserdata($_SESSION['id'], 'role', $conn), $conn)) { ?><a href="../post/create"
+        <?php if (isLogin() && canThisRolePostAnything(getRole($_SESSION['id'], $conn);, $conn)) { ?><a href="../post/create"
             class="btn btn-sm btn-info"><i class="fas fa-plus"></i> เขียนข่าวใหม่</a><?php } ?>
     <hr>
     <?php } ?>
@@ -99,7 +99,7 @@
                 <div class="card-text">
                     <h5 class="font-weight-bold"><?php echo generateCategoryBadge($row['category']); ?> <a
                             href="../post/<?php echo $row['id']; ?>"><?php echo $row['title']; ?></a>
-                        <?php if (isLogin() && canUseThisCategory(getUserdata($_SESSION['id'], 'role', $conn), $row['category'], $conn)) { ?><a
+                        <?php if (isLogin() && canUseThisCategory(getRole($_SESSION['id'], $conn);, $row['category'], $conn)) { ?><a
                             href="../post/edit-<?php echo $row['id']; ?>"><i class="fas fa-edit text-success"></i></a>
                         <a
                             onclick='
@@ -149,7 +149,7 @@
             <div class="card hoverable mt-1">
                 <?php if ($row['cover'] != null) { ?><img class="card-img-top"
                     src="<?php echo $row['cover']; ?>"><?php } ?>
-                <?php if (isLogin() && canUseThisCategory(getUserdata($_SESSION['id'], 'role', $conn), $row['category'], $conn)) { ?><div class="card-body text-white p-2"><a
+                <?php if (isLogin() && canUseThisCategory(getRole($_SESSION['id'], $conn);, $row['category'], $conn)) { ?><div class="card-body text-white p-2"><a
                         href="<?php echo $row['hotlink']; ?>" target="_blank"><?php echo $row['title']; ?></a>
                     <a href="../post/edit-<?php echo $row['id']; ?>"><i class="fas fa-edit text-success"></i></a> <a
                         onclick='

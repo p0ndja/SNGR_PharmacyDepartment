@@ -56,7 +56,9 @@
         }
         $_SESSION['name'] = getUserdata($_SESSION['id'], 'firstname', $conn) . ' ' . getUserdata($_SESSION['id'], 'lastname', $conn);
         $_SESSION['shortname'] = getUserdata($_SESSION['id'], 'firstname', $conn);
-        
+
+        addLog($conn, $id, 'USER_PROFILE_EDIT', "ID: $id\nUSER: $username\nFIRSTNAME: $fname\nLASTNAME: $lname\nEMAIL: $email\nROLE: $role\nJOB: $job\n PROFILE: $finalFile\n")
+
         $name = $_SESSION['name'];        
         if ($real_email != $email) {
             header("Location: ../static/functions/verify/mail.php?key=$pass&email=$email&name=$name&method=changeEmail");

@@ -29,9 +29,12 @@
             <?php if (!isset($_GET['path'])) { ?>
             <?php $dirs = scandir('../file/form/'); $c = 0;
                 for ($i = 2; $i < sizeof($dirs); $i++) {
-                    $c++;
-                    echo '<a href="./' . $dirs[$i]. '"><i class="fas fa-folder"></i> ' . $dirs[$i] . '</a><br>';
-                }
+                    $c++; ?>
+                    <a href="./<?php echo $dirs[$i]?>"><i class="fas fa-folder"></i> <?php echo $dirs[$i]; ?> </a>  <?php if (isPermission('editDLForm', $conn)) { ?>
+                    <a onclick='swal({title: "ลบโฟลเดอร์หรือไม่ ?",text: "หลังจากที่ลบแล้ว ไฟล์ทั้งหมดในโฟลเดอร์จะหายและไม่สามารถกู้คืนได้!",icon: "warning",buttons: true,dangerMode: true}).then((willDelete) => { if (willDelete) { window.location = "../pages/download_delete.php?method=dir&name=null&path=<?php echo $dirs[$i]; ?>";}});'>
+                            <i class="fas fa-trash-alt text-danger"></i></a>
+                    <?php } ?><br>
+                <?php }
                 if ($c == 0) echo "&nbsp;&nbsp;&nbsp;&nbsp; <sub><i>ไม่พบโฟลเดอร์ใด ๆ ในระบบ<br>หากคุณเป็นแอดมิน ลอง Create Folder ดูสิ!</i></sub>";
 
             ?>
@@ -45,7 +48,7 @@
                         if ($entry != "." && $entry != "..") {
                             echo "<a href='../file/form/" . $path . '/' . $entry . "'>&nbsp;&nbsp;&nbsp;&nbsp; <i class='fas fa-file'></i> $entry</a>";
                             if (isPermission('editDLForm', $conn)) { ?>
-                                <a onclick='swal({title: "ลบไฟล์ <?php echo $entry; ?> หรือไม่ ?",text: "หลังจากที่ลบแล้วจะไม่สามารถกู้คืนได้!",icon: "warning",buttons: true,dangerMode: true}).then((willDelete) => { if (willDelete) { window.location = "../pages/download_delete.php?name=<?php echo $entry; ?>&path=<?php echo $path; ?>";}});'><i class="fas fa-trash-alt text-danger"></i></a>
+                                <a onclick='swal({title: "ลบไฟล์ <?php echo $entry; ?> หรือไม่ ?",text: "หลังจากที่ลบแล้วจะไม่สามารถกู้คืนได้!",icon: "warning",buttons: true,dangerMode: true}).then((willDelete) => { if (willDelete) { window.location = "../pages/download_delete.php?method=file&name=<?php echo $entry; ?>&path=<?php echo $path; ?>";}});'><i class="fas fa-trash-alt text-danger"></i></a>
                             <?php }
                             echo "<br>"; 
                             $count++;

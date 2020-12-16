@@ -92,6 +92,10 @@ if (isset($_POST['post_submit']) || isset($_POST['post_update'])) {
         $finalFilePath .= "'";
         savePostdata($news, 'attachment', $finalFilePath, $conn); 
     }
+
+    $action = (isset($_POST['post_submit'])) ? "USER_ARTICLE_POST" : "USER_ARTICLE_EDIT";
+    addLog($conn, $_SESSION['id'], "$action", "POST_ID: $id\nTITLE: $title\nTAG: $tags\nCATEGORY: $category\nHIDE: $hide\nPIN: $pinned\nVISIBLE: $finalG\nCOVER: $finaldir\nATTACH: $finalFilePath\nARTICLE: $article");
+
 }
 header("Location: ../category/$category-1");
 ?>

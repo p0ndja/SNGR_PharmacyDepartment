@@ -6,6 +6,7 @@ if (isset($_GET['id']) && isLogin() && canUseThisCategory(getRole($_SESSION['id'
     $r = mysqli_query($conn, $q);
     if (!$r) die('Could not get data: '.mysqli_error($conn)); 
     $_SESSION['swal_success'] = "ลบโพสต์ข่าว ID : $id เรียบร้อยแล้ว!";
+    addLog($conn, $_SESSION['id'], "USER_ARTICLE_DELETE", "POST_ID: $id");
     back();
 } else {
     back();

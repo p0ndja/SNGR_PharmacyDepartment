@@ -33,7 +33,7 @@
             $re = mysqli_query($conn, "UPDATE `user` set password = '$pass' WHERE id = '$id'");
             if (! $re) die('Could not update text: ' . mysqli_error($conn));
         }
-        
+        $finalFile = "";
         if(isset($_FILES['profile_upload']) && $_FILES['profile_upload']['name'] != ""){
             if ($_FILES['profile_upload']['name']) {
                 if (!$_FILES['profile_upload']['error']) {
@@ -59,17 +59,14 @@
             $re = mysqli_query($conn, "UPDATE `user` set id = $new_id WHERE id = '$id'");
             if (! $re) die('Could not set id: ' . mysqli_error($conn));
 
-            $re = mysqli_query($conn, "UPDATE `post` set user = '[$new_id]' WHERE user = '[$id]'");
+            $re = mysqli_query($conn, "UPDATE `post` set user = '$new_id' WHERE user = '$id'");
             if (! $re) die('Could not set id: ' . mysqli_error($conn));
-
-            $re = mysqli_query($conn, "UPDATE `reserve` set list = REPLACE(list,'[$id]','[$new_id]')");
-            if (! $re) die('Could not set id: ' . mysqli_error($conn));
-            $id = $new_id;
         }
 
         $_SESSION['swal_success'] = "ปรับปรุงข้อมูลสำเร็จ";
         $_SESSION['swal_success_msg'] = "คุณได้ปรับปรุงข้อมูลของ " . getDisplayname($id, $conn) . " ($id)";
         
+        addLog($conn, $id, 'USER_PROFILE_EDIT', "ID: $id\nUSER: $username\nFIRSTNAME: $fname\nLASTNAME: $lname\nEMAIL: $email\nROLE: $role\nJOB: $job\n PROFILE: $finalFile\n")
         header("Location: ../user/$id");
     }
 ?>

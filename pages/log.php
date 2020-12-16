@@ -13,6 +13,7 @@
 </nav>
 
 <body>
+    <?php needRole("admin", $conn); ?>
     <div class="container" style="padding-top: 88px;">
         <div class="container mb-3" id="container">
             <table class="table">
@@ -28,9 +29,8 @@
                 <tbody>
                     
         <?php
-            needRole("admin", $conn);
             $start_id = 0;
-            $item_per_page = 10;
+            $item_per_page = 25;
 
             $q = "SELECT * FROM `log` ORDER BY `time` DESC LIMIT {$start_id}, {$item_per_page}";
             $r = mysqli_query($conn, $q);
@@ -42,8 +42,8 @@
                         <th scope="row"><?php echo $row['id'];?></th>
                         <td><?php echo $row['time']; ?></td>
                         <td><?php echo getDisplayName($userID, $conn) . " ($userID)"; ?></td>
-                        <td><?php echo $row['action']; ?></td>
-                        <td><?php echo $row['data']; ?></td>
+                        <td><?php echo getActionName($row['action']); ?></td>
+                        <td><?php echo str_replace("\n", "<br>", $row['data']); ?></td>
                     </tr>
             <? }
         ?>

@@ -25,13 +25,17 @@
         return true;
     }
 
+    function addLog($conn, $userID, $action, $description) {
+        return mysqli_query($conn, "INSERT INTO `log` (`user`,`action`,`data`) VALUES ('$userID', '$action', '$description')");
+    }
+
     function getAnySQL($sql, $val, $key, $key_val, $conn) {
         if ($sql == null || $val == null || $key == null || $key_val == null || $conn == null) return false;
         return mysqli_fetch_array(mysqli_query($conn, "SELECT `$val` from `$sql` WHERE $key = '$key_val'"), MYSQLI_ASSOC)[$val];
     }
 
     function saveAnySQL($sql, $col, $val, $key, $key_val, $conn) {
-        if ($sql == null || $key == null || $key_val == null || $conn == null) return false;
+        if ($sql == null || $col == null || $key == null || $key_val == null || $conn == null) return false;
         return mysqli_query($conn, "UPDATE `$sql` SET `$col` = $val WHERE `$key` = '$key_val'");
     }
 
@@ -100,7 +104,7 @@
     function getActionName($action) {
 
         switch($action) {
-            case "USER_EDIT_PROFILE":
+            case "USER_PROFILE_EDIT":
                 return "แก้ไขข้อมูลผู้ใช้";
 
             case "USER_FORUM_POST":
@@ -129,6 +133,12 @@
                 return "สร้างโฟลเดอร์";
             case "USER_FILE_FOLDER_RMDIR":
                 return "ลบโฟลเดอร์";
+
+            case "USER_REGISTER":
+                return "สร้างบัญชีใหม่";
+            case "USER_LOGIN":
+                return "ลงชื่อเข้าใช้";
+            
             default:
                 return strtoupper($action);
 
