@@ -73,8 +73,9 @@
                     <?php echo $_SESSION['name']; ?></a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-pharm" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="../profile/"> แก้ไขข้อมูลส่วนตัว <i class="fas fa-user"></i></a>
+                    <?php if (isPermission("editHomepage", $conn)) { ?><a class="dropdown-item text-pharm" href="../admin/homepage"> แก้ไขหน้าหลัก</a><?php } ?>
+                    <?php if (isPermission("viewSuggestion", $conn)) { ?><a class="dropdown-item text-pharm" href="../admin/suggestion"> ดูรายการร้องเรียน</a><?php } ?>
                     <?php if (isAdmin($_SESSION['id'], $conn)) { ?>
-                    <div class="dropdown-divider"></div>
                     <a class="dropdown-item text-pharm" href="../user/"> จัดการบัญชีผู้ใช้งาน <i class="fas fa-user-tie"></i></a>
                     <a class="dropdown-item text-pharm" href="../log/"> ประวัติการแก้ไข <i class="fas fa-clock"></i></a>
                     <?php } ?>

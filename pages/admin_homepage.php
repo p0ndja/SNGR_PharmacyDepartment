@@ -15,7 +15,7 @@
 <body>
     <div class="container" style="padding-top: 88px;">
         <div class="container mb-3" id="container">
-            <?php needLogin(); needPermission("editHomepage", $conn); ?>
+            <?php needPermission("editHomepage", $conn); ?>
             <div class="row">
             <div class="col-12 col-md-7">
             <h4 class="font-weight-bold">Edit Carousel</h4>
