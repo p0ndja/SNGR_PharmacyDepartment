@@ -27,9 +27,9 @@ RewriteRule ^suggestion/$ pages/suggestion.php
 RewriteRule ^profile/$ pages/profile.php
 RewriteRule ^profile/([0-9]+)$ pages/userLoad.php?id=$1
 RewriteRule ^saveProfile/$ pages/profile_save.php [L]
-RewriteRule ^saveUser/([0-9]+)$ pages/user_save.php?id=$1 [L]
-RewriteRule ^user/$ pages/user.php [L]
-RewriteRule ^user/([0-9]+)$ pages/user.php?id=$1
+
+RewriteRule ^user/$ pages/admin_user.php [L]
+RewriteRule ^user/([0-9]+)$ pages/admin_user.php?id=$1
 
 RewriteRule ^guest/$ pages/post.php?viewas=guest [L]
 RewriteRule ^staff/$ pages/post.php?viewas=staff [L]

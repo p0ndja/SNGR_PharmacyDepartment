@@ -32,7 +32,7 @@
             if (isset($_GET['id']) && isValidUserID($_GET['id'], $conn)) {
         $id = $_GET['id']; ?>
             <div class="card mb-3">
-                <form method="post" action="../saveUser/<?php echo $id; ?>" enctype="multipart/form-data" id="userEditForm">
+                <form method="post" action="../pages/admin_user_save.php?id=<?php echo $id; ?>" enctype="multipart/form-data" id="userEditForm">
                     <input type="hidden" id="real_id" name="real_id" value="<?php echo $id; ?>">
                     <div class="card-body">
                         <div class="row">
@@ -250,7 +250,7 @@
                                 <hr>
 
                                 <a class="btn btn-outline-danger btn-lg" href="javascript:{}"
-                                    onclick='swal({title: "ลบผู้ใช้นี้หรือไม่ ?",text: "หลังจากที่ลบแล้ว ข่าวนี้จะไม่สามารถกู้คืนได้!",icon: "warning",buttons: true,dangerMode: true}).then((willDelete) => { if (willDelete) { window.location = "../admin/user_delete.php?id=<?php echo $id; ?>";}});''>ยืนยันการลบผู้ใช้นี้ <u><b>!! ไม่สามารถกู้คืนได้ !!</b></u></a>
+                                    onclick='swal({title: "ลบผู้ใช้นี้หรือไม่ ?",text: "หลังจากที่ลบแล้ว ข่าวนี้จะไม่สามารถกู้คืนได้!",icon: "warning",buttons: true,dangerMode: true}).then((willDelete) => { if (willDelete) { window.location = "../pages/admin_user_delete.php?id=<?php echo $id; ?>";}});''>ยืนยันการลบผู้ใช้นี้ <u><b>!! ไม่สามารถกู้คืนได้ !!</b></u></a>
 
                                 </div>
                             </div>
