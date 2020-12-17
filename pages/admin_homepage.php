@@ -17,8 +17,8 @@
         <div class="container mb-3" id="container">
             <?php needLogin(); needPermission("editHomepage", $conn); ?>
             <div class="row">
-            <div class="col-12 col-md-6">
-            <h4 class="font-weight-bold">Carousel</h4>
+            <div class="col-12 col-md-7">
+            <h4 class="font-weight-bold">Edit Carousel</h4>
             <!--Carousel Wrapper-->
             <div id="carousel" class="carousel slide carousel-multi-item" data-ride="carousel">
 
@@ -117,10 +117,10 @@
                     <div class="carousel-item">
                         <div class="col-md-12" style="float:left">
                             <div class="card mb-3">
-                                <img class="card-img-top" src="https://placehold.it/1920x1080" id="carousel-preview" name="carousel-preview">
+                                <img class="card-img-top" src="https://placehold.it/1920x1080?text=Add new image" id="carousel-preview" name="carousel-preview">
                                 <div class="card-body">
                                     <form action="../pages/admin_carousel_save.php" method="post" enctype="multipart/form-data" >
-                                        <input type="file" class="mb-3" name="carousel_file" id="newCarousel"></input>
+                                        <input type="file" class="mb-3" name="carousel_file" id="newCarousel" required></input>
                                         <script>
                                             document.getElementById("newCarousel").onchange = function () {
                                                 var reader = new FileReader();
@@ -151,13 +151,30 @@
             </div>
             <!--/.Carousel Wrapper-->
             </div>
-            <div class="col-12 col-md-6">
-                Right Panel
+            <div class="col-12 col-md-5">
+                <h4 class="font-weight-bold">Edit Promoting Video</h4>
+                <form action="../pages/admin_video_save.php" method="post" enctype="multipart/form-data">
+                    <?php
+                    $vdo = watchVDO();
+                    foreach($vdo as $v) { ?> 
+                        <input type="text" placeholder="ใส่ลิงก์ Embedded Video ของคุณที่นี่..." class="form-control mr-sm-3 mb-1" id="vdo" name="vdo[]" value="<?php echo $v; ?>"></input>
+                    <?php } ?>
+                    <input type="text" placeholder="ใส่ลิงก์ Embedded Video ของคุณที่นี่..." class="form-control mr-sm-3 mb-1" id="vdo" name="vdo[]"></input>
+                    <div id="addOnVDOSection">
+                    </div>
+                    <button type="button" class="btn btn-success btn-floating" id="addButton" onclick="addVDOText();"><i class="fas fa-plus"></i></button>
+                    <input type="submit" class="btn btn-success" value="Update!"></input>
+                </form>
             </div>
             </div>
         </div>
     </div>
 
+    <script>
+        function addVDOText() {
+            $("#addOnVDOSection").append('<input type="text" placeholder="ใส่ลิงก์ Embedded Video ของคุณที่นี่..." class="form-control mr-sm-3 mb-1" id="vdo" name="vdo[]"></input>');
+        }
+    </script>
 
     <?php require '../static/functions/popup.php'; ?>
     <?php require '../static/functions/footer.php'; ?>

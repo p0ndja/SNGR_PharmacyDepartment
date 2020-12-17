@@ -41,5 +41,5 @@
             die("CAN'T WRITE FILE");
         fclose($file);
     }
-    header("Location: ../admin/carousel");
+    header("Location: ../admin/homepage");
 ?>

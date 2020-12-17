@@ -98,6 +98,26 @@
     function isVerify($id, $conn) {
         return getUserdata($id, 'isEmailVerify', $conn);
     }
+
+    function watchVDO() {
+        $vdo = array();
+        $txtFile = "../static/elements/video.txt";
+        if (file_exists($txtFile)) {
+            $file = fopen("../static/elements/video.txt", "r");
+            while(!feof($file)) {
+                array_push($vdo, fgets($file));
+                # do same stuff with the $vdo
+            }
+            fclose($file);
+        } else {
+            $file = fopen("../static/elements/video.txt","w");
+            if (!fwrite($file,"https://www.youtube.com/embed/VXZM6imLsw4"))
+                die("CAN'T WRITE FILE");
+            fclose($file);
+        }
+
+        return array_filter($vdo);
+    }
 ?>
 <?php
 

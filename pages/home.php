@@ -88,7 +88,7 @@
                             <?php if ($line != null) { ?>
                             <div class="carousel-caption d-none d-md-block animated fadeInDown">
                                 <div class="carousel-caption-text">
-                                    <h5><?php echo $line[0]; ?></h5>
+                                    <h5><?php echo $line[0]; ?> <?php if (isPermission("editHomepage", $conn)) echo "<a href='../admin/homepage' class='text-danger'><i class='fas fa-pencil-alt'></i></a>"?></h5>
                                     <p>
                                     <?php for($o = 1; $o < count($line); $o++) {
                                         echo $line[$o] . "<br>";
@@ -231,46 +231,23 @@
                         </div>
                     </div>
                     <div class="row mb-4">
-                        <div class="col-12 col-md-6">
-                            <div class="card mb-3">
-                                <div class="card-img-top">
-                                    <div class="embed-responsive embed-responsive-16by9">
-                                        <iframe class="embed-responsive-item"
-                                            src="https://www.youtube.com/embed/VXZM6imLsw4" allowfullscreen></iframe>
+                        <?php foreach(watchVDO() as $v) { ?>
+                            <div class="col-12 col-md-6">
+                                <div class="card mb-3">
+                                    <div class="card-img-top">
+                                        <div class="embed-responsive embed-responsive-16by9">
+                                            <iframe class="embed-responsive-item"
+                                                src="<?php echo $v; ?>" allowfullscreen></iframe>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="card mb-3">
-                                <div class="card-img-top">
-                                    <div class="embed-responsive embed-responsive-16by9">
-                                        <iframe class="embed-responsive-item"
-                                            src="https://www.youtube.com/embed/_sB1OSMl59c" allowfullscreen></iframe>
-                                    </div>
-                                </div>
+                        <?php } ?>
+                        <?php if (isPermission("editHomepage", $conn)) { ?>
+                            <div class="col-12 col-md-6">
+                                <a href="../admin/homepage">แก้ไขรายการวิดีโอ</a>
                             </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="card mb-3">
-                                <div class="card-img-top">
-                                    <div class="embed-responsive embed-responsive-16by9">
-                                        <iframe class="embed-responsive-item"
-                                            src="https://www.youtube.com/embed/El9wqKzL4RU" allowfullscreen></iframe>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="card mb-3">
-                                <div class="card-img-top">
-                                    <div class="embed-responsive embed-responsive-16by9">
-                                        <iframe class="embed-responsive-item"
-                                            src="https://www.youtube.com/embed/GpVz9SOv8oQ" allowfullscreen></iframe>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <?php } ?>
                     </div>
                 </div>
                 <div class="col-12 col-md-3">
