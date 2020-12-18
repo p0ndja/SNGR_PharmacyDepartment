@@ -152,12 +152,11 @@
                     </a>
                 </div>
             </div>
-            <hr>
-            <div class="row">
+            <div class="row mt-3">
                 <div class="col-md-9 col-12">
                     <!--- First -->
                     <div class="mb-3">
-                        <h3 class="font-weight-bold">ข่าวประชาสัมพันธ์ - News</h3>
+                        <?php echo createHeader("ข่าวประชาสัมพันธ์"); ?>
                         <div class="card-columns">
                             <?php
                                 $query = "SELECT * FROM `post` WHERE isHidden = 0 AND category = 'news' ORDER by isPinned DESC, time DESC limit 5";
@@ -175,8 +174,7 @@
                         </div>
                         <a href="../category/news-1" class="btn btn-info"><i class="fas fa-arrow-circle-right"></i> อ่านเพิ่มเติม...</a>
                     </div>
-                    <hr>
-                    <h4 class="font-weight-bold">ชุมชนนักปฏิบัติ - Community of Practice</h4>
+                    <div class="mb-1 mt-3"><?php echo createHeader("ชุมชนนักปฏิบัติ"); ?></div>
                     <div class="row">
                         <div class="col-6 col-md-3">
                             <a href="../category/CoPADR-1">
@@ -211,11 +209,10 @@
                             </a>
                         </div>
                     </div>
-                    <hr>
-                    <div class="row mb-4">
+                    <div class="row mb-3">
                         <div class="col-12 col-md-6">
                             <a href="../category/research-1">
-                            <div class="card mb-3">
+                            <div class="card mb-1">
                                 <div class="card-img-top"><img class="d-block img-fluid"
                                         src="../static/elements/hotlink/researchr2r.jpg" alt="First slide"></div>
                             </div>
@@ -223,14 +220,14 @@
                         </div>
                         <div class="col-12 col-md-6">
                             <a href="../download/">
-                            <div class="card mb-3">
+                            <div class="card mb-1">
                                 <div class="card-img-top"><img class="d-block img-fluid"
                                         src="../static/elements/hotlink/dlform.jpg" alt="First slide"></div>
                             </div>
                             </a>
                         </div>
                     </div>
-                    <div class="row mb-4">
+                    <div class="row">
                         <?php foreach(watchVDO() as $v) { ?>
                             <div class="col-12 col-md-6">
                                 <div class="card mb-3">

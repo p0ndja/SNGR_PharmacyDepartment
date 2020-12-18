@@ -118,6 +118,10 @@
 
         return array_filter($vdo);
     }
+
+    function createHeader($text) {
+        return '<div class="c_header"><div class="c_title">'.$text.'<div class="c_tail"></div><div class="c_tail2"></div></div></div>';
+    }
 ?>
 <?php
 

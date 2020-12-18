@@ -232,6 +232,39 @@
         color: white;
     }
 
+    .c_title {
+        color: #fff;
+        background:  #1d7b25;
+        padding: .15em .7em;
+        padding-right: 1em;
+        display: inline-block;
+        position: relative;
+    }
+    .c_tail {
+        position: absolute;
+        background: #1d7b25;
+        width: 30px;
+        height: 100%;
+        top: 0;
+        right: -18px;
+        transform: skew(30deg, 0deg);
+        z-index: 0;
+    }
+    .c_tail2 {
+        position: absolute;
+        background: rgb(29 123 37 / .5);
+        width: 30px;
+        height: 100%;
+        top: 4px;
+        right: -47px;
+        transform: skew(30deg, 0deg) scale(.8);
+        z-index: 0;
+    }
+    .c_header {
+        font-size: 1.5em;
+        border-bottom: 2px solid #1d7b25;
+    }
+
     body {
         font-family: 'Kanit', sans-serif;
         background-color: rgba(241, 241, 243);
