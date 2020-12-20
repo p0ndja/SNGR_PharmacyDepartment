@@ -1,9 +1,9 @@
+<div id="testMobile" class="d-none d-lg-block"></div>
 <footer class="footer" id="footer">
     <div class="container">
-        <br>
         <div class="row">
             <div class="col-12">
-                <h4 style="color: white" class="font-weight-bold"><img src="../static/elements/logo/favicon-32x32.png" height="32">
+                <h4 style="color: white" class="font-weight-bold mt-3"><img src="../static/elements/logo/favicon-32x32.png" height="32">
                     ฝ่ายเภสัชกรรม โรงพยาบาลศรีนครินทร์</h4>
                 <hr>
             </div>
@@ -72,6 +72,12 @@
         $('.btn-floating').unbind('click');
         $('.fixed-action-btn').unbind('click');
         //$(".loader").delay(1500).fadeOut("slow");
+
+        if ($(window).width() < 992) {
+            <?php $_SESSION['isMobile'] = true; ?>
+        } else {
+            <?php $_SESSION['isMobile'] = false; ?>
+        }
     });
 
     if ($(document.body).height() < $(window).height()) {

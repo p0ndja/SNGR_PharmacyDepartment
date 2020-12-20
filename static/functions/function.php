@@ -329,52 +329,51 @@
     function generateCategoryTitle($category) {
         $path = "../static/elements/header/$category.png";
         if (file_exists($path)) {
-            return "<div><img src='$path'/>";
+            return "<img src='$path'/>";
         } else {
+            $text = strtoupper($category);
             if ($category == "~")
-                return "<div class='display-4'>โพสต์ทั้งหมด</div>";
+                $text = "โพสต์ทั้งหมด";
             else if ($category == "about")
-                return "<div class='display-4'>เกี่ยวกับ</div>";
+                $text = "เกี่ยวกับ";
             else if ($category == "manufacture")
-                return "<div class='display-4'>งานผลิต</div>";
+                $text = "งานผลิต";
             else if ($category == "inventory")
-                return "<div class='display-4'>งานคลังยาและเวชภัณฑ์</div>";
+                $text = "งานคลังยาและเวชภัณฑ์";
             else if ($category == "service")
-                return "<div class='display-4'>งานบริการจ่ายยา</div>";
+                $text = "งานบริการจ่ายยา";
             else if ($category == "DIC")
-                return "<div class='display-4'>งานเภสัชสนเทศทางยา</div>";
+                $text = "งานเภสัชสนเทศทางยา";
             else if ($category == "general")
-                return "<div class='display-4'>โพสต์ทั่วไป</div>";
+                $text = "โพสต์ทั่วไป";
             else if ($category == "news")
-                return "<div class='display-4'>ข่าวประชาสัมพันธ์</div>";
+                $text = "ข่าวประชาสัมพันธ์";
             else if ($category == "order")
-                return "<div class='display-4'>คำสั่ง</div>";
+                $text = "คำสั่ง";
             else if ($category == "announce")
-                return "<div class='display-4'>ประกาศ</div>";
+                $text = "ประกาศ";
             else if ($category == "guideline")
-                return "<div class='display-4'>ระเบียบ - แนวทางปฏิบัติ</div>";
+                $text = "ระเบียบ - แนวทางปฏิบัติ";
             else if ($category == "manual")
-                return "<div class='display-4'>คู่มือการใช้ยา</div>";
+                $text = "คู่มือการใช้ยา";
             else if ($category == "research")
-                return "<div class='display-4'>ผลงานวิจัยและ R2R</div>";
+                $text = "ผลงานวิจัยและ R2R";
             else if ($category == "CoPADR")
-                return "<div class='display-4'>ชุมชนนักปฏิบัติ ADR</div>";
+                $text = "ชุมชนนักปฏิบัติ ADR";
             else if ($category == "CoPHAD")
-                return "<div class='display-4'>ชุมชนนักปฏิบัติ HAD</div>";
+                $text = "ชุมชนนักปฏิบัติ HAD";
             else if ($category == "CoPME")
-                return "<div class='display-4'>ชุมชนนักปฏิบัติ ME</div>";
+                $text = "ชุมชนนักปฏิบัติ ME";
             else if ($category == "CoPRDU")
-                return "<div class='display-4'>ชุมชนนักปฏิบัติ RDU</div>";
+                $text = "ชุมชนนักปฏิบัติ RDU";
             else if ($category == "viewas_guest")
-                return "<div class='display-4'>โพสต์สำหรับประชาชนทั่วไป</div>";
+                $text = "โพสต์สำหรับประชาชนทั่วไป";
             else if ($category == "viewas_staff")
-                return "<div class='display-4'>โพสต์สำหรับบุคลากรภายใน</div>";
+                $text = "โพสต์สำหรับบุคลากรภายใน";
             else if ($category == "viewas_dealer")
-                return "<div class='display-4'>โพสต์สำหรับบริษัทยา</div>";
-            
-            
-            else
-                return "<div class='display-4'>" . strtoupper($category);
+                $text = "โพสต์สำหรับบริษัทยา";
+
+            return createHeader($text);
         }
     }
 
@@ -503,6 +502,36 @@
             });
 </script>
 <?php } ?>
+<?php function requireMobile() { ?>
+    <script>
+        if ($(window).width() < 992) {
+            swal({
+                title: "ไม่สามารถเข้าถึงเนื้อหาได้",
+                text: "หน้าเว็บนี้เหมาะสำหรับการใช้งานบนคอมพิวเตอร์เท่านั้น โปรดลองอีกครั้งบนคอมพิวเตอร์",
+                icon: "warning",}).then(function () {
+                    window.location = "../home/";   
+            }); 
+        }
+    </script>
+<?php } ?>
+
+<?php
+    function noMobile() {
+        if ($_SESSION['isMobile']) {
+     ?>
+<script>
+    swal({
+        title: "ACCESS DENIED",
+        text: "You don't have enough permission!",
+        icon: "warning"
+    }).then(function () {
+        window.location = "../home/";
+    });
+</script>
+<?php die(); return false; }
+        return true;
+    }
+?>
 
 <?php function deletePost($id) { ?>
     <script>
