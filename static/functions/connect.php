@@ -1,7 +1,7 @@
 <?php
     ob_start();
     session_start();
-    $dbhost = "p0nd.ga";
+    $dbhost = "pondhub.ga";
     $dbuser = "pondjaco";
     $dbpass = "11032545";
     $dbdatabase = "pondjaco_srinagarindhospital";
