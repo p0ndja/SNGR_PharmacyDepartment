@@ -29,6 +29,7 @@
                                 <img class="img-fluid w-100" src="<?php echo getProfilePicture($id, $conn); ?>" id="profile_preview">
                                 <input type="file" name="profile_upload" id="profile_upload"
                                         class="form-control-file validate mt-1 mb-1" accept="image/png, image/jpeg">
+                                <input type="hidden" id="profile_final" name="profile_final" value="<?php echo $profile_image; ?>">
                                 <a class="btn btn-success btn-block btn-lg" href="javascript:{}"
                                     onclick="document.getElementById('userEditForm').submit();">บันทึกข้อมูล <i
                                         class="fas fa-save"></i></a>
@@ -118,11 +119,83 @@
             </div>
         </div>
     </div>
+    <div id="uploadimageModal" class="modal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Upload & Crop Image</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col text-center">
+                            <div id="image_demo" style="width:100%; margin-top:30px"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-success crop_image">Crop & Upload Image</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <?php require '../static/functions/popup.php'; ?>
     <?php require '../static/functions/footer.php'; ?>
     <script>
+
+        $(document).ready(function () {
+            $image_crop = $('#image_demo').croppie({
+                enableExif: true,
+                viewport: {
+                    width: 325,
+                    height: 325,
+                    type: 'square' //circle
+                },
+                boundary: {
+                    width: 333,
+                    height: 333
+                }
+            });
+
+            $('#profile_upload').on('change', function () {
+                var reader = new FileReader();
+                reader.onload = function (event) {
+                    $image_crop.croppie('bind', {
+                        url: event.target.result
+                    }).then(function () {
+                        console.log('jQuery bind complete');
+                    });
+                }
+                reader.readAsDataURL(this.files[0]);
+                $('#uploadimageModal').modal('show');
+            });
+
+            $('.crop_image').click(function (event) {
+                $image_crop.croppie('result', {
+                    type: 'canvas',
+                    size: 'viewport'
+                }).then(function (response) {
+                    $.ajax({
+                        url: "../pages/profile_upload.php",
+                        type: "POST",
+                        data: {
+                            "userID": <?php echo $id; ?>,
+                            "image": response
+                        },
+                        success: function (data) {
+                            $('#uploadimageModal').modal('hide');
+                            $('#profile_preview').attr('src',data);
+                            $('#profile_final').val(data);
+                            console.log($('#profile_final').val());
+                        }
+                    });
+                })
+            });
+
+        });
         $("input[type=radio]").change(function () {
             if (this.id == "student") {
                 $('#studentZone').css('display', 'block');

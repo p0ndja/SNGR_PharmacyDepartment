@@ -1,6 +1,7 @@
 <?php
 require '../static/functions/connect.php';
 $category = "~";
+
 if (isset($_POST['post_submit']) || isset($_POST['post_update'])) {
     $id = $_SESSION['id'];
     $title = $_POST['title'];
@@ -38,7 +39,7 @@ if (isset($_POST['post_submit']) || isset($_POST['post_update'])) {
         $hotlink = null;
 
     if (isset($_POST['post_submit'])) {
-        $query_final = "INSERT INTO `post` (title, writer, time, article, tags, hotlink, category, isHidden, isPinned, visible, category) VALUES ('$title', '$writer', '$time', '$article', '$tags', '$hotlink', '$type', '$hide', $pinned, '$finalG', '$category')";
+        $query_final = "INSERT INTO `post` (title, writer, time, article, tags, hotlink, isHidden, isPinned, visible, category) VALUES ('$title', '$writer', '$time', '$article', '$tags', '$hotlink', '$hide', $pinned, '$finalG', '$category')";
         $result_final = mysqli_query($conn, $query_final);
         if (!$result_final) die('Could not post '.mysqli_error($conn));
         $news = mysqli_insert_id($conn);
@@ -50,7 +51,9 @@ if (isset($_POST['post_submit']) || isset($_POST['post_update'])) {
     }
 
     if (!file_exists("../file/post/".$news."/")) {
-        mkdir("../file/post/".$news."/");
+        die(is_writable("../file/post/"));
+        if (!mkdir("../file/post/".$news."/")) die("NOOOOOO");
+        else die("YESSSSSS");
     }
 
     $finaldir = null;
@@ -73,6 +76,8 @@ if (isset($_POST['post_submit']) || isset($_POST['post_update'])) {
 
     $fileTotal = count($_FILES['attachment']['name']);
     $finalFilePath = null;
+
+
     if (is_uploaded_file($_FILES['attachment']['tmp_name'][0])) {
         if (!file_exists("../file/post/" . $news . "/". "attachment/")) {
             mkdir("../file/post/" . $news . "/". "attachment/");
@@ -82,8 +87,8 @@ if (isset($_POST['post_submit']) || isset($_POST['post_update'])) {
                 $name_file = $_FILES['attachment']['name'][$i];
                 $tmp_name = $_FILES['attachment']['tmp_name'][$i];
                 $locate_img ="../file/post/".$news.'/'.'attachment/';
-                move_uploaded_file($tmp_name,$locate_img.$name_file);
-                rename($locate_img.$name_file, $locate_img.$name_file);
+                if (!move_uploaded_file($tmp_name,$locate_img.$name_file)) die("Can't upload file");
+                if (!rename($locate_img.$name_file, $locate_img.$name_file)) die("Can't move file");
                 $finalFiledir = $locate_img.$name_file;
                 if ($i == 0) $finalFilePath = "'". $finalFiledir;
                 else $finalFilePath .= ',' . $finalFiledir;

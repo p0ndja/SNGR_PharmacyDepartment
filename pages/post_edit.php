@@ -279,7 +279,7 @@
                     </div>
                     <h6 class="font-weight-bold">การมองเห็นโพสต์ / Visibility</h6>
                         <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="visible_guest" name="visible[]" value="guest" <?php if(hasVisible($visible, 'general')) echo "checked "; ?>>
+                            <input type="checkbox" class="form-check-input" id="visible_guest" name="visible[]" value="guest" <?php if(hasVisible($visible, 'guest')) echo "checked "; ?>>
                             <label class="form-check-label" for="visible_guest">สำหรับบุคคลทั่วไป</label>
                         </div>
                         <div class="form-check">

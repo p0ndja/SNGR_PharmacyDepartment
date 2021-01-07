@@ -24,8 +24,10 @@
         $real_email = $_POST['real_email'];
         
         $job = $_POST['job'];
+
+        $finalProfile = $_POST['profile_final'];
         
-        $re = mysqli_query($conn, "UPDATE `user` set  firstname = '$fname', lastname = '$lname', email = '$email', job = '$job' WHERE id = '$id'");
+        $re = mysqli_query($conn, "UPDATE `user` set  firstname = '$fname', lastname = '$lname', email = '$email', job = '$job', profilePic = '$finalProfile' WHERE id = '$id'");
         if (! $re) die('Could not update text: ' . mysqli_error($conn));
 
         if (isset($_POST['password']) && !empty($_POST['password'])) {
@@ -34,6 +36,7 @@
             if (! $re) die('Could not update text: ' . mysqli_error($conn));
         }
         
+        /*
         if(isset($_FILES['profile_upload']) && $_FILES['profile_upload']['name'] != ""){
             if ($_FILES['profile_upload']['name']) {
                 if (!$_FILES['profile_upload']['error']) {
@@ -54,10 +57,12 @@
                 }
             }
         }
+        */
+
         $_SESSION['name'] = getUserdata($_SESSION['id'], 'firstname', $conn) . ' ' . getUserdata($_SESSION['id'], 'lastname', $conn);
         $_SESSION['shortname'] = getUserdata($_SESSION['id'], 'firstname', $conn);
 
-        addLog($conn, $id, 'USER_PROFILE_EDIT', "ID: $id\nUSER: $username\nFIRSTNAME: $fname\nLASTNAME: $lname\nEMAIL: $email\nROLE: $role\nJOB: $job\n PROFILE: $finalFile\n")
+        addLog($conn, $id, 'USER_PROFILE_EDIT', "ID: $id\nUSER: $username\nFIRSTNAME: $fname\nLASTNAME: $lname\nEMAIL: $email\nROLE: $role\nJOB: $job\n PROFILE: $finalFile\n");
 
         $name = $_SESSION['name'];        
         if ($real_email != $email) {
