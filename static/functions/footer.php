@@ -78,6 +78,7 @@
         } else {
             <?php $_SESSION['isMobile'] = false; ?>
         }
+        attachFooter();
     });
 
     if ($(document.body).height() < $(window).height()) {
@@ -86,13 +87,17 @@
         $('#footer').removeAttr('style');
     }
 
-    $(window).on('resize', function() {
+    function attachFooter() {
         console.log($(document.body).height() + " | " + $(window).height());
         if ($(document.body).height()*1.11 < $(window).height()) {
             $('#footer').attr('style', 'position: fixed!important; bottom: 0px;');
         } else {
             $('#footer').removeAttr('style');
         }
+    }
+
+    $(window).on('resize', function() {
+        attachFooter();
     });
 
     $('.dropdown-menu').find('form').click(function (e) {
@@ -122,8 +127,6 @@
     $('input[type=email]').val('test').siblings('label').addClass('active');
 </script>
 <script src="../static/interface/js/dflip/js/dflip.min.js" type="text/javascript"></script>
-
-<div id="fb-root"></div><script async defer crossorigin="anonymous" src="https://connect.facebook.net/th_TH/sdk.js#xfbml=1&version=v7.0&appId=2529205720433288&autoLogAppEvents=1" nonce="2UGIjGvo"></script>
 
 <?php $_SESSION['isDarkProfile'] = 0; ?>
 <?php mysqli_close($conn); ?>

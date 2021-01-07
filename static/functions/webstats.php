@@ -1,5 +1,5 @@
 <?php
-    $wshost = "p0nd.ga";
+    $wshost = "pondhub.ga";
     $wsuser = "pondjaco_webstatsPharmacy";
     $wspass = "E1FUeBj0";
     $wsdatabase = "pondjaco_webstatsPharmacy";

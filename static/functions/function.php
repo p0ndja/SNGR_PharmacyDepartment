@@ -377,6 +377,70 @@
         }
     }
 
+    function WTFTime($dateString) {
+        if(strtotime($dateString) > time()) {
+            return 1;
+        # date is in the future
+        }
+        if(strtotime($dateString) < time()) {
+            return -1;
+        # date is in the past
+        }
+        if(strtotime($dateString) == time()) {
+            return 0;
+        # date is right now
+        }
+    }
+
+    function dateDifference($date_1 , $date_2 = 'now' , $differenceFormat = '%a' )
+    {
+        $datetime1 = date_create($date_1);
+        $datetime2 = date_create($date_2);
+    
+        $interval = date_diff($datetime1, $datetime2);
+    
+        return $interval->format($differenceFormat);
+    
+    }
+
+    function fromThenToNow($date_1, $differenceFormat = '%a')
+    {
+        $datetime1 = date_create($date_1);
+        date_default_timezone_set('Asia/Bangkok'); 
+        $datetime2 = date_create('now');
+    
+        $interval = date_diff($datetime1, $datetime2);
+
+        $time = WTFTime($date_1);
+    
+        $days = $interval->format($differenceFormat);
+        $msg = "";
+        if ($days == 0) {
+            if ($hour = dateDifference($date_1, 'now', '%h'))
+                $msg = "เมื่อ " . $hour . " ชั่วโมงที่แล้ว";
+            else if ($min = dateDifference($date_1, 'now', '%i'))
+                $msg = "เมื่อ " . $min . " นาทีที่แล้ว";
+            else
+                $msg = "เมื่อสักครู่";
+        }
+        else if ($time > 0) {
+            if ($days > 365)
+                $msg = "อีก " . floor($days/365) . " ปี";
+            else if ($days > 30)
+                $msg = "อีก " . floor($days/30) . " เดือน";
+            else
+                $msg = "อีก $days วัน";
+        } else {
+            if ($days > 365)
+                $msg = "เมื่อ " . floor($days/365) . " ปีที่แล้ว";
+            if ($days > 30)
+                $msg = "เมื่อ " . floor($days/30) . " เดือนที่แล้ว";
+            else
+                $msg = "เมื่อ $days วันที่แล้ว";
+        }
+        return "<a title='$date_1 ICT'>$msg</a>";
+    }
+
     function generateOpenGraphMeta($conn) {
         $current_url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         

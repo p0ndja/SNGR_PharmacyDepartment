@@ -31,6 +31,8 @@
         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> ข่าวสาร </a>
             <div class="dropdown-menu dropdown-pharm" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="../news/">Srinagarind Pharmacy Newsletter</a>
+                <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="../category/news-1">ข่าวประชาสัมพันธ์</a>
                 <a class="dropdown-item" href="../category/order-1">คำสั่ง</a>
                 <a class="dropdown-item" href="../category/announce-1">ประกาศ</a>
