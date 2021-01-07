@@ -93,7 +93,7 @@
         <?php while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) { $c++; ?>
         <?php if (getPostdata($row['id'], 'hotlink', $conn) == null) { ?>
         <div class="card hoverable mb-3 mt-1">
-            <?php if ($row['cover'] != null) { ?><img class="card-img-top" src="<?php echo $row['cover']; ?>"><?php } ?>
+            <?php if (!empty($row['cover']) || !empty($row['thumbnail'])) { if (isset($_GET['id'])) $thumb = $row['cover']; else $thumb = !empty($row['thumbnail']) ? $row['thumbnail'] : $row['cover']; ?><img class="card-img-top" src="<?php echo $thumb; ?>"><?php } ?>
             <div class="card-body">
                 <div class="card-text">
                     <h5 class="font-weight-bold"><?php echo generateCategoryBadge($row['category']); ?> <a
@@ -146,8 +146,8 @@
         <?php } else { // Case post is a hotlink ?>
         <a href="<?php echo $row['hotlink']; ?>" target="_blank">
             <div class="card hoverable mt-1">
-                <?php if ($row['cover'] != null) { ?><img class="card-img-top"
-                    src="<?php echo $row['cover']; ?>"><?php } ?>
+                <?php if (!empty($row['cover']) || !empty($row['thumbnail'])) { $thumb = !empty($row['thumbnail']) ? $row['thumbnail'] : $row['cover'];?><img class="card-img-top"
+                    src="<?php echo $thumb; ?>"><?php } ?>
                 <?php if (isLogin() && canUseThisCategory(getRole($_SESSION['id'], $conn), $row['category'], $conn)) { ?><div class="card-body text-white p-2"><a
                         href="<?php echo $row['hotlink']; ?>" target="_blank" class="font-weight-bold md"><?php echo $row['title']; ?></a>
                     <a href="../post/edit-<?php echo $row['id']; ?>"><i class="fas fa-edit text-success"></i></a> <a

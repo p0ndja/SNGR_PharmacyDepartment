@@ -22,6 +22,7 @@ if(isset($_POST["image"]))
 	}
 	$imageName = "../file/profile/" . $_POST['userID'] . "/Avatar_" . generateRandom(32) . '.png';
 	file_put_contents($imageName, $data);
+	createThumbnail($imageName, 0.1);
 	echo $imageName;
 }
 

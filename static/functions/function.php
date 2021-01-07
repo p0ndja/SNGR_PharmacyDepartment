@@ -180,6 +180,68 @@
         return $_SERVER['REMOTE_ADDR'];
     }
 
+    function createThumbnail($path, $size = 0.125) {
+        $dir = pathinfo($path, PATHINFO_DIRNAME);
+        $nam = pathinfo($path, PATHINFO_FILENAME);
+        $ext = pathinfo($path, PATHINFO_EXTENSION);
+
+        list($wid, $ht) = getimagesize($path);
+
+        $dul = "";
+        if (file_exists("$dir/$nam.thumbnail.$ext")) {
+            $i = 1;
+            while(file_exists("$dir/$nam.thumbnail"."_$i.$ext")) {
+                $i++;
+            }
+            $dul = "_$i";
+        }
+
+        return imageResize($wid*$size, "$dir/$nam.thumbnail$dul", $path);
+    }
+
+    function imageResize($newWidth, $targetFile, $originalFile) {
+
+        $info = getimagesize($originalFile);
+        $mime = $info['mime'];
+    
+        switch ($mime) {
+                case 'image/jpeg':
+                        $image_create_func = 'imagecreatefromjpeg';
+                        $image_save_func = 'imagejpeg';
+                        $new_image_ext = 'jpg';
+                        break;
+    
+                case 'image/png':
+                        $image_create_func = 'imagecreatefrompng';
+                        $image_save_func = 'imagepng';
+                        $new_image_ext = 'png';
+                        break;
+    
+                case 'image/gif':
+                        $image_create_func = 'imagecreatefromgif';
+                        $image_save_func = 'imagegif';
+                        $new_image_ext = 'gif';
+                        break;
+    
+                default: 
+                        throw new Exception('Unknown image type.');
+        }
+    
+        $img = $image_create_func($originalFile);
+        list($width, $height) = getimagesize($originalFile);
+    
+        $newHeight = (int) floor(($height / $width) * $newWidth);
+        $newWidth = (int) floor($newWidth);
+        $tmp = imagecreatetruecolor($newWidth, $newHeight);
+        imagecopyresampled($tmp, $img, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+    
+        if (file_exists($targetFile)) {
+                unlink($targetFile);
+        }
+        if (!$image_save_func($tmp, "$targetFile.$new_image_ext")) return 0;
+        return "$targetFile.$new_image_ext";
+    }
+
     function path_curTime() {
         date_default_timezone_set('Asia/Bangkok'); return date('Y/m/d', time());
     }

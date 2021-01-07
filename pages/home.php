@@ -191,9 +191,12 @@
                         <a href="<?php echo $link; ?>" class="text-dark">
                             <div class="card mb-3 <?php if (getPostdata($row['id'], 'isPinned', $conn)) echo 'border border-success z-depth-1'; ?>">
                                 <div class="row g-0">
+                                    <?php if (!empty($row['cover']) || !empty($row['thumbnail'])) {
+                                        $thumb = !empty($row['thumbnail']) ? $row['thumbnail'] : $row['cover']; ?>
                                     <div class="col-md-auto col-12">
-                                        <img src="<?php echo $row['cover']; ?>" class="img-fluid" style="max-height: 200px;"/>
+                                        <img src="<?php echo $thumb; ?>" class="img-fluid" style="max-height: 200px;"/>
                                     </div>
+                                    <?php } ?>
                                     <div class="col-md">
                                         <div class="card-body">
                                         <h5 class="font-weight-bold card-title"><a href="<?php echo $link; ?>" class="md"><?php echo $row['title']; ?></a> <?php if (isLogin() && canUseThisCategory(getRole($_SESSION['id'], $conn), $row['category'], $conn)) { ?><small><a
