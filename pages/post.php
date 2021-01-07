@@ -10,9 +10,9 @@
     <style>
         @media (min-width: 960px) {
             .card-columns {
-                -webkit-column-count: 2;
-                -moz-column-count: 2;
-                column-count: 2;
+                -webkit-column-count: 3;
+                -moz-column-count: 3;
+                column-count: 3;
             }
         }
 
@@ -97,17 +97,17 @@
             <div class="card-body">
                 <div class="card-text">
                     <h5 class="font-weight-bold"><?php echo generateCategoryBadge($row['category']); ?> <a
-                            href="../post/<?php echo $row['id']; ?>"><?php echo $row['title']; ?></a>
-                        <?php if (isLogin() && canUseThisCategory(getRole($_SESSION['id'], $conn), $row['category'], $conn)) { ?><a
+                            href="../post/<?php echo $row['id']; ?>" class="md"><?php echo $row['title']; ?></a>
+                        <?php if (isLogin() && canUseThisCategory(getRole($_SESSION['id'], $conn), $row['category'], $conn)) { ?><small><a
                             href="../post/edit-<?php echo $row['id']; ?>"><i class="fas fa-edit text-success"></i></a>
                         <a
                             onclick='
                                     swal({title: "ลบข่าวหรือไม่ ?",text: "หลังจากที่ลบแล้ว ข่าวนี้จะไม่สามารถกู้คืนได้!",icon: "warning",buttons: true,dangerMode: true}).then((willDelete) => { if (willDelete) { window.location = "../pages/post_delete.php?id=<?php echo $row["id"]; ?>&category=<?php echo $row["category"]; ?>";}});'>
-                            <i class="fas fa-trash-alt text-danger"></i></a><?php } ?>
+                            <i class="fas fa-trash-alt text-danger"></i></a></small><?php } ?>
                     </h5>
                     <?php if (!empty($row['tags'])) { ?><p class="card-text"><i class="fas fa-tag"></i> Tag: 
                     <?php foreach (explode(",", $row['tags']) as $s) { ?>
-                        <u><a href="../category/<?php echo $row['category'] . "-1-" . $s; ?>"><?php echo $s; ?></a></u>
+                        <u><a href="../category/<?php echo $row['category'] . "-1-" . $s; ?>" class="md"><?php echo $s; ?></a></u>
                         <?php } ?>
                     </p><?php }?>
                 </div>
@@ -133,14 +133,14 @@
                 <?php } ?>
                 <?php } ?>
                 <?php } ?>
-            </div>
-            <div class="card-footer">
                 <i class="far fa-clock"></i>
+                <small class="text-muted">
                 <?php
                     $writer_id = $row['writer'];
                     $writer_name = getUserdata($writer_id, 'firstname', $conn) . ' ' . getUserdata($writer_id, 'lastname', $conn) . ' (' . getUserdata($writer_id, 'username', $conn) . ')';
-                    echo $row['time'] . ' โดย ' . '<a href="../profile/' . $writer_id . '">' . $writer_name . '</a>'; 
+                    echo fromThenToNow($row['time']) . ' โดย ' . '<a href="../profile/' . $writer_id . '" class="md">' . $writer_name . '</a>'; 
                 ?>
+                </small>
             </div>
         </div>
         <?php } else { // Case post is a hotlink ?>
@@ -149,7 +149,7 @@
                 <?php if ($row['cover'] != null) { ?><img class="card-img-top"
                     src="<?php echo $row['cover']; ?>"><?php } ?>
                 <?php if (isLogin() && canUseThisCategory(getRole($_SESSION['id'], $conn), $row['category'], $conn)) { ?><div class="card-body text-white p-2"><a
-                        href="<?php echo $row['hotlink']; ?>" target="_blank"><?php echo $row['title']; ?></a>
+                        href="<?php echo $row['hotlink']; ?>" target="_blank" class="font-weight-bold md"><?php echo $row['title']; ?></a>
                     <a href="../post/edit-<?php echo $row['id']; ?>"><i class="fas fa-edit text-success"></i></a> <a
                         onclick='
                                     swal({title: "ลบข่าวหรือไม่ ?",text: "หลังจากที่ลบแล้ว ข่าวนี้จะไม่สามารถกู้คืนได้!",icon: "warning",buttons: true,dangerMode: true}).then((willDelete) => { if (willDelete) { window.location = "../pages/post_delete.php?id=<?php echo $row["id"]; ?>&category=<?php echo $row["category"]; ?>";}});'>
