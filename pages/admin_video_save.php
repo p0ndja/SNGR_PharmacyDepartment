@@ -10,7 +10,8 @@
             /* Case Youtube */
             $v = str_replace("youtube.com/watch?v=", "youtube.com/embed/", $v);
             $v = str_replace("youtu.be/", "youtube.com/embed/", $v);
-            $AllVDO .= "$v\n";
+            if (!empty($v))
+                $AllVDO .= "$v\n";
         }
 
         $file = fopen("../static/elements/video.txt","w");

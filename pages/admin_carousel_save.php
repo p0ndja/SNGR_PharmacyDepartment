@@ -3,7 +3,7 @@
 
     if (isLogin() && isPermission("editHomepage", $conn)) {
 
-        $finaldir = ""; $name_file = "";
+        $finaldir = ""; $name_file = (isset($_GET['name'])) ? $_GET['name'] : "";
         if (isset($_FILES['carousel_file']) && $_FILES['carousel_file']['name'] != "") {
             $name_file = $_FILES['carousel_file']['name'];
             $tmp_name = $_FILES['carousel_file']['tmp_name'];
@@ -37,9 +37,13 @@
         }
 
         $file = fopen("../static/elements/carousel/$picName.txt","w");
-        if (!fwrite($file,"$title\n$description"))
-            die("CAN'T WRITE FILE");
-        fclose($file);
+        if (!fwrite($file,"$title\n$description")) {
+            $_SESSION['swal_error'] = "พบข้อผิดพลาด!";
+            $_SESSION['swal_error_msg'] = "ไม่สามารถเขียน/อ่านไฟล์ได้";
+        } else {
+            $_SESSION['swal_success'] = "สำเร็จ!";
+            fclose($file);
+        }
     }
     header("Location: ../admin/homepage");
 ?>

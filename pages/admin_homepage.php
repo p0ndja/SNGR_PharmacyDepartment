@@ -20,7 +20,7 @@
             <div class="col-12 col-md-7">
             <h4 class="font-weight-bold">Edit Carousel</h4>
             <!--Carousel Wrapper-->
-            <div id="carousel" class="carousel slide carousel-multi-item" data-ride="carousel">
+            <div id="carousel" class="carousel slide carousel-multi-item" data-interval="false">
 
                 <!--Controls-->
                 <div class="controls-top">
@@ -87,7 +87,7 @@
                                     <img class="card-img-top" src="<?php echo $picPath; ?>" alt="Card image cap" id="carousel_<?php echo $i; ?>" name="carousel_<?php echo $i; ?>">
                                     <div class="card-body">
                                         <form action="../pages/admin_carousel_save.php?name=<?php echo $picFile;?>" method="post" enctype="multipart/form-data" >
-                                            <input type="file" name="carousel_file" id="carousel_file_<?php echo $i;?>" class="mb-3"></input>
+                                            <input type="file" name="carousel_file" id="carousel_file_<?php echo $i;?>" class="mb-3" accept="image/png, image/jpeg"></input>
                                             <script>
                                                 document.getElementById("carousel_file_<?php echo $i;?>").onchange = function () {
                                                     var reader = new FileReader();
@@ -108,6 +108,7 @@
                                                 <textarea type="text" placeholder="คำอธิบาย" class="form-control mr-sm-3" id="carouselDescription" name="cDescription"><?php echo $allLine; ?></textarea>
                                             </p>
                                             <input type="submit" class="btn btn-success" value="update"></input>
+                                            <a class="btn btn-danger" onclick='swal({title: "ลบรูปนี้หรือไม่",text: "หลังจากที่ลบแล้ว จะไม่สามารถกู้คืนได้!",icon: "warning",buttons: true,dangerMode: true}).then((willDelete) => { if (willDelete) { window.location = "../pages/admin_carousel_delete.php?target=<?php echo $picFile; ?>";}});'>DELETE</a>
                                         </form>
                                     </div>
                                 </div>
@@ -117,7 +118,7 @@
                     <div class="carousel-item">
                         <div class="col-md-12" style="float:left">
                             <div class="card mb-3">
-                                <img class="card-img-top" src="https://placehold.it/1920x1080?text=Add new image" id="carousel-preview" name="carousel-preview">
+                                <img class="card-img-top" src="../static/elements/1920x1080.jpg" id="carousel-preview" name="carousel-preview">
                                 <div class="card-body">
                                     <form action="../pages/admin_carousel_save.php" method="post" enctype="multipart/form-data" >
                                         <input type="file" class="mb-3" name="carousel_file" id="newCarousel" required></input>
