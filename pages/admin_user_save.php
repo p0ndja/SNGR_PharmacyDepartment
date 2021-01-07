@@ -10,7 +10,7 @@
         return $randomString;
     }
 
-    if (isset($_POST['real_id'])) {
+    if (isset($_POST['real_id']) && isLogin() && isAdmin($_SESSION['id'], $conn)) {
         $id = $_POST['real_id'];
         $query = "SELECT * FROM `user` WHERE id = '$id'";
         $result = mysqli_query($conn, $query);
@@ -66,7 +66,7 @@
         $_SESSION['swal_success'] = "ปรับปรุงข้อมูลสำเร็จ";
         $_SESSION['swal_success_msg'] = "คุณได้ปรับปรุงข้อมูลของ " . getDisplayname($id, $conn) . " ($id)";
         
-        addLog($conn, $id, 'USER_PROFILE_EDIT', "ID: $id\nUSER: $username\nFIRSTNAME: $fname\nLASTNAME: $lname\nEMAIL: $email\nROLE: $role\nJOB: $job\n PROFILE: $finalFile\n")
+        addLog($conn, $_SESSION['id'], 'USER_PROFILE_EDIT', "ID: $id\nUSER: $username\nFIRSTNAME: $fname\nLASTNAME: $lname\nEMAIL: $email\nROLE: $role\nJOB: $job\n PROFILE: $finalFile\n");
         header("Location: ../user/$id");
     }
 ?>

@@ -2,7 +2,7 @@
 require '../static/functions/connect.php';
 $category = "~";
 
-if (isset($_POST['post_submit']) || isset($_POST['post_update'])) {
+if (isset($_POST['post_submit']) || isset($_POST['post_update']) && isLogin() && isPermission('category', $conn)) {
     $id = $_SESSION['id'];
     $title = $_POST['title'];
     $article = $_POST['article'];
@@ -50,27 +50,22 @@ if (isset($_POST['post_submit']) || isset($_POST['post_update'])) {
         if (!$result_final) die('Could not post '.mysqli_error($conn));
     }
 
-    if (!file_exists("../file/post/".$news."/")) {
-        die(is_writable("../file/post/"));
-        if (!mkdir("../file/post/".$news."/")) die("NOOOOOO");
-        else die("YESSSSSS");
-    }
-
-    $finaldir = null;
+    $finaldir = null; $thumbnail = null;
     if (isset($_FILES['cover']) && $_FILES['cover']['name'] != "") {
         $name_file = $_FILES['cover']['name'];
         $tmp_name = $_FILES['cover']['tmp_name'];
         $locate_img ="../file/post/".$news."/"."thumbnail/";
         if (!file_exists($locate_img)) {
-            mkdir($locate_img);
+            if (!mkdir($locate_img)) die("Can't mkdir");
         }
-        move_uploaded_file($tmp_name,$locate_img.$name_file);
+        if (!move_uploaded_file($tmp_name,$locate_img.$name_file)) die("Can't upload file");
         $finaldir = $locate_img.$name_file;
+        $thumbnail = createThumbnail($finaldir, 0.33);
     } else if (isset($_SESSION['temp_cover']) && $_SESSION['temp_cover'] != null) {
         $finaldir = $_SESSION['temp_cover'];
         $_SESSION['temp_cover'] = null;
     }
-    $query_final = "UPDATE `post` SET cover = '$finaldir' WHERE id = '$news'";
+    $query_final = "UPDATE `post` SET cover = '$finaldir', thumbnail = '$thumbnail' WHERE id = '$news'";
     $result_final = mysqli_query($conn, $query_final);
     if (!$result_final) die('Could not post cover '.mysqli_error($conn));
 
