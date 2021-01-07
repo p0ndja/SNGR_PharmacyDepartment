@@ -2,6 +2,8 @@ RewriteEngine On
 
 RewriteCond %{REQUEST_FILENAME} !-f
 
+RewriteRule ^/$ pages/home.php
+
 RewriteRule ^home/$ pages/home.php
 RewriteRule ^login/$ pages/login.php
 RewriteRule ^logout/$ static/functions/auth/logout.php
@@ -17,8 +19,9 @@ RewriteRule ^post/([0-9]+)$ pages/post.php?id=$1
 RewriteRule ^post/create$ pages/post_edit.php
 RewriteRule ^post/edit-([0-9]+)$ pages/post_edit.php?id=$1
 
+RewriteRule ^category/$ pages/post.php [L]
+RewriteRule ^category/(.*)-([0-9]+)$ pages/post.php?category=$1&page=$2 [L]
 RewriteRule ^category/(.*)-([0-9]+)-(.*)$ pages/post.php?category=$1&page=$2&tags=$3 [L]
-RewriteRule ^category/(.*)-([0-9]+)$ pages/post.php?category=$1&page=$2
 
 RewriteRule ^search/(.*)$ pages/search.php?search=$1 [L]
 
@@ -43,11 +46,12 @@ RewriteRule ^forum/create$ pages/forum_edit.php [L]
 RewriteRule ^forum/error$ pages/forum_error.php [L]
 RewriteRule ^forum/edit-([0-9]+)$ pages/forum_edit.php?id=$1
 
-RewriteRule ^epub/(.*)$ pages/flipbook_loader.php?file=../file/epub/$1.pdf
+RewriteRule ^news/$ pages/news.php [L]
+
+RewriteRule ^epub/(.*)$ pages/flipbook_loader.php?file=../file/epub/$1
 
 RewriteRule ^admin/(.*)$ pages/admin_$1.php
 
 Options +FollowSymlinks
-Options +Indexes
-IndexOptions +FancyIndexing
+Options -Indexes
 DirectoryIndex .index.php .index.html index.php index.html .redirect.html redirect.html landing.html landing.php .landing.html .landing.php .redirect.php redirect.php
