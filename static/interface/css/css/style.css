@@ -266,7 +266,8 @@
     }
 
     body {
-        font-family: 'Kanit', sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, Roboto, 'Kanit', sans-serif;
+        font-weight: 400;
         background-color: rgba(241, 241, 243);
     }
 
@@ -428,6 +429,14 @@
         overflow-x: hidden;
         transition: 0.5s;
         padding-top: 60px;
+    }
+
+    .md {
+        color:rgba(0,0,0);
+    }
+
+    .md:hover {
+        color: #1d7b25;
     }
 
     .sidenav a {
