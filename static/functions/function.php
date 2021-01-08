@@ -180,6 +180,21 @@
         return $_SERVER['REMOTE_ADDR'];
     }
 
+    function lazy($path, $size = 0.025) {
+        $dir = pathinfo($path, PATHINFO_DIRNAME);
+        $nam = pathinfo($path, PATHINFO_FILENAME);
+        $ext = pathinfo($path, PATHINFO_EXTENSION);
+
+        list($wid, $ht) = getimagesize($path);
+
+        $dul = "";
+        if (file_exists("$dir/$nam.lazy.$ext")) {
+            return "$dir/$nam.lazy.$ext";
+        } else {
+            return imageResize($wid*$size, "$dir/$nam.lazy", $path);
+        }
+    }
+
     function createThumbnail($path, $size = 0.125) {
         $dir = pathinfo($path, PATHINFO_DIRNAME);
         $nam = pathinfo($path, PATHINFO_FILENAME);

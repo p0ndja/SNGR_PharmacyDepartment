@@ -37,6 +37,9 @@
     <script src="../vendor/bootstrap/bootstrap.min.js"></script>
     <script type="text/javascript" src="../vendor/mdbootstrap/mdb.min.js"></script>
 
+    <!-- Vanilla Lazy Loader -->
+    <script src="../vendor/vanilla-lazyload/lazyload.min.js" type="text/javascript"></script>
+
     <!-- Bootstrap-DateTimePicker-Table -->
     <!-- [[Unused]]
     <link rel="stylesheet" href="../vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
