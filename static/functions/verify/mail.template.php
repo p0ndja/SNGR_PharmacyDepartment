@@ -3,9 +3,9 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
 
-require '../../static/PHPMailer/PHPMailer.php'; // Only file you REALLY need
-require '../../static/PHPMailer/Exception.php'; // If you want to debug
-require '../../static/PHPMailer/SMTP.php';
+require '../vendor/PHPMailer/PHPMailer.php'; // Only file you REALLY need
+require '../vendor/PHPMailer/Exception.php'; // If you want to debug
+require '../vendor/PHPMailer/SMTP.php';
 
 // Form details
 $email_to = $_GET['email'];

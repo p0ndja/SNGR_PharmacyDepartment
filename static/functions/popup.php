@@ -1,4 +1,5 @@
 <!-- Announcement Modal -->
+<!--
 <div class="modal animated jackInTheBox fadeOut" id="announcementPopup" name="announcementPopup" tabindex="-1"
     role="dialog" aria-labelledby="announcementTitle" aria-hidden="true">
     <div class="modal-dialog modal-notify modal-warning modal-lg" role="document">
@@ -28,6 +29,7 @@
         </div>
     </div>
 </div>
+-->
 <!-- Mobile Cpanel Modal -->
 <?php if (isLogin()) { ?>
 <div class="modal fade right" id="futureCpanel" tabindex="-1" role="dialog" aria-labelledby="cpanelTitle"

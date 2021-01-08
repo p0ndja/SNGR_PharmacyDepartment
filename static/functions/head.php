@@ -24,48 +24,54 @@
     <?php generateOpenGraphMeta($conn); ?>
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" href="../static/interface/css/bootstrap/bootstrap.min.css">
-    <link href="../static/interface/css/css/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../vendor/bootstrap/bootstrap.min.css">
+    <link href="../vendor/mdbootstrap/mdb.min.css" rel="stylesheet">
     
     <!-- Custom Style -->
-    <link href="../static/interface/css/css/style.css" rel="stylesheet">
-    <link href="../static/interface/font/font.css" rel="stylesheet">
-    <link href="../static/interface/css/css/widthme.css" rel="stylesheet">
+    <link href="../static/style.css" rel="stylesheet">
+    <link href="../vendor/font/font.css" rel="stylesheet">
     
     <!-- Bootstrap -->
-    <script src="../static/interface/js/js/1.16.0-popper.min.js"></script>
-    <script src="../static/interface/js/js/jquery-3.5.1.min.js"></script>
-    <script src="../static/interface/css/bootstrap/bootstrap.min.js"></script>
-    <script type="text/javascript" src="../static/interface/js/js/mdb.min.js"></script>
+    <script src="../vendor/1.16.0-popper.min.js"></script>
+    <script src="../vendor/jquery-3.5.1.min.js"></script>
+    <script src="../vendor/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../vendor/mdbootstrap/mdb.min.js"></script>
 
     <!-- Bootstrap-DateTimePicker-Table -->
-    <link rel="stylesheet" href="../static/interface/css/css/bootstrap-datetimepicker.min.css">
-    <script src="../static/interface/js/js/bootstrap-datetimepicker.min.js"></script>
-
+    <!-- [[Unused]]
+    <link rel="stylesheet" href="../vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css">
+    <script src="../vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+    -->
+    
     <!-- Bootstrap-Table -->
-    <link rel="stylesheet" href="../static/interface/css/bootstrap-table/bootstrap-table.min.css">
-    <script src="../static/interface/css/bootstrap-table/bootstrap-table.min.js"></script>
-    <script src="../static/interface/css/bootstrap-table/locale/bootstrap-table-en-US.min.js"></script>
+    <!-- [[Unused]]
+    <link rel="stylesheet" href="../vendor/bootstrap-table/bootstrap-table.min.css">
+    <script src="../vendor/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="../vendor/bootstrap-table/locale/bootstrap-table-en-US.min.js"></script>
+    -->
 
     <!-- Summernote -->
-    <link href="../static/interface/js/summernote/summernote-bs4.min.css" rel="stylesheet">
-    <script src="../static/interface/js/summernote/summernote-bs4.min.js"></script>
-    <script src="../static/interface/js/summernote/summernote-file.js"></script>
+    <link href="../vendor/summernote/summernote-bs4.min.css" rel="stylesheet">
+    <script src="../vendor/summernote/summernote-bs4.min.js"></script>
+    <script src="../vendor/summernote/summernote-file.js"></script>
 
     <!-- SweetAlert -->
-    <script src="../static/interface/js/js/sweetalert.min.js"></script>
+    <script src="../vendor/sweetalert.min.js"></script>
     
     <!-- Croppie -->
-    <link rel="stylesheet" href="../static/interface/js/croppie/croppie.css" />
-    <script src="../static/interface/js/croppie/croppie.js"></script>
+    <link rel="stylesheet" href="../vendor/croppie/croppie.css" />
+    <script src="../vendor/croppie/croppie.js"></script>
 
     <!-- Dropzone -->
-    <script src="../static/interface/js/dropzone/dropzone.js"></script>
+    <link rel="stylesheet" href="../vendor/dropzone/min/basic.min.css" />
+    <link rel="stylesheet" href="../vendor/dropzone/min/dropzone.min.css" />
+    <script src="../vendor/dropzone/min/dropzone.min.js"></script>
     
     <!-- Fontawesome -->
-    <link href="https://use.fontawesome.com/releases/v5.13.0/css/all.css" rel="stylesheet" />
+    <link href="../vendor/fontawesome/css/all.min.css" rel="stylesheet" />
 
     <!-- Flipbook StyleSheet -->
-    <link href="../static/interface/js/dflip/css/dflip.min.css" rel="stylesheet" type="text/css">
+    <link href="../vendor/dflip/css/dflip.min.css" rel="stylesheet" type="text/css">
+    <script src="../vendor/dflip/js/dflip.min.js" type="text/javascript"></script>
     <!-- Icons Stylesheet -->
-    <link href="../static/interface/js/dflip/css/themify-icons.min.css" rel="stylesheet" type="text/css">
+    <link href="../vendor/dflip/css/themify-icons.min.css" rel="stylesheet" type="text/css">
