@@ -20,7 +20,7 @@
             <h5>
             <script>
                 function myFunction() {
-                    var person = prompt("Please enter your folder name:", "Harry Potter");
+                    var person = prompt("กรุณาระบุชื่อโฟลเดอร์ ห้ามใช้ \\ / : * ? \" < > |", "Harry Potter");
                     if (person != null && person != "") {
                         window.location = "../pages/download_createfolder.php?mkdir=" + person;
                     }
