@@ -306,7 +306,7 @@
     }
 
     .container-bg {
-        background-image: url('../../../static/elements/4801004.jpg');
+        background-image: url('../static/elements/4801004.jpg');
         width: 100%;
         background-position: center;
         background-repeat: no-repeat;

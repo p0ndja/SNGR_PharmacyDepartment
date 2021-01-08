@@ -21,29 +21,6 @@
             background-size: cover;
         }
 
-        @media (min-width: 960px) {
-            .card-columns {
-                -webkit-column-count: 3;
-                -moz-column-count: 3;
-                column-count: 3;
-            }
-        }
-
-        @media (max-width: 960px) {
-            .card-columns {
-                -webkit-column-count: 1;
-                -moz-column-count: 1;
-                column-count: 1;
-            }
-        }
-
-        .carousel-bg {
-            background-image: url('../static/elements/4801004.jpg');
-            width: 100%;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
     </style>
 </head>
 
@@ -130,7 +107,7 @@
         </div>
     </header>
     <?php } ?>
-    <div class="carousel-bg">
+    <div class="container-bg">
         <nav class="navbar navbar-expand-lg navbar-dark navbar-normal <?php if ($count <= 0) echo 'fixed-top scrolling-navbar'; ?>"
             id="nav" role="navigation">
             <?php require '../static/functions/navbar.php'; ?>
@@ -143,7 +120,7 @@
                         <a href="../category/manufacture-1">
                             <div class="card hoverable mb-3">
                                 <div class="card-img-top"><img class="d-block img-fluid"
-                                        src="../static/elements/hotlink/manu.jpg" alt="First slide"></div>
+                                        src="../static/elements/hotlink/manu.jpg" class="lazy" data-src="<?php echo lazy("../static/elements/hotlink/manu.jpg"); ?>" alt="First slide"></div>
                             </div>
                         </a>
                     </div>
@@ -151,7 +128,7 @@
                         <a href="../category/service-1">
                             <div class="card hoverable mb-3">
                                 <div class="card-img-top"><img class="d-block img-fluid"
-                                        src="../static/elements/hotlink/serv.jpg" alt="First slide"></div>
+                                        src="../static/elements/hotlink/serv.jpg" class="lazy" data-src="<?php echo lazy("../static/elements/hotlink/serv.jpg"); ?>" alt="First slide"></div>
                             </div>
                         </a>
                     </div>
@@ -159,7 +136,7 @@
                         <a href="../category/DIC-1">
                             <div class="card hoverable mb-3">
                                 <div class="card-img-top"><img class="d-block img-fluid"
-                                        src="../static/elements/hotlink/dic.jpg" alt="First slide"></div>
+                                        src="../static/elements/hotlink/dic.jpg" class="lazy" data-src="<?php echo lazy("../static/elements/hotlink/dic.jpg"); ?>" alt="First slide"></div>
                             </div>
                         </a>
                     </div>
@@ -167,7 +144,7 @@
                         <a href="../category/inventory-1">
                             <div class="card hoverable mb-3">
                                 <div class="card-img-top"><img class="d-block img-fluid"
-                                        src="../static/elements/hotlink/inv.jpg" alt="First slide"></div>
+                                        src="../static/elements/hotlink/inv.jpg" class="lazy" data-src="<?php echo lazy("../static/elements/hotlink/inv.jpg"); ?>" alt="First slide"></div>
                             </div>
                         </a>
                     </div>
@@ -183,10 +160,10 @@
                     <div class="mb-3">
                         <?php echo createHeader("ข่าวประชาสัมพันธ์"); ?>               
                         <?php
-                            $query = "SELECT * FROM `post` WHERE isHidden = 0 AND category = 'news' ORDER by isPinned DESC, time DESC limit 5";
+                            $query = "SELECT `hotlink`,`title`,`cover`,`thumbnail`,`article`,`time`,`id`,`category` FROM `post` WHERE isHidden = 0 AND category = 'news' ORDER by isPinned DESC, time DESC limit 5";
                             $result = mysqli_query($conn, $query);
                             while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-                                $link = getPostdata($row['id'], 'hotlink', $conn) ? getPostdata($row['id'], 'hotlink', $conn) : "../post/" . $row['id'];
+                                $link = $row['hotlink'] ? $row['hotlink'] : "../post/" . $row['id'];
                         ?>
                         <a href="<?php echo $link; ?>" class="text-dark">
                             <div class="card mb-3 <?php if (getPostdata($row['id'], 'isPinned', $conn)) echo 'border border-success z-depth-1'; ?>">
@@ -226,7 +203,7 @@
                             <a href="../category/CoPADR-1">
                                 <div class="card mb-3">
                                     <div class="card-img-top"><img class="d-block img-fluid"
-                                            src="../static/elements/hotlink/adr.jpg" alt="ADR"></div>
+                                            src="../static/elements/hotlink/adr.jpg" class="lazy" data-src="<?php echo lazy("../static/elements/hotlink/adr.jpg"); ?>" alt="ADR"></div>
                                 </div>
                             </a>
                         </div>
@@ -234,7 +211,7 @@
                             <a href="../category/CoPHAD-1">
                                 <div class="card mb-3">
                                     <div class="card-img-top"><img class="d-block img-fluid"
-                                            src="../static/elements/hotlink/had.jpg" alt="HAD"></div>
+                                            src="../static/elements/hotlink/had.jpg" class="lazy" data-src="<?php echo lazy("../static/elements/hotlink/had.jpg"); ?>" alt="HAD"></div>
                                 </div>
                             </a>
                         </div>
@@ -242,7 +219,7 @@
                             <a href="../category/CoPME-1">
                                 <div class="card mb-3">
                                     <div class="card-img-top"><img class="d-block img-fluid"
-                                            src="../static/elements/hotlink/me.jpg" alt="ME"></div>
+                                            src="../static/elements/hotlink/me.jpg" class="lazy" data-src="<?php echo lazy("../static/elements/hotlink/me.jpg"); ?>" alt="ME"></div>
                                 </div>
                             </a>
                         </div>
@@ -250,7 +227,7 @@
                             <a href="../category/CoPRDU-1">
                                 <div class="card mb-3">
                                     <div class="card-img-top"><img class="d-block img-fluid"
-                                            src="../static/elements/hotlink/rdu.jpg" alt="RDU"></div>
+                                            src="../static/elements/hotlink/rdu.jpg" class="lazy" data-src="<?php echo lazy("../static/elements/hotlink/rdu.jpg"); ?>" alt="RDU"></div>
                                 </div>
                             </a>
                         </div>
@@ -258,14 +235,14 @@
                     <div class="row mb-3">
                         <div class="col-12 col-md-12">
                             <a href="../news/">
-                                <img class="img-fluid mb-3" src="../static/elements/hotlink/sngrnews.png">
+                                <img class="img-fluid mb-3" src="../static/elements/hotlink/sngrnews.png" class="lazy" data-src="<?php echo lazy("../static/elements/hotlink/sngrnews.png"); ?>">
                             </a>
                         </div>
                         <div class="col-12 col-md-6">
                             <a href="../category/research-1">
                                 <div class="card mb-1">
                                     <div class="card-img-top"><img class="d-block img-fluid"
-                                            src="../static/elements/hotlink/researchr2r.jpg"></div>
+                                            src="../static/elements/hotlink/researchr2r.jpg" class="lazy" data-src="<?php echo lazy("../static/elements/hotlink/researchr2r.jpg"); ?>"></div>
                                 </div>
                             </a>
                         </div>
@@ -273,7 +250,7 @@
                             <a href="../download/">
                                 <div class="card mb-1">
                                     <div class="card-img-top"><img class="d-block img-fluid"
-                                            src="../static/elements/hotlink/dlform.jpg"></div>
+                                            src="../static/elements/hotlink/dlform.jpg" class="lazy" data-src="<?php echo lazy("../static/elements/hotlink/dlform.jpg"); ?>"></div>
                                 </div>
                             </a>
                         </div>
@@ -313,49 +290,49 @@
                     <a href="https://kku.ac.th/" target="_blank">
                         <div class="card mb-2">
                             <div class="card-img-top"><img class="d-block img-fluid"
-                                    src="../static/elements/hotlink/kku.png" alt="KKU"></div>
+                                    src="../static/elements/hotlink/kku.png" class="lazy" data-src="<?php echo lazy("../static/elements/hotlink/kku.png"); ?>" alt="KKU"></div>
                         </div>
                     </a>
                     <a href="https://md.kku.ac.th/" target="_blank">
                         <div class="card mb-2">
                             <div class="card-img-top"><img class="d-block img-fluid"
-                                    src="../static/elements/hotlink/md.png" alt="MD"></div>
+                                    src="../static/elements/hotlink/md.png" class="lazy" data-src="<?php echo lazy("../static/elements/hotlink/md.png"); ?>" alt="MD"></div>
                         </div>
                     </a>
                     <a href="https://www.cgd.go.th/" target="_blank">
                         <div class="card mb-2">
                             <div class="card-img-top"><img class="d-block img-fluid"
-                                    src="../static/elements/hotlink/cgd.png" alt="CGD"></div>
+                                    src="../static/elements/hotlink/cgd.png" class="lazy" data-src="<?php echo lazy("../static/elements/hotlink/cgd.png"); ?>" alt="CGD"></div>
                         </div>
                     </a>
                     <a href="https://moph.go.th/" target="_blank">
                         <div class="card mb-2">
                             <div class="card-img-top"><img class="d-block img-fluid"
-                                    src="../static/elements/hotlink/moph.png" alt="MOPH"></div>
+                                    src="../static/elements/hotlink/moph.png" class="lazy" data-src="<?php echo lazy("../static/elements/hotlink/moph.png"); ?>" alt="MOPH"></div>
                         </div>
                     </a>
                     <a href="https://dmsic.moph.go.th/" target="_blank">
                         <div class="card mb-2">
                             <div class="card-img-top"><img class="d-block img-fluid"
-                                    src="../static/elements/hotlink/dmsic.png" alt="DMSIC"></div>
+                                    src="../static/elements/hotlink/dmsic.png" class="lazy" data-src="<?php echo lazy("../static/elements/hotlink/dmsic.png"); ?>" alt="DMSIC"></div>
                         </div>
                     </a>
                     <a href="http://ndi.fda.moph.go.th/" target="_blank">
                         <div class="card mb-2">
                             <div class="card-img-top"><img class="d-block img-fluid"
-                                    src="../static/elements/hotlink/ndi.png" alt="NDI"></div>
+                                    src="../static/elements/hotlink/ndi.png" class="lazy" data-src="<?php echo lazy("../static/elements/hotlink/ndi.png"); ?>" alt="NDI"></div>
                         </div>
                     </a>
                     <a href="http://sso.go.th" target="_blank">
                         <div class="card mb-2">
                             <div class="card-img-top"><img class="d-block img-fluid"
-                                    src="../static/elements/hotlink/sso.png" alt="SSO"></div>
+                                    src="../static/elements/hotlink/sso.png" class="lazy" data-src="<?php echo lazy("../static/elements/hotlink/sso.png"); ?>" alt="SSO"></div>
                         </div>
                     </a>
                     <a href="http://fda.moph.go.th" target="_blank">
                         <div class="card mb-2">
                             <div class="card-img-top"><img class="d-block img-fluid"
-                                    src="../static/elements/hotlink/fda.png" alt="FDA"></div>
+                                    src="../static/elements/hotlink/fda.png" class="lazy" data-src="<?php echo lazy("../static/elements/hotlink/fda.png"); ?>" alt="FDA"></div>
                         </div>
                     </a>
                     <?php 

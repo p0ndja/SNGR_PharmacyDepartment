@@ -88,7 +88,7 @@
                 <?php } ?>
                 <?php if ($n_attach == 1 && strpos($row['attachment'], ".pdf")) { ?>
                 <iframe
-                    src="../static/interface/js/pdf.js/web/viewer.html?file=<?php echo '../../../../' .  $row['attachment']; ?>"
+                    src="../vendor/pdf.js/web/viewer.html?file=<?php echo '../../../../' .  $row['attachment']; ?>"
                     width="100%" height="750"></iframe>
                 <?php } ?>
                 <?php } ?>
