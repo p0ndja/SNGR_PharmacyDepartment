@@ -126,7 +126,13 @@
         }});
     $('input[type=email]').val('test').siblings('label').addClass('active');
 </script>
-<script src="../static/interface/js/dflip/js/dflip.min.js" type="text/javascript"></script>
 
 <?php $_SESSION['isDarkProfile'] = 0; ?>
+<?php
+    $end_time = microtime(TRUE);
+    $time_taken =($end_time - $start_time)*1000;
+    $time_taken = round($time_taken,5);
+    
+    echo '<p>Page generated in ' . $time_taken . ' ms.</p>';
+?>
 <?php mysqli_close($conn); ?>
