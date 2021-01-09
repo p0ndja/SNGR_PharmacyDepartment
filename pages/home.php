@@ -49,28 +49,22 @@
             </ol>
             <div class="carousel-inner">
                 <?php for ($i = 0; $i < $count; $i++) { 
-                        $picPath = $files[$i];
-                        $picFile = str_replace("../static/elements/carousel/", "", $picPath);
-                        $picNameAll = explode(".", $picFile);
-                        $picName = "";
-                        for ($o = 0; $o < sizeof($picNameAll) - 1; $o++) {
-                            $picName .= $picNameAll[$o];
-                        }
+                    $picPath = $files[$i];
+                    $picFile = str_replace("../static/elements/carousel/", "", $picPath);
+                    $picNameAll = explode(".", $picFile);
+                    $picName = str_replace("." . $picNameAll[sizeof($picNameAll) - 1], "", $picFile);
 
-                        $line = array();
-                        $txtFile = "../static/elements/carousel/$picName.txt";                        
-                        if (file_exists($txtFile)) {
-                            $file = fopen("../static/elements/carousel/$picName.txt", "r");
-                            while(!feof($file)) {
-                                array_push($line, fgets($file));
-                                # do same stuff with the $line
-                            }
-                            fclose($file);
+                    $line = array();
+                    $txtFile = "../static/elements/carousel/$picName.txt";                        
+                    if (file_exists($txtFile)) {
+                        $file = fopen($txtFile, "r");
+                        while(!feof($file)) {
+                            array_push($line, fgets($file));
                         }
-                    ?>
-                <div class="carousel-item <?php if ($i == 0) echo 'active'; ?>"
-                    style="background-image: url('<?php echo $picPath; ?>')"
-                    <?php if ($line != null) { echo "alt='$line[0]'"; }?>>
+                        fclose($file);
+                    }
+                ?>
+                <div class="carousel-item <?php if ($i == 0) echo 'active'; ?>" style="background-image: url('<?php echo $picPath; ?>')" <?php if ($line != null) { echo "alt='$line[0]'"; }?>>
                     <!-- style="-webkit-mask-image: -webkit-gradient(linear, left 50%, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,0)))" -->
                     <?php if ($line != null) { ?>
                     <div class="carousel-caption d-block animated fadeInDown">
@@ -78,9 +72,7 @@
                             <h5><?php echo $line[0]; ?>
                                 <?php if (isPermission("editHomepage", $conn)) { ?>
                                 <a href='../admin/homepage' class='text-danger'><i class='fas fa-pencil-alt'></i></a>
-                                <a
-                                    onclick='swal({title: "ลบรูปนี้หรือไม่",text: "หลังจากที่ลบแล้ว จะไม่สามารถกู้คืนได้!",icon: "warning",buttons: true,dangerMode: true}).then((willDelete) => { if (willDelete) { window.location = "../pages/admin_carousel_delete.php?target=<?php echo $picFile; ?>";}});'><i
-                                        class="fas fa-trash-alt text-danger"></i></a>
+                                <a onclick='swal({title: "ลบรูปนี้หรือไม่",text: "หลังจากที่ลบแล้ว จะไม่สามารถกู้คืนได้!",icon: "warning",buttons: true,dangerMode: true}).then((willDelete) => { if (willDelete) { window.location = "../pages/admin_carousel_delete.php?target=<?php echo $picFile; ?>";}});'><i class="fas fa-trash-alt text-danger"></i></a>
                                 <?php } ?>
                             </h5>
                             <p>
@@ -93,7 +85,6 @@
                     <?php } ?>
                 </div>
                 <?php } ?>
-
             </div>
             <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>

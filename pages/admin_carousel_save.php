@@ -19,10 +19,8 @@
 
         if (isset($_GET['name']) && ($_GET['name'] != $name_file)) { //New Image File
             $picNameAll = explode(".", str_replace("../static/elements/carousel/", "", $_GET['name']));
-            $picName = "";
-            for ($o = 0; $o < sizeof($picNameAll) - 1; $o++) {
-                $picName .= $picNameAll[$o];
-            }
+            $picName = str_replace("." . $picNameAll[sizeof($picNameAll) - 1], "", $picFile);
+
             unlink($locate_img . $_GET['name']);
             unlink($locate_img . $picName . '.txt');
         }
@@ -31,10 +29,8 @@
         $description = $_POST['cDescription'];
 
         $picNameAll = explode(".", $name_file);
-        $picName = "";
-        for ($o = 0; $o < sizeof($picNameAll) - 1; $o++) {
-            $picName .= $picNameAll[$o];
-        }
+        $picName = str_replace("." . $picNameAll[sizeof($picNameAll) - 1], "", $picFile);
+
 
         $file = fopen("../static/elements/carousel/$picName.txt","w");
         if (!fwrite($file,"$title\n$description")) {

@@ -5,10 +5,7 @@
         if (isset($_GET['target']) && file_exists('../static/elements/carousel/' . $_GET['target'])) {
 
             $picNameAll = explode(".", $_GET['target']);
-            $picName = "";
-            for ($o = 0; $o < sizeof($picNameAll) - 1; $o++) {
-                $picName .= $picNameAll[$o];
-            }
+            $picName = str_replace("." . $picNameAll[sizeof($picNameAll) - 1], "", $picFile);
 
             if (unlink('../static/elements/carousel/' . $_GET['target']) && unlink("../static/elements/carousel/$picName.txt")) {
                 $_SESSION['swal_success'] = "ลบรูปภาพสำเร็จ!";

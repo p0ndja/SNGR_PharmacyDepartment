@@ -57,6 +57,7 @@
         <div class="row">
             <div class="col-12 text-center mb-2">
                 <h6 style="color: white;">Copyright 2020 &copy; Pharmacy Department - Srinagarind Hospital. All Right Reserved. &nbsp;Made with ❤ by <a href="https://www.pondja.com">PondJaᵀᴴ</a></h6>
+                <?php $end_time = microtime(TRUE); $time_taken =($end_time - $start_time)*1000; $time_taken = round($time_taken,5); echo '<small class="text-muted">Page generated in ' . $time_taken . ' ms.</small>';?>
             </div>
         </div>
     </div>
@@ -128,11 +129,4 @@
 </script>
 
 <?php $_SESSION['isDarkProfile'] = 0; ?>
-<?php
-    $end_time = microtime(TRUE);
-    $time_taken =($end_time - $start_time)*1000;
-    $time_taken = round($time_taken,5);
-    
-    echo '<p>Page generated in ' . $time_taken . ' ms.</p>';
-?>
 <?php mysqli_close($conn); ?>

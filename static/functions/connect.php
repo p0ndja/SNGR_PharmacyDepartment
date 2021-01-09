@@ -1,6 +1,8 @@
 <?php
     ob_start();
     session_start();
+    $start_time = microtime(TRUE);
+
     $dbhost = "pondhub.ga";
     $dbuser = "pondjaco";
     $dbpass = "11032545";
@@ -14,7 +16,6 @@
 
     if(!$conn)  die('Could not connect: ' . mysqli_error($conn));
     
-    $start_time = microtime(TRUE);
     
     require 'function.php';
     require 'webstats.php';

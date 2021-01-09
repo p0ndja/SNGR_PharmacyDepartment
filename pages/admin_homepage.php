@@ -61,11 +61,8 @@
                     
                         $picPath = $files[$i];
                         $picNameAll = explode(".", str_replace("../static/elements/carousel/", "", $picPath));
+                        $picName = str_replace("." . $picNameAll[sizeof($picNameAll) - 1], "", $picFile);
 
-                        $picName = "";
-                        for ($o = 0; $o < sizeof($picNameAll) - 1; $o++) {
-                            $picName .= $picNameAll[$o];
-                        }
 
                         $picFile = str_replace("../static/elements/carousel/", "", $picPath);
 
