@@ -151,9 +151,8 @@
                     <div class="mb-3">
                         <?php echo createHeader("ข่าวประชาสัมพันธ์"); ?>               
                         <?php
-                            $query = "SELECT `hotlink`,`title`,`cover`,`thumbnail`,`article`,`time`,`id`,`category` FROM `post` WHERE isHidden = 0 AND category = 'news' ORDER by isPinned DESC, time DESC limit 5";
-                            $result = mysqli_query($conn, $query);
-                            while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                            $json_txt = file_get_contents("https://api.11th.studio/pharmmd/post?category=news&limit=5");
+                            foreach (json_decode($json_txt, true) as $row) {
                                 $link = $row['hotlink'] ? $row['hotlink'] : "../post/" . $row['id'];
                         ?>
                         <a href="<?php echo $link; ?>" class="text-dark">
