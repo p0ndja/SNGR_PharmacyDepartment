@@ -1,10 +1,10 @@
 <?php
-    $wshost = "pondhub.ga";
-    $wsuser = "pondjaco_webstatsPharmacy";
-    $wspass = "E1FUeBj0";
-    $wsdatabase = "pondjaco_webstatsPharmacy";
+    $wshost = "196.53.250.111";
+    $wsuser = "pharmmd";
+    $wspass = "22jbY$?*ZKXz^-a9X4ucrEgD";
+    $wsdatabase = "pharmmd_webstats";
     $wsconn = mysqli_connect($wshost,$wsuser,$wspass,$wsdatabase); 
-    mysqli_set_charset($conn, 'utf8');
+    mysqli_set_charset($wsconn, 'utf8');
 
     if(!$wsconn)  die('Could not connect: ' . mysqli_error($wsconn));
     
