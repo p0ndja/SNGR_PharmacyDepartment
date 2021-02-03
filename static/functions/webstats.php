@@ -1,5 +1,5 @@
 <?php
-    $wshost = "196.53.250.111";
+    $wshost = "203.159.94.111";
     $wsuser = "pharmmd";
     $wspass = "22jbY$?*ZKXz^-a9X4ucrEgD";
     $wsdatabase = "pharmmd_webstats";

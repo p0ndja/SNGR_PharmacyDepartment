@@ -2,7 +2,7 @@
     ob_start();
     session_start();
     $start_time = microtime(TRUE);
-    $dbhost = "196.53.250.111";
+    $dbhost = "203.159.94.111";
     $dbuser = "pharmmd";
     $dbpass = "22jbY$?*ZKXz^-a9X4ucrEgD";
     $dbdatabase = "pharmmd_pharmmd";
